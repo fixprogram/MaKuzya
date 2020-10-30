@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import ProgressBar from "../ProgressBar/ProgressBar.jsx";
+import PracticeContent from "../PracticeContent/PracticeContent.jsx";
 
 class Practice extends React.PureComponent {
   constructor(props) {
@@ -10,8 +12,6 @@ class Practice extends React.PureComponent {
       rightAnswer: 0,
       maxTasks: 10,
       progress: 0,
-      inputValue: ``,
-      nextDisabled: true,
     };
   }
 
@@ -26,12 +26,12 @@ class Practice extends React.PureComponent {
     return firstNum + " + " + secondNum;
   }
 
-  checkAnswer() {
-    if (parseInt(this.state.inputValue) === this.state.rightAnswer) {
+  checkAnswer(value) {
+    if (parseInt(value) === this.state.rightAnswer) {
       if (this.state.progress + 20 >= 100) {
         // Finishing. Report
         this.setState({
-          progress: this.state.progress + 10,
+          progress: this.state.progress + 20,
         });
         setTimeout(() => this.props.changePage(0), 1500);
       } else {
@@ -47,9 +47,7 @@ class Practice extends React.PureComponent {
 
   skipAnswer() {
     this.setState({
-      inputValue: ``,
       actualTask: this.createTaskSum(),
-      nextDisabled: true,
     });
   }
 
@@ -62,85 +60,17 @@ class Practice extends React.PureComponent {
 
     return (
       <section className="practice_block">
-        <section className="progress_wrapper">
-          <div className="progress_bar">
-            <div className="progress_inner">
-              <button className="progress_close" onClick={() => changePage(0)}>
-                X
-              </button>
-              <div className="progress_line">
-                <div
-                  className="progress_fill"
-                  style={{ width: this.state.progress + "%" }}
-                ></div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ProgressBar progress={this.state.progress}>
+          <button className="progress_close" onClick={() => changePage(0)}>
+            X
+          </button>
+        </ProgressBar>
 
-        <section className="practice_content__wrapper">
-          <h1 className="practice_content__title">Напишите результат суммы</h1>
-          <div className="practice_content">
-            <div className="practice_content__block">
-              <div className="practice_content__teacher">
-                <img src="./img/teacher.svg" alt="" />
-              </div>
-              <div className="practice_content__task">
-                <span className="practice_content__inner">
-                  {this.state.actualTask}
-                </span>
-                <div className="practice_content__triangle_wrapper">
-                  <span className="practice_content__triangle"></span>
-                </div>
-              </div>
-            </div>
-
-            <article className="practice_content__input_wrapper">
-              <textarea
-                className="practice_content__textarea"
-                value={this.state.inputValue}
-                onChange={(e) => {
-                  this.setState({
-                    inputValue: e.target.value,
-                  });
-                  e.target.value.length > 0
-                    ? this.setState({ nextDisabled: false })
-                    : this.setState({ nextDisabled: true });
-                }}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                    if (e.target.value.length > 0) this.checkAnswer();
-                  }
-                }}
-                placeholder="Напишите результат суммы"
-              ></textarea>
-            </article>
-          </div>
-        </section>
-
-        <section className="practice_buttons_wrapper">
-          <div className="practice_buttons">
-            <article className="practice_buttons_inner">
-              {/* <div> */}
-              <button
-                className="practice_button"
-                onClick={() => this.skipAnswer()}
-              >
-                Пропустить
-              </button>
-
-              <button
-                className={`practice_button ${
-                  this.state.nextDisabled ? "disabled" : "enabled"
-                }`}
-                onClick={() => this.checkAnswer()}
-              >
-                Продолжить
-              </button>
-            </article>
-          </div>
-        </section>
+        <PracticeContent
+          actualTask={this.state.actualTask}
+          checkAnswer={(value) => this.checkAnswer(value)}
+          skipAnswer={() => this.skipAnswer()}
+        />
       </section>
     );
   }
