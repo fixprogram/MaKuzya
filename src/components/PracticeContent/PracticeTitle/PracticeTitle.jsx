@@ -6,7 +6,7 @@ export default function PracticeTitle(props) {
   return (
     <div className="practice_content__block">
       <div className="practice_content__teacher">
-        <img src="./img/teacher.svg" alt="" />
+        <img src="../img/teacher.svg" alt="" />
       </div>
       <div className="practice_content__task">
         <span className="practice_content__inner">{actualTask}</span>

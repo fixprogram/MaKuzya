@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 export default function ProgressBar(props) {
-  const { changePage, progress } = props;
+  const { progress } = props;
   return (
     <section className="progress_wrapper">
       <div className="progress_bar">
@@ -21,6 +21,5 @@ export default function ProgressBar(props) {
 }
 
 ProgressBar.propTypes = {
-  // changePage: PropTypes.func.isRequired,
   progress: PropTypes.number.isRequired,
 };

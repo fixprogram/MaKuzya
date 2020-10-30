@@ -21,21 +21,12 @@ const actionCreator = {
       payload: count,
     };
   },
-
-  changePage: (page, title = ``) => {
-    return {
-      type: "CHANGE_PAGE",
-      payload: { page, title },
-    };
-  },
 };
 
 const initialState = {
   crowns: 0,
   streak: 0,
   lingots: 10,
-  page: 0,
-  title: ``,
 };
 
 const reducer = (state = initialState, action) => {
@@ -51,11 +42,6 @@ const reducer = (state = initialState, action) => {
     case INCREASE_LINGOTS:
       return Object.assign({}, state, {
         lingots: state.lingots + action.payload,
-      });
-    case "CHANGE_PAGE":
-      return Object.assign({}, state, {
-        page: action.payload.page,
-        title: action.payload.title,
       });
     default:
       return state;

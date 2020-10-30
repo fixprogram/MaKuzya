@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import ProgressBar from "../ProgressBar/ProgressBar.jsx";
 import PracticeContent from "../PracticeContent/PracticeContent.jsx";
+import { Link } from "react-router-dom";
 
 class Practice extends React.PureComponent {
   constructor(props) {
@@ -33,7 +34,7 @@ class Practice extends React.PureComponent {
         this.setState({
           progress: this.state.progress + 20,
         });
-        setTimeout(() => this.props.changePage(0), 1500);
+        setTimeout(() => window.location.replace("/"), 1500);
       } else {
         this.setState({
           progress: this.state.progress + 20,
@@ -56,14 +57,12 @@ class Practice extends React.PureComponent {
   }
 
   render() {
-    const { changePage } = this.props;
-
     return (
       <section className="practice_block">
         <ProgressBar progress={this.state.progress}>
-          <button className="progress_close" onClick={() => changePage(0)}>
+          <Link className="progress_close" to="/">
             X
-          </button>
+          </Link>
         </ProgressBar>
 
         <PracticeContent
@@ -76,8 +75,6 @@ class Practice extends React.PureComponent {
   }
 }
 
-Practice.propTypes = {
-  changePage: PropTypes.func.isRequired,
-};
+Practice.propTypes = {};
 
 export default Practice;

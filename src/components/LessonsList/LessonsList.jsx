@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 export default function LessonsList(props) {
-  const { lessons, changePage } = props;
+  const { lessons } = props;
 
   return (
     <section className="main_block">
@@ -10,11 +11,8 @@ export default function LessonsList(props) {
         {lessons.map((it, i) => {
           return (
             <div className="lesson" key={i}>
-              <div className="lesson_inner">
-                <div
-                  className="lesson_symbol"
-                  onClick={() => changePage(1, it.title)}
-                >
+              <Link className="lesson_inner" to="sum/practice">
+                <div className="lesson_symbol">
                   <svg className="lesson_symbol-border">
                     <defs>
                       <clipPath id="clip-session/ProgressRing181">
@@ -56,7 +54,7 @@ export default function LessonsList(props) {
                   </div>
                 </div>
                 <span className="lesson_title">{it.title}</span>
-              </div>
+              </Link>
             </div>
           );
         })}
@@ -67,5 +65,4 @@ export default function LessonsList(props) {
 
 LessonsList.propTypes = {
   lessons: PropTypes.array.isRequired,
-  changePage: PropTypes.func.isRequired,
 };
