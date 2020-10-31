@@ -13,7 +13,7 @@ class App extends React.PureComponent {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/learn">
+          <Route path="/learn">
             <WelcomeScreen
               header={header}
               lessons={lessons}
@@ -23,9 +23,14 @@ class App extends React.PureComponent {
               lingots={lingots}
             />
           </Route>
-          <Route path="/sum/practice">
-            <Practice />
-          </Route>
+          <Route
+            path={`/:type/practice`}
+            render={(props) => {
+              const type = props.match.params.type;
+              console.log(type);
+              return <Practice type={type} />;
+            }}
+          ></Route>
           <Redirect from="/" to="/learn" />
         </Switch>
       </BrowserRouter>

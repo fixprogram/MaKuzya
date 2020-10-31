@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import PracticeTitle from "./PracticeTitle/PracticeTitle.jsx";
+import MathJax from "react-mathjax";
+import TextareaComponent from "../TextareaComponent/TextareaComponent.jsx";
+import RadioComponent from "../RadioComponent/RadioComponent.jsx";
 
 export default class PracticeContent extends React.Component {
   constructor(props) {
@@ -9,40 +12,70 @@ export default class PracticeContent extends React.Component {
     this.state = {
       inputValue: ``,
       nextDisabled: true,
+      activeRadio: -1,
     };
   }
+
+  checkKeyDown(e) {
+    switch (e.key) {
+      case "Enter":
+        if (this.state.activeRadio !== -1 && this.props.checkboxes) {
+          this.setState({ activeRadio: -1 });
+          this.props.checkAnswer(
+            this.props.variants[this.state.activeRadio].isAnswerRight
+          );
+        }
+        break;
+      case "1":
+        this.setState({ activeRadio: 0 });
+        break;
+      case "2":
+        this.setState({ activeRadio: 1 });
+        break;
+      case "3":
+        this.setState({ activeRadio: 2 });
+        break;
+    }
+  }
+
   render() {
-    const { actualTask, checkAnswer, skipAnswer } = this.props;
+    const {
+      actualTask,
+      checkAnswer,
+      skipAnswer,
+      checkboxes,
+      variants,
+    } = this.props;
 
     return (
       <>
-        <section className="practice_content__wrapper">
-          <h1 className="practice_content__title">Напишите результат суммы</h1>
+        <section
+          className="practice_content__wrapper"
+          onKeyDown={(e) => this.checkKeyDown(e)}
+        >
+          <h1 className="practice_content__title"></h1>
           <div className="practice_content">
             <PracticeTitle actualTask={actualTask} />
 
             <article className="practice_content__input_wrapper">
-              <textarea
-                className="practice_content__textarea"
-                value={this.state.inputValue}
-                onChange={(e) => {
-                  this.setState({
-                    inputValue: e.target.value,
-                  });
-                  e.target.value.length > 0
-                    ? this.setState({ nextDisabled: false })
-                    : this.setState({ nextDisabled: true });
-                }}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                    if (e.target.value.length > 0)
-                      this.setState({ inputValue: `` });
-                    checkAnswer(this.state.inputValue);
+              {checkboxes ? (
+                <RadioComponent
+                  checkAnswer={checkAnswer}
+                  checkDisabled={(state) =>
+                    this.setState({ nextDisabled: state })
                   }
-                }}
-                placeholder="Напишите результат суммы"
-              ></textarea>
+                  variants={variants}
+                  activeRadio={this.state.activeRadio}
+                  checkRadio={(i) => this.setState({ activeRadio: i })}
+                />
+              ) : (
+                <TextareaComponent
+                  checkAnswer={checkAnswer}
+                  checkDisabled={(state) =>
+                    this.setState({ nextDisabled: state })
+                  }
+                />
+              )}
             </article>
           </div>
         </section>
@@ -80,7 +113,8 @@ export default class PracticeContent extends React.Component {
 }
 
 PracticeContent.propTypes = {
-  actualTask: PropTypes.string.isRequired,
+  checkboxes: PropTypes.bool.isRequired,
+  variants: PropTypes.array.isRequired,
   checkAnswer: PropTypes.func.isRequired,
   skipAnswer: PropTypes.func.isRequired,
 };

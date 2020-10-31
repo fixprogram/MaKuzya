@@ -519,6 +519,8 @@ img {
   display: flex;
   flex-direction: row;
   align-items: center;
+  font-weight: 700;
+  padding: 0 12px;
 }
 
 .tab_icon {
@@ -549,21 +551,31 @@ img {
   align-items: center;
 }
 
+/* LESSONS */
+
 .lessons_list {
-  margin-bottom: 28.5px;
-  margin-top: 28.5px;
-  padding: 0;
-  max-width: 440px;
   width: 100%;
+  display: flex;
+  margin: 0 auto;
+  margin-top: 0px;
+  padding: 0 24px;
+  max-width: 1140px;
+  position: relative;
+  margin-top: 40px;
+  flex-wrap: wrap;
+  justify-self: center;
+}
+
+.lesson_wrapper {
+  display: flex;
+  width: 20%;
+  align-items: center;
+  justify-self: center;
 }
 
 .lesson {
-  display: grid;
-  grid-auto-columns: calc(33.33333% - 8px);
-  grid-auto-flow: column;
-  grid-column-gap: 12px;
-  justify-content: center;
   padding: 16px 12px;
+  max-width: 130px;
 }
 
 .lesson_inner {
@@ -606,15 +618,16 @@ img {
   justify-content: center;
 }
 
-.lesson_symbol-crowns__icon {
-  padding: 10px;
+.lesson_symbol-main__icon {
+  padding: 15px;
 }
 
 .lesson_symbol-crowns__title {
   color: #cd7900;
   font-weight: 700;
+  font-size: 14px;
   left: 50%;
-  margin-top: 3%;
+  margin-top: 2%;
   position: absolute;
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
@@ -628,6 +641,32 @@ img {
   display: block;
 }
 
+/* LESSON LEVELS */
+
+.lesson.lesson-level-0 .lesson_symbol-main {
+  background-color: #ce82ff;
+}
+
+.lesson.lesson-level-1 .lesson_symbol-main {
+  background-color: #1cb0f6;
+}
+
+.lesson.lesson-level-2 .lesson_symbol-main {
+  background-color: #58cc02;
+}
+
+.lesson.lesson-level-3 .lesson_symbol-main {
+  background-color: #ff4b4b;
+}
+
+.lesson.lesson-level-4 .lesson_symbol-main {
+  background-color: #ff9600;
+}
+
+.lesson.lesson-level-5 .lesson_symbol-main {
+  background-color: #ffc800;
+  background-image: linear-gradient(135deg,#ffd900,#ffd900 26%,#ffc800 0,#ffc800 39%,#ffd900 0,#ffd900 52%,#ffc800 0,#ffc800 57%,#ffd900 0,#ffd900 78%,#ffc800 0,#ffc800 90%,#ffd900 0,#ffd900);
+}
 
 /* TASK PROGRESS */
 
@@ -677,6 +716,12 @@ img {
   transition: all .4s;
 }
 
+.progress_close {
+  background: url(../img/cancel.svg) no-repeat;
+  background-size: 18px;
+  width: 18px;
+  height: 18px;
+}
 
 /* PRACTICE CONTENT */
 
@@ -733,6 +778,9 @@ img {
   box-sizing: inherit;
   padding: 12px 24px;
   font-size: 19px;
+  font-weight: 500;
+  display: block;
+  transition: 0.5s ease;
 }
 
 .practice_content__triangle_wrapper {
@@ -840,4 +888,49 @@ img {
   background:#58cc02;
   color: #fff;
   border: none;
+}
+
+/* PRACTICE LINK */
+
+.practice_link__wrapper {
+  bottom: 24px;
+  margin-left: 0;
+  margin-right: auto;
+  position: absolute;
+  left: 0;
+  bottom: -100px;
+}
+
+.practice_link {
+  transform: translateZ(0);
+  border: 2px solid #e5e5e5;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 72px;
+  height: 72px;
+}
+
+.practice_link > img {
+  height: 32px;
+  margin-top: 18px;
+}
+
+.practice_radio-label {
+  display: inline-flex;
+  font-size: 19px;
+  line-height: 1.4;
+  padding: 12px 16px;
+  color: #4b4b4b;
+  border: 1px solid #e5e5e5;
+  cursor: pointer;
+}
+
+.practice_radio-label_checked {
+  background-color: #ddf4ff;
+  border-color: #1cb0f6;
+  color: #1cb0f6;
 }

@@ -19,5 +19,5 @@ export default function PracticeTitle(props) {
 }
 
 PracticeTitle.propTypes = {
-  actualTask: PropTypes.string.isRequired,
+  // actualTask: PropTypes.string.isRequired,
 };

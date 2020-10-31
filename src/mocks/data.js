@@ -1,3 +1,5 @@
+import { LESSON_TYPES } from "../const";
+
 const data = {
   header: {
     tabs: [
@@ -26,55 +28,38 @@ const data = {
   lessons: [
     {
       title: `Сложение`,
-      id: `summation`,
-      crowns: 0,
+      id: LESSON_TYPES.SUMMATION,
+      level: 1,
       progress: 0,
       icon: `summation.svg`,
-      tasks: [
-        {
-          question: `13 + 45`,
-          answer: 58,
-        },
-      ],
     },
     {
       title: `Вычитание`,
-      id: `minus`,
-      crowns: 0,
+      id: LESSON_TYPES.MINUS,
+      level: 2,
       progress: 0,
       icon: `minus.svg`,
-      tasks: [
-        {
-          question: `13 + 45`,
-          answer: 58,
-        },
-      ],
     },
     {
       title: `Умножение`,
-      id: `multiplication`,
-      crowns: 0,
+      id: LESSON_TYPES.MULTIPLICATION,
+      level: 4,
       progress: 0,
       icon: `multiplication.svg`,
-      tasks: [
-        {
-          question: `13 + 45`,
-          answer: 58,
-        },
-      ],
     },
     {
       title: `Деление`,
-      id: `division`,
-      crowns: 0,
+      id: LESSON_TYPES.DIVISION,
+      level: 3,
       progress: 0,
       icon: `division.svg`,
-      tasks: [
-        {
-          question: `13 + 45`,
-          answer: 58,
-        },
-      ],
+    },
+    {
+      title: `Сложение Дробей`,
+      id: LESSON_TYPES.FRACTIONS_SUMMATION,
+      level: 4,
+      progress: 0,
+      icon: `summation.svg`,
     },
   ],
 };
