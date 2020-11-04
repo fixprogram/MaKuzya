@@ -4,8 +4,9 @@ import PracticeTitle from "./PracticeTitle/PracticeTitle.jsx";
 import MathJax from "react-mathjax";
 import TextareaComponent from "../TextareaComponent/TextareaComponent.jsx";
 import RadioComponent from "../RadioComponent/RadioComponent.jsx";
+import PracticeButtons from "../PracticeContent/PracticeButtons/PracticeButtons.jsx";
 
-export default class PracticeContent extends React.Component {
+export default class PracticeContent extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -16,105 +17,45 @@ export default class PracticeContent extends React.Component {
     };
   }
 
-  checkKeyDown(e) {
-    switch (e.key) {
-      case "Enter":
-        if (this.state.activeRadio !== -1 && this.props.checkboxes) {
-          this.setState({ activeRadio: -1 });
-          this.props.checkAnswer(
-            this.props.variants[this.state.activeRadio].isAnswerRight
-          );
-        }
-        break;
-      case "1":
-        this.setState({ activeRadio: 0 });
-        break;
-      case "2":
-        this.setState({ activeRadio: 1 });
-        break;
-      case "3":
-        this.setState({ activeRadio: 2 });
-        break;
-    }
-  }
-
   render() {
-    const {
-      actualTask,
-      checkAnswer,
-      skipAnswer,
-      checkboxes,
-      variants,
-    } = this.props;
+    const { actualTask, checkAnswer, skipAnswer, variants } = this.props;
 
     return (
       <>
-        <section
-          className="practice_content__wrapper"
-          onKeyDown={(e) => this.checkKeyDown(e)}
-        >
-          <h1 className="practice_content__title"></h1>
+        <section className="practice_content__wrapper">
+          <h1 className="practice_content__title">Выберите правильный ответ</h1>
           <div className="practice_content">
             <PracticeTitle actualTask={actualTask} />
 
             <article className="practice_content__input_wrapper">
-              {checkboxes ? (
-                <RadioComponent
-                  checkAnswer={checkAnswer}
-                  checkDisabled={(state) =>
-                    this.setState({ nextDisabled: state })
-                  }
-                  variants={variants}
-                  activeRadio={this.state.activeRadio}
-                  checkRadio={(i) => this.setState({ activeRadio: i })}
-                />
-              ) : (
-                <TextareaComponent
-                  checkAnswer={checkAnswer}
-                  checkDisabled={(state) =>
-                    this.setState({ nextDisabled: state })
-                  }
-                />
-              )}
+              <RadioComponent
+                checkAnswer={checkAnswer}
+                checkDisabled={(state) =>
+                  this.setState({ nextDisabled: state })
+                }
+                variants={variants}
+                activeRadio={this.state.activeRadio}
+                checkRadio={(i) => this.setState({ activeRadio: i })}
+              />
             </article>
           </div>
         </section>
 
-        <section className="practice_buttons_wrapper">
-          <div className="practice_buttons">
-            <article className="practice_buttons_inner">
-              <button
-                className="practice_button"
-                onClick={() => {
-                  this.setState({ inputValue: ``, nextDisabled: true });
-                  skipAnswer();
-                }}
-              >
-                Пропустить
-              </button>
-
-              <button
-                className={`practice_button ${
-                  this.state.nextDisabled ? "disabled" : "enabled"
-                }`}
-                onClick={() => {
-                  this.setState({ inputValue: `` });
-                  checkAnswer(this.state.inputValue);
-                }}
-              >
-                Продолжить
-              </button>
-            </article>
-          </div>
-        </section>
+        <PracticeButtons
+          skipAnswer={skipAnswer}
+          recoverState={() =>
+            this.setState({ inputValue: ``, nextDisabled: true })
+          }
+          isNextDisabled={this.state.nextDisabled}
+        />
       </>
     );
   }
 }
 
 PracticeContent.propTypes = {
-  checkboxes: PropTypes.bool.isRequired,
-  variants: PropTypes.array.isRequired,
-  checkAnswer: PropTypes.func.isRequired,
+  checkboxes: PropTypes.bool,
+  variants: PropTypes.array,
+  checkAnswer: PropTypes.func,
   skipAnswer: PropTypes.func.isRequired,
 };

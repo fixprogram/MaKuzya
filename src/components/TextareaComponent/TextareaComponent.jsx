@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export default class TextareaComponent extends React.Component {
+export default class TextareaComponent extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -26,8 +26,8 @@ export default class TextareaComponent extends React.Component {
         onKeyPress={(e) => {
           if (e.key === "Enter") {
             e.preventDefault();
-            if (e.target.value.length > 0) this.setState({ inputValue: `` });
             checkAnswer(this.state.inputValue);
+            if (e.target.value.length > 0) this.setState({ inputValue: `` });
           }
         }}
         placeholder="Напишите результат суммы"
@@ -37,6 +37,6 @@ export default class TextareaComponent extends React.Component {
 }
 
 TextareaComponent.propTypes = {
-  checkAnswer: PropTypes.func.isRequired,
+  checkAnswer: PropTypes.func,
   checkDisabled: PropTypes.func.isRequired,
 };

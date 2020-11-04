@@ -6,7 +6,7 @@ export default function LessonItem(props) {
   const { level, id, icon, title } = props;
   return (
     <div className={`lesson lesson-level-${level}`}>
-      <Link className="lesson_inner" to={`${id}/practice`}>
+      <Link className="lesson_inner" to={`practice/${id}`}>
         <div className="lesson_symbol">
           <svg className="lesson_symbol-border">
             <defs>

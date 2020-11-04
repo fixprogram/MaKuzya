@@ -7,6 +7,27 @@ export const LESSON_TYPES = {
   MINUS: "minus",
   MULTIPLICATION: "multiplication",
   DIVISION: "division",
-
-  FRACTIONS_SUMMATION: "fractions_summation",
+  FRACTIONS: "fractions",
 };
+
+export const LESSONS_DATA = [
+  {
+    type: LESSON_TYPES.SUMMATION,
+    sign: "+",
+  },
+  {
+    type: LESSON_TYPES.MINUS,
+    sign: "-",
+  },
+  {
+    type: LESSON_TYPES.MULTIPLICATION,
+    sign: "*",
+  },
+  {
+    type: LESSON_TYPES.DIVISION,
+    sign: "/",
+  },
+  {
+    type: LESSON_TYPES.FRACTIONS,
+  },
+];

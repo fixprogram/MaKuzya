@@ -783,6 +783,13 @@ img {
   transition: 0.5s ease;
 }
 
+*:active, *:focus {
+  outline: none;
+}
+*::-moz-focus-inner {
+  border: 0;
+}
+
 .practice_content__triangle_wrapper {
   top: calc(50% - 15px);
   transform: translateY(-50%) rotate(-90deg);
@@ -809,7 +816,16 @@ img {
 }
 
 .practice_content__input_wrapper {
-  min-height: 170px;
+  min-height: 120px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.practice_content__input_wrapper fieldset {
+  border: none;
+  min-width: 120px;
+  padding: 0;
+  margin: 0;
 }
 
 .practice_content__textarea {
@@ -921,12 +937,17 @@ img {
 
 .practice_radio-label {
   display: inline-flex;
+  justify-content: center;
+  align-items: center;
   font-size: 19px;
   line-height: 1.4;
   padding: 12px 16px;
   color: #4b4b4b;
   border: 1px solid #e5e5e5;
   cursor: pointer;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
 }
 
 .practice_radio-label_checked {

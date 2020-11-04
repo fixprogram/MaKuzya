@@ -24,10 +24,9 @@ class App extends React.PureComponent {
             />
           </Route>
           <Route
-            path={`/:type/practice`}
+            path={`/practice/:type`}
             render={(props) => {
               const type = props.match.params.type;
-              console.log(type);
               return <Practice type={type} />;
             }}
           ></Route>

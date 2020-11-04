@@ -2,9 +2,48 @@ import React from "react";
 import PropTypes from "prop-types";
 import MathJax from "react-mathjax";
 
-export default class RadioComponent extends React.Component {
+export default class RadioComponent extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      activeRadio: -1,
+    };
+  }
+
+  checkKeyDown(e) {
+    switch (e.key) {
+      case "Enter":
+        if (this.state.activeRadio !== -1 && this.props.variants) {
+          this.props.checkAnswer(
+            this.props.variants[this.state.activeRadio].isAnswerRight
+          );
+          this.setState({ activeRadio: -1 });
+        }
+        break;
+      case "1":
+        this.setState({ activeRadio: 0 });
+        break;
+      case "2":
+        this.setState({ activeRadio: 1 });
+        break;
+      case "3":
+        this.setState({ activeRadio: 2 });
+        break;
+      case "4":
+        this.setState({ activeRadio: 3 });
+        break;
+    }
+  }
+
   render() {
-    const { variants, checkDisabled, checkRadio, activeRadio } = this.props;
+    const { variants, checkDisabled } = this.props;
+
+    document.addEventListener("keydown", (e) => {
+      this.checkKeyDown(e);
+    });
+
+    console.log("variants:  ", variants);
 
     return variants.map((it, i) => {
       return (
@@ -12,16 +51,16 @@ export default class RadioComponent extends React.Component {
           <label
             htmlFor={i}
             className={`practice_radio-label ${
-              activeRadio === i ? "practice_radio-label_checked" : ""
+              this.state.activeRadio === i ? "practice_radio-label_checked" : ""
             } `}
           >
             <input
               type="radio"
               className="visually-hidden"
               id={i}
-              onClick={(e) => {
+              onClick={() => {
                 checkDisabled(false);
-                checkRadio(i);
+                this.setState({ activeRadio: i });
               }}
             />
             <MathJax.Provider>

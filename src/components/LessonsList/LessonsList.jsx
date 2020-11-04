@@ -25,7 +25,7 @@ export default function LessonsList(props) {
         <div className="practice_link__wrapper">
           <Link
             className="practice_link"
-            to={`${lessons[lessons.length - 1].id}/practice`}
+            to={`practice/${lessons[lessons.length - 1].id}`}
           >
             <img src="./img/dumbbell.svg" alt="" />
           </Link>
