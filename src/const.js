@@ -8,6 +8,7 @@ export const LESSON_TYPES = {
   MULTIPLICATION: "multiplication",
   DIVISION: "division",
   FRACTIONS: "fractions",
+  COMPARISON: "comparison",
 };
 
 export const LESSONS_DATA = [
@@ -29,5 +30,10 @@ export const LESSONS_DATA = [
   },
   {
     type: LESSON_TYPES.FRACTIONS,
+    sign: "+",
+  },
+  {
+    type: LESSON_TYPES.COMPARISON,
+    sign: [">", "<", "="],
   },
 ];

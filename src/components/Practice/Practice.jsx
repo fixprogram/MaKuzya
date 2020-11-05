@@ -5,7 +5,6 @@ import PracticeContent from "../PracticeContent/PracticeContent.jsx";
 import { Link } from "react-router-dom";
 import { LESSONS_DATA } from "../../const";
 import { create, all } from "mathjs";
-import MathJax from "react-mathjax";
 
 const config = {};
 const math = create(all, config);
@@ -37,94 +36,129 @@ class Practice extends React.PureComponent {
     return newArr;
   }
 
-  resolveExpression(a, b, sign) {
-    return a, sign, b;
+  createFractionsExpression(type, elems) {
+    const nums = this.createRandomArray(elems).sort((a, b) => a - b);
+    let fractions = [];
+    let fractionsDivides = [];
+    for (let i = 0; i < nums.length / 2; i++) {
+      fractionsDivides.push(nums[i] / nums[nums.length - i - 1]);
+      fractions.push(`\\frac{${nums[i]}}{${nums[nums.length - i - 1]}}`);
+    }
+
+    let answer = fractionsDivides.reduce(
+      (accumulator, currentValue) => accumulator + currentValue
+    );
+
+    let expression = fractions
+      .map((item, i, arr) => {
+        if (i !== arr.length - 1) {
+          return item + " " + type.sign;
+        } else {
+          return item;
+        }
+      })
+      .join(" ");
+
+    return {
+      answer: math.fraction(answer),
+      expression,
+    };
   }
 
-  createExpression(type, elems = 2) {
+  createExpression(type, elems) {
     let expression;
     let expressionType = LESSONS_DATA.find((item) => item.type === type);
-    // console.log(expressionType);
 
-    // console.log(type);
+    if (type === "fractions") {
+      return this.createFractionsExpression(expressionType, elems * 2);
+    }
+
     let nums = this.createRandomArray();
     if (elems > 2) {
       nums = nums.concat(this.createRandomArray(elems - 2));
-      console.log(nums);
-      expression = nums.map((item, i, arr) => {
+    }
+
+    expression = nums
+      .map((item, i, arr) => {
         if (i !== arr.length - 1) {
           return item + " " + expressionType.sign;
         } else {
           return item;
         }
-      });
-      return expression.join(" ");
-    }
+      })
+      .join(" ");
 
-    // switch (type) {
-    //   case LESSON_TYPES.find((item) => item.type === type):
-    //     this.setState({ rightAnswer: firstNum + secondNum });
-    //     return firstNum + " + " + secondNum;
-    // case LESSON_TYPES.MINUS:
-    //   this.setState({ rightAnswer: firstNum - secondNum });
-    //   return firstNum + " - " + secondNum;
-    // case LESSON_TYPES.MULTIPLICATION:
-    //   this.setState({ rightAnswer: firstNum * secondNum });
-    //   return firstNum + " * " + secondNum;
-    // case LESSON_TYPES.DIVISION:
-    //   firstNum = secondNum * this.randomInteger();
-    //   this.setState({ rightAnswer: firstNum / secondNum });
-    //   return firstNum + " / " + secondNum;
+    // expression = expression.join(" ");
 
-    // case LESSON_TYPES.FRACTIONS_SUMMATION:
-    //   const tex = `\\frac${firstNum}${secondNum}
-    //     +\\frac${thirdNum}${fourthNum}`;
-    //   const rightAnswer = firstNum / secondNum + thirdNum / fourthNum;
-    //   let denominator = 0;
-
-    //   if (
-    //     ((secondNum / fourthNum) ^ 0) === secondNum / fourthNum ||
-    //     ((fourthNum / secondNum) ^ 0) === fourthNum / secondNum
-    //   ) {
-    //     ((secondNum / fourthNum) ^ 0) === secondNum / fourthNum
-    //       ? (denominator = secondNum)
-    //       : (denominator = fourthNum);
-    //   } else {
-    //     denominator = secondNum * fourthNum;
-    //   }
-
-    // this.setState({
-    //   rightAnswer,
-    //   variants: [
-    //     {
-    //       tex: `\\frac{${secondNum}}{${thirdNum}}`,
-    //       isAnswerRight: false,
-    //     },
-    //     {
-    //       tex: `\\frac{${Math.floor(
-    //         rightAnswer * denominator
-    //       )}}{${denominator}}`,
-    //       isAnswerRight: true,
-    //     },
-    //     {
-    //       tex: `\\frac{${firstNum}}{${denominator}}`,
-    //       isAnswerRight: false,
-    //     },
-    //     {
-    //       tex: `\\frac{${thirdNum}}{${fourthNum}}`,
-    //       isAnswerRight: false,
-    //     },
-    //   ],
-    // });
-    // return (
-    //   <MathJax.Provider>
-    //     <MathJax.Node formula={tex} />
-    //   </MathJax.Provider>
-    // );
-    // }
+    return { answer: math.evaluate(expression), expression };
   }
 
-  createTask() {}
+  createTask(type, level = 2) {
+    const { answer, expression } = this.createExpression(type, level);
+    let variants;
+
+    const checkInt = (n, d) => {
+      n = Math.round(n);
+      d = Math.round(d);
+      if (Math.trunc(n / d)) {
+        return ((n / d) ^ 0) === n / d
+          ? Math.trunc(n / d)
+          : `${Math.trunc(n / d)}\\frac{${n - d}}{${d}}`;
+        // return `${Math.trunc(n / d)}\\frac{${Math.floor(n - d)}}{${Math.floor(
+        //   d
+        // )}}`;
+      } else {
+        return `\\frac{${n}}{${d}}`;
+      }
+    };
+
+    if (type === "fractions") {
+      const { n, d } = math.fraction(answer);
+      console.log("ewrfewf", n, d);
+      variants = [
+        {
+          tex: checkInt(n, d),
+          isAnswerRight: true,
+        },
+        {
+          tex: checkInt(n * 0.4, d * 0.8),
+          isAnswerRight: false,
+        },
+        {
+          tex: checkInt(n * 0.8, d * 0.4),
+          isAnswerRight: false,
+        },
+        {
+          tex: checkInt(n * 0.6, d * 0.6),
+          isAnswerRight: false,
+        },
+      ];
+    } else {
+      variants = [
+        {
+          tex: answer,
+          isAnswerRight: true,
+        },
+        {
+          tex: math.evaluate(answer + answer * 0.2),
+          isAnswerRight: false,
+        },
+        {
+          tex: math.evaluate(answer - answer * 0.2),
+          isAnswerRight: false,
+        },
+        {
+          tex: math.evaluate(answer + answer * 0.4),
+          isAnswerRight: false,
+        },
+      ];
+    }
+
+    this.setState({ variants });
+
+    console.log(expression);
+    return expression;
+  }
 
   checkAnswer(value) {
     console.log(value, "   ", this.state.rightAnswer);
@@ -138,22 +172,26 @@ class Practice extends React.PureComponent {
       } else {
         this.setState({
           progress: this.state.progress + 20,
+          variants: [],
         });
         this.skipAnswer();
       }
     } else {
+      this.setState({
+        variants: [],
+      });
       this.skipAnswer();
     }
   }
 
   skipAnswer() {
     this.setState({
-      actualTask: this.createTask("summation"),
+      actualTask: this.createTask(this.type),
     });
   }
 
   componentDidMount() {
-    this.setState({ actualTask: this.createExpression(this.type, 5) });
+    this.setState({ actualTask: this.createTask(this.type) });
   }
 
   shuffleArray(array) {

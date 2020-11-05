@@ -55,8 +55,15 @@ const data = {
       icon: `${LESSON_TYPES.DIVISION}.svg`,
     },
     {
+      title: `Сравнение`,
+      id: LESSON_TYPES.COMPARISON,
+      level: 2,
+      progress: 0,
+      icon: `${LESSON_TYPES.COMPARISON}.svg`,
+    },
+    {
       title: `Сложение Дробей`,
-      id: LESSON_TYPES.FRACTIONS_SUMMATION,
+      id: LESSON_TYPES.FRACTIONS,
       level: 4,
       progress: 0,
       icon: `summation.svg`,
