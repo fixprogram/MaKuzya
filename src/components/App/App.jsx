@@ -13,7 +13,7 @@ class App extends React.PureComponent {
     return (
       <BrowserRouter>
         <Switch>
-          <Route path="/learn">
+          <Route exact path="/">
             <WelcomeScreen
               header={header}
               lessons={lessons}
@@ -30,7 +30,6 @@ class App extends React.PureComponent {
               return <Practice type={type} />;
             }}
           ></Route>
-          <Redirect from="/" to="/learn" />
         </Switch>
       </BrowserRouter>
     );
