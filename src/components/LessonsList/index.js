@@ -1,11 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import LessonItem from "../LessonItem/LessonItem.jsx";
+import LessonItem from "../LessonItem";
 
-export default function LessonsList(props) {
-  const { lessons } = props;
-
+function LessonsList({ lessons }) {
   return (
     <section className="main_block">
       <div className="lessons_list">
@@ -35,6 +33,8 @@ export default function LessonsList(props) {
   );
 }
 
-LessonsList.propTypes = {
-  lessons: PropTypes.array.isRequired,
-};
+const mapStateToProps = (state) => ({
+  lessons: state.lessons,
+});
+
+export default connect(mapStateToProps)(LessonsList);

@@ -1,2 +1,3 @@
-# Just MaKuzya
-# Learn Math with me and be a pro
+# MaKuzya
+
+# Learn Math with Kuzya me and be a pro

@@ -1,0 +1,16 @@
+{
+  "rules": {
+    "profiles": {
+      "$user_id": {
+        ".read": "$user_id === auth.uid",
+        ".write": "$user_id === auth.uid"
+      },
+      "lessons": {
+      	".read": true,
+        ".write": false
+      }
+    },
+    ".read": false,
+    ".write": false
+  }
+}

@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import PracticeTitle from "./PracticeTitle/PracticeTitle.jsx";
 import MathJax from "react-mathjax";
-import TextareaComponent from "../TextareaComponent/TextareaComponent.jsx";
-import RadioComponent from "../RadioComponent/RadioComponent.jsx";
-import PracticeButtons from "../PracticeContent/PracticeButtons/PracticeButtons.jsx";
+
+import PracticeTitle from "./PracticeTitle";
+import TextareaComponent from "../TextareaComponent";
+import RadioComponent from "../RadioComponent";
+import PracticeButtons from "./PracticeButtons";
 
 export default class PracticeContent extends React.PureComponent {
   constructor(props) {

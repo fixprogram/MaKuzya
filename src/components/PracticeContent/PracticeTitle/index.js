@@ -1,9 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import MathJax from "react-mathjax";
 
-export default function PracticeTitle(props) {
-  const { actualTask } = props;
+export default function PracticeTitle({ actualTask }) {
   return (
     <div className="practice_content__block">
       <div className="practice_content__teacher">
@@ -22,7 +20,3 @@ export default function PracticeTitle(props) {
     </div>
   );
 }
-
-PracticeTitle.propTypes = {
-  // actualTask: PropTypes.string.isRequired,
-};

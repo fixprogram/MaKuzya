@@ -1,20 +1,19 @@
-import data from "./mocks/data";
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/App/App.jsx";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { reducer } from "./reducer";
+import { BrowserRouter } from "react-router-dom";
+
+import App from "./components/App";
 
 const store = createStore(reducer);
 
-const init = () => {
-  ReactDOM.render(
-    <Provider store={store}>
-      <App data={data} />
-    </Provider>,
-    document.querySelector(`#root`)
-  );
-};
-
-init();
+ReactDOM.render(
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById(`root`)
+);
