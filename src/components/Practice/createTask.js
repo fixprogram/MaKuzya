@@ -61,5 +61,6 @@ export default function createTask(type, level = 2) {
       },
     ];
   }
+
   return { variants, expression };
 }

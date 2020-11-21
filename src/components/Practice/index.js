@@ -1,69 +1,46 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { LESSONS_DATA } from "../../const";
-import { create, all } from "mathjs";
 
 import ProgressBar from "../ProgressBar";
 import PracticeContent from "../PracticeContent";
-import { createRandomArray, shuffleArray } from "../../misc/utils";
+import { shuffleArray } from "../../misc/utils";
+import { useForceUpdate } from "../../misc/custom-hooks";
 import createTask from "./createTask";
 
-const config = {};
-const math = create(all, config);
+const MAX_TASKS = 10;
 
 export default function Practice() {
   const { type } = useParams();
-  console.log("TYPE:  ", type);
-
-  const state = {
-    rightAnswer: 0,
-    maxTasks: 10,
-    progress: 0,
-  };
+  const forceUpdate = useForceUpdate();
+  const [progress, setProgress] = useState(0);
 
   const { variants, expression } = createTask(type);
 
   function checkAnswer(value) {
-    console.log(value, "   ", state.rightAnswer);
-    if (parseInt(value) === state.rightAnswer || value === true) {
-      if (state.progress + 20 >= 100) {
+    console.log("VALUE:   ", value);
+    if (value) {
+      if (progress + 20 >= MAX_TASKS * 10) {
         // Finishing. Report
-        setState({
-          progress: state.progress + 20,
-        });
+        setProgress(progress + 20);
         setTimeout(() => window.location.replace("/"), 1500);
       } else {
-        setState({
-          progress: state.progress + 20,
-          variants: [],
-        });
-        this.skipAnswer();
+        setProgress(progress + 20);
       }
     } else {
-      setState({
-        variants: [],
-      });
-      skipAnswer();
+      setProgress(progress - 10);
     }
-  }
-
-  function skipAnswer() {
-    this.setState({
-      actualTask: this.createTask(type),
-    });
   }
 
   return (
     <section className="practice_block">
-      <ProgressBar progress={state.progress}>
+      <ProgressBar progress={progress}>
         <Link className="progress_close" to="/"></Link>
       </ProgressBar>
 
       <PracticeContent
         actualTask={expression}
         checkAnswer={(value) => checkAnswer(value)}
-        skipAnswer={() => skipAnswer()}
-        checkboxes={true}
+        skipAnswer={() => forceUpdate()}
         variants={shuffleArray(variants)}
       />
     </section>

@@ -1,22 +1,17 @@
 import React from "react";
 
 const PracticeButtons = ({
-  inputValue,
+  checkAnswer,
   skipAnswer,
-  recoverState,
   isNextDisabled,
+  answer,
+  setActiveRadio,
 }) => {
   return (
     <section className="practice_buttons_wrapper">
       <div className="practice_buttons">
         <article className="practice_buttons_inner">
-          <button
-            className="practice_button"
-            onClick={() => {
-              recoverState();
-              skipAnswer();
-            }}
-          >
+          <button className="practice_button" onClick={skipAnswer}>
             Пропустить
           </button>
 
@@ -24,17 +19,10 @@ const PracticeButtons = ({
             className={`practice_button ${
               isNextDisabled ? "disabled" : "enabled"
             }`}
-            onClick={
-              () => {
-                checkAnswer(inputValue);
-                // this.setState({ inputValue: `` });
-              }
-              // checkAnswer(variants[this.state.activeRadio].isAnswerRight);
-              // this.setState({ activeRadio: -1 });
-
-              // checkAnswer(this.state(inputValue));
-              // this.setState({ inputValue: `` });
-            }
+            onClick={() => {
+              checkAnswer(answer);
+              setActiveRadio(-1);
+            }}
           >
             Продолжить
           </button>

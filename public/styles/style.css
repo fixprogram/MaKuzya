@@ -567,13 +567,13 @@ img {
 
 .lessons_list {
   width: 100%;
+  height: 100%;
   display: flex;
   margin: 0 auto;
   margin-top: 0px;
-  padding: 0 24px;
+  padding: 40px 24px 140px;
   max-width: 1140px;
   position: relative;
-  margin-top: 40px;
   flex-wrap: wrap;
   justify-self: center;
 }
@@ -925,8 +925,8 @@ img {
   margin-left: 0;
   margin-right: auto;
   position: absolute;
-  left: 0;
-  bottom: -100px;
+  left: 10px;
+  bottom: 40px;
 }
 
 .practice_link {

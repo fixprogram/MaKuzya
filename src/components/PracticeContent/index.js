@@ -1,62 +1,48 @@
-import React from "react";
-import PropTypes from "prop-types";
-import MathJax from "react-mathjax";
+import React, { useState } from "react";
 
 import PracticeTitle from "./PracticeTitle";
 import TextareaComponent from "../TextareaComponent";
 import RadioComponent from "../RadioComponent";
 import PracticeButtons from "./PracticeButtons";
 
-export default class PracticeContent extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default function PracticeContent({
+  actualTask,
+  checkAnswer,
+  skipAnswer,
+  variants,
+}) {
+  const [activeRadio, setActiveRadio] = useState(-1);
 
-    this.state = {
-      inputValue: ``,
-      nextDisabled: true,
-      activeRadio: -1,
-    };
-  }
+  return (
+    <>
+      <section className="practice_content__wrapper">
+        <h1 className="practice_content__title">Выберите правильный ответ</h1>
+        <div className="practice_content">
+          <PracticeTitle actualTask={actualTask} />
 
-  render() {
-    const { actualTask, checkAnswer, skipAnswer, variants } = this.props;
-
-    return (
-      <>
-        <section className="practice_content__wrapper">
-          <h1 className="practice_content__title">Выберите правильный ответ</h1>
-          <div className="practice_content">
-            <PracticeTitle actualTask={actualTask} />
-
-            <article className="practice_content__input_wrapper">
-              <RadioComponent
-                checkAnswer={checkAnswer}
-                checkDisabled={(state) =>
-                  this.setState({ nextDisabled: state })
+          <article className="practice_content__input_wrapper">
+            <RadioComponent
+              checkAnswer={() => {
+                if (activeRadio !== -1 && variants) {
+                  checkAnswer(variants[activeRadio].isAnswerRight);
+                  setActiveRadio(-1);
                 }
-                variants={variants}
-                activeRadio={this.state.activeRadio}
-                checkRadio={(i) => this.setState({ activeRadio: i })}
-              />
-            </article>
-          </div>
-        </section>
+              }}
+              variants={variants}
+              activeRadio={activeRadio}
+              setActiveRadio={(i) => setActiveRadio(i)}
+            />
+          </article>
+        </div>
+      </section>
 
-        <PracticeButtons
-          skipAnswer={skipAnswer}
-          recoverState={() =>
-            this.setState({ inputValue: ``, nextDisabled: true })
-          }
-          isNextDisabled={this.state.nextDisabled}
-        />
-      </>
-    );
-  }
+      <PracticeButtons
+        checkAnswer={checkAnswer}
+        setActiveRadio={(i) => setActiveRadio(i)}
+        skipAnswer={skipAnswer}
+        isNextDisabled={activeRadio === -1}
+        answer={variants[activeRadio] && variants[activeRadio].isAnswerRight}
+      />
+    </>
+  );
 }
-
-PracticeContent.propTypes = {
-  checkboxes: PropTypes.bool,
-  variants: PropTypes.array,
-  checkAnswer: PropTypes.func,
-  skipAnswer: PropTypes.func.isRequired,
-};

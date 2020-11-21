@@ -2,6 +2,7 @@ import React from "react";
 import MathJax from "react-mathjax";
 
 export default function PracticeTitle({ actualTask }) {
+  console.log("ATUAL_TASK:  ", actualTask);
   return (
     <div className="practice_content__block">
       <div className="practice_content__teacher">
