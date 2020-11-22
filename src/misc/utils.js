@@ -1,11 +1,13 @@
-const randomInteger = (level = 1) => {
-  return Math.floor(1 * level + Math.random() * (9 * level + 1 - 1 * level));
+const createRandomInteger = (min = 1, max = 9, level = 1) => {
+  return Math.floor(
+    min * level + Math.random() * (max * level + 1 - min * level)
+  );
 };
 
 const createRandomArray = (count = 2) => {
   let newArr = [];
   for (let i = 0; i < count; i++) {
-    newArr.push(randomInteger());
+    newArr.push(createRandomInteger());
   }
   return newArr;
 };
@@ -18,4 +20,4 @@ const shuffleArray = (array) => {
   return array;
 };
 
-export { createRandomArray, shuffleArray };
+export { createRandomArray, shuffleArray, createRandomInteger };

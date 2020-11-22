@@ -72,6 +72,13 @@ const initialState = {
       progress: 0,
       icon: `summation.svg`,
     },
+    {
+      title: `Уравнения`,
+      id: LESSON_TYPES.EQUATION,
+      level: 2,
+      progress: 0,
+      icon: `summation.svg`,
+    },
   ],
 };
 

@@ -6,10 +6,10 @@ import Footer from "../Footer";
 
 export default function Home() {
   return (
-    <>
+    <section className="app">
       <Header />
       <LessonsList />
       <Footer />
-    </>
+    </section>
   );
 }

@@ -9,6 +9,7 @@ export const LESSON_TYPES = {
   DIVISION: "division",
   FRACTIONS: "fractions",
   COMPARISON: "comparison",
+  EQUATION: "equation",
 };
 
 export const LESSONS_DATA = [
@@ -35,5 +36,9 @@ export const LESSONS_DATA = [
   {
     type: LESSON_TYPES.COMPARISON,
     sign: [">", "<", "="],
+  },
+  {
+    type: LESSON_TYPES.EQUATION,
+    sign: ["+", "-", "*", "/"],
   },
 ];

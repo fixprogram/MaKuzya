@@ -1,4 +1,4 @@
-import { createRandomArray } from "../../misc/utils";
+import { createRandomArray, createRandomInteger } from "../../misc/utils";
 import { create, all } from "mathjs";
 import { LESSONS_DATA } from "../../const";
 
@@ -50,6 +50,15 @@ export function createExpression(type, elems) {
   expression = nums
     .map((item, i, arr) => {
       if (i !== arr.length - 1) {
+        if (expressionType.sign.length > 1) {
+          return (
+            item +
+            " " +
+            expressionType.sign[
+              createRandomInteger(0, expressionType.sign.length - 1)
+            ]
+          );
+        }
         return item + " " + expressionType.sign;
       } else {
         return item;
@@ -57,5 +66,8 @@ export function createExpression(type, elems) {
     })
     .join(" ");
 
-  return { answer: math.evaluate(expression), expression };
+  let answer = math.evaluate(expression);
+  answer = parseFloat(answer.toFixed(2));
+
+  return { answer, expression };
 }

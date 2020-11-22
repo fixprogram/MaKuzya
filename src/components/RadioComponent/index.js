@@ -35,8 +35,6 @@ export default function RadioComponent({
     };
   }, [checkKeyDown, activeRadio]);
 
-  console.log("variants:  ", variants);
-
   return variants.map((it, i) => {
     return (
       <fieldset key={i}>
@@ -57,6 +55,7 @@ export default function RadioComponent({
           <MathJax.Provider>
             <MathJax.Node formula={it.tex} />
           </MathJax.Provider>
+          <span className="radio__number">{i + 1}</span>
         </label>
       </fieldset>
     );

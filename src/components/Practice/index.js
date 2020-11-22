@@ -6,6 +6,8 @@ import PracticeContent from "../PracticeContent";
 import { shuffleArray } from "../../misc/utils";
 import { useForceUpdate } from "../../misc/custom-hooks";
 import createTask from "./createTask";
+import { database } from "../../misc/firebase";
+import { useProfile } from "../../context/profile.context";
 
 const MAX_TASKS = 10;
 
@@ -13,15 +15,19 @@ export default function Practice() {
   const { type } = useParams();
   const forceUpdate = useForceUpdate();
   const [progress, setProgress] = useState(0);
+  const { profile } = useProfile();
 
   const { variants, expression } = createTask(type);
 
-  function checkAnswer(value) {
-    console.log("VALUE:   ", value);
+  async function checkAnswer(value) {
     if (value) {
       if (progress + 20 >= MAX_TASKS * 10) {
         // Finishing. Report
         setProgress(progress + 20);
+        await database.ref(`/profiles/${profile.uid}`).set({
+          ...profile,
+          lingots: profile.lingots + 2,
+        });
         setTimeout(() => window.location.replace("/"), 1500);
       } else {
         setProgress(progress + 20);
