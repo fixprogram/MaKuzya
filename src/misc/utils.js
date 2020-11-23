@@ -20,4 +20,19 @@ const shuffleArray = (array) => {
   return array;
 };
 
-export { createRandomArray, shuffleArray, createRandomInteger };
+const signViceVerca = (sign) => {
+  switch (sign) {
+    case "+":
+      return "-";
+    case "-":
+      return "+";
+    case "*":
+      return "/";
+    case "/":
+      return "*";
+    default:
+      return sign;
+  }
+};
+
+export { createRandomArray, shuffleArray, createRandomInteger, signViceVerca };

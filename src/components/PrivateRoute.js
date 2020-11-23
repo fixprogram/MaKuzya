@@ -13,7 +13,11 @@ const PrivateRoute = ({ children, ...routeProps }) => {
     return <Redirect to="/signin" />;
   }
 
-  return <Route {...routeProps}>{children}</Route>;
+  return (
+    <Route {...routeProps} path="/learn">
+      {children}
+    </Route>
+  );
 };
 
 export default PrivateRoute;

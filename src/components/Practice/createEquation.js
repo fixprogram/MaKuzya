@@ -1,40 +1,22 @@
-import { createRandomArray, createRandomInteger } from "../../misc/utils";
+import {
+  createRandomArray,
+  createRandomInteger,
+  signViceVerca,
+} from "../../misc/utils";
 import { create, all } from "mathjs";
-import { LESSONS_DATA } from "../../const";
 
 const config = {};
 const math = create(all, config);
 
-function signViceVerca(sign) {
-  switch (sign) {
-    case "+":
-      return "-";
-    case "-":
-      return "+";
-    case "*":
-      return "/";
-    case "/":
-      return "*";
-    default:
-      return sign;
-  }
-}
-
-export function createEquation(
-  type = "equation",
-  elems = 2,
-  initialAnswer = null
-) {
+export function createEquation(sign, elems = 2, initialAnswer = null) {
   let expression;
-  let expressionType = LESSONS_DATA.find((item) => item.type === type);
 
   let nums = createRandomArray();
   if (elems > 2) {
     nums = nums.concat(createRandomArray(elems - 2));
   }
 
-  const randomSign =
-    expressionType.sign[createRandomInteger(0, expressionType.sign.length - 1)];
+  const randomSign = sign[createRandomInteger(0, sign.length - 1)];
   let answer = nums[0];
   nums[0] = "x";
 
@@ -48,15 +30,8 @@ export function createEquation(
     })
     .join(" ");
 
-  expression += ` = ${
-    initialAnswer
-      ? initialAnswer
-      : parseFloat(
-          math.evaluate(answer + " " + randomSign + " " + nums[1]).toFixed(2)
-        )
-  }`;
-
-  if (initialAnswer)
+  if (initialAnswer) {
+    expression += ` = ${initialAnswer}`;
     answer = parseFloat(
       math
         .evaluate(
@@ -64,6 +39,11 @@ export function createEquation(
         )
         .toFixed(2)
     );
+  } else {
+    expression += ` = ${parseFloat(
+      math.evaluate(answer + " " + randomSign + " " + nums[1]).toFixed(2)
+    )}`;
+  }
 
   return { answer, expression };
 }

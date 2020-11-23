@@ -1,3 +1,5 @@
+import { shuffleArray } from "../../misc/utils";
+
 const createTriangle = () => {
   const triange = {
     coordinates: [
@@ -20,7 +22,10 @@ const createTriangle = () => {
     sides: [5, 4, 3],
   };
 
-  return { sides: triange.sides, coordinates: triange.coordinates };
+  return {
+    sides: triange.sides,
+    coordinates: shuffleArray(triange.coordinates),
+  };
 };
 
 export { createTriangle };

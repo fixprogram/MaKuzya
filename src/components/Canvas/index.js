@@ -13,8 +13,6 @@ class CanvasComponent extends React.Component {
 
   updateCanvas() {
     const { coordinates, sides } = this.props;
-    console.log("CanvasComponent:: ", coordinates);
-    console.log("Sides:: ", sides);
     const ctx = this.canvas.current.getContext("2d");
     let sideNumsCoordinates = [];
 

@@ -27,7 +27,7 @@ function Practice({
 
   const { variants, expression, coordinates, sides, topic } = createTask(type);
 
-  console.log(expression);
+  console.log("OORDINATES: ", coordinates);
 
   setVariants(shuffleArray(variants));
   setTask(expression);

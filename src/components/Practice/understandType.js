@@ -1,19 +1,23 @@
-import React from "react";
 import { createExpression } from "./createExpression";
 import { createEquation } from "./createEquation";
 import { createTriangle } from "./createTriangle";
 import { createInequality } from "./createInequality";
+import { createFractionsExpression } from "./createFractionsExpression";
+import { LESSONS_DATA } from "../../const";
 
 export function understandType(type, level) {
-  console.log("TYPE: ", type);
+  const { sign } = LESSONS_DATA.find((item) => item.type === type);
+  console.log("SIGN:  ", sign);
   switch (type) {
     case "equation":
-      return createEquation(type, level);
+      return createEquation(sign, level);
     case "pifagor":
       return createTriangle();
     case "inequality":
       return createInequality();
+    case "fractions":
+      return createFractionsExpression(sign, level);
     default:
-      return createExpression(type, level);
+      return createExpression(sign, level);
   }
 }

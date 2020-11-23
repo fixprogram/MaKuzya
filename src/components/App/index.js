@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch } from "react-router-dom";
+import { Switch, Redirect } from "react-router-dom";
 
 import "rsuite/dist/styles/rsuite-default.css";
 import "../../styles/main.scss";
@@ -18,12 +18,13 @@ export default function App() {
         <PublicRoute path="/signin">
           <SignIn />
         </PublicRoute>
-        <PrivateRoute path="/" exact>
+        <PrivateRoute path="/learn">
           <Home />
         </PrivateRoute>
         <PrivateRoute path={`/practice/:type`}>
           <Practice />
         </PrivateRoute>
+        <Redirect to="/learn" />
       </Switch>
     </ProfileProvider>
   );

@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 $indent_1: 5px;
 $indent_2: 10px;
 $indent_3: 15px;

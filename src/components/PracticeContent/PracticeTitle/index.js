@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import CanvasComponent from "../../Canvas";
 
 const PracticeTitle = ({ currentTask, topic }) => {
-  console.log("ATUAL_TASK:  ", currentTask);
   return (
     <div className="practice_content__block">
       {topic ? (

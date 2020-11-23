@@ -19,7 +19,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        // test: /\.(js|jsx)$/,
+        test: /\.js$|jsx/,
         exclude: /node_modules/,
         use: {
           loader: `babel-loader`,
@@ -39,6 +40,15 @@ module.exports = {
             },
           },
           "sass-loader",
+        ],
+      },
+      {
+        test: /\.(ttf|eot|svg|gif|jpg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        include: /src/,
+        use: [
+          {
+            loader: "file-loader",
+          },
         ],
       },
     ],

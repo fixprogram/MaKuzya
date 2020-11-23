@@ -1,47 +1,11 @@
 import { createRandomArray, createRandomInteger } from "../../misc/utils";
 import { create, all } from "mathjs";
-import { LESSONS_DATA } from "../../const";
 
 const config = {};
 const math = create(all, config);
 
-function createFractionsExpression(type, elems) {
-  const nums = createRandomArray(elems).sort((a, b) => a - b);
-  let fractions = [];
-  let fractionsDivides = [];
-  for (let i = 0; i < nums.length / 2; i++) {
-    fractionsDivides.push(nums[i] / nums[nums.length - i - 1]);
-    fractions.push(`\\frac{${nums[i]}}{${nums[nums.length - i - 1]}}`);
-  }
-
-  let answer = fractionsDivides.reduce(
-    (accumulator, currentValue) => accumulator + currentValue
-  );
-
-  let expression = fractions
-    .map((item, i, arr) => {
-      if (i !== arr.length - 1) {
-        return item + " " + type.sign;
-      } else {
-        return item;
-      }
-    })
-    .join(" ");
-
-  return {
-    answer: math.fraction(answer),
-    expression,
-  };
-}
-
-export function createExpression(type, elems = 2) {
-  console.log("TYPEEEE: ", type);
+export function createExpression(sign, elems = 2) {
   let expression;
-  let expressionType = LESSONS_DATA.find((item) => item.type === type);
-
-  if (type === "fractions") {
-    return createFractionsExpression(expressionType, elems * 2);
-  }
 
   let nums = createRandomArray();
   if (elems > 2) {
@@ -51,23 +15,19 @@ export function createExpression(type, elems = 2) {
   expression = nums
     .map((item, i, arr) => {
       if (i !== arr.length - 1) {
-        if (expressionType.sign.length > 1) {
-          return (
-            item +
-            " " +
-            expressionType.sign[
-              createRandomInteger(0, expressionType.sign.length - 1)
-            ]
-          );
+        if (sign.length > 1) {
+          return item + " " + sign[createRandomInteger(0, sign.length - 1)];
         }
-        return item + " " + expressionType.sign;
+        return item + " " + sign;
       } else {
         return item;
       }
     })
     .join(" ");
 
+  console.log("EXPRESSION: ", expression);
   let answer = math.evaluate(expression);
+  console.log("ANSWER: ", answer);
   answer = parseFloat(answer.toFixed(2));
 
   return { answer, expression };

@@ -10,10 +10,14 @@ const PublicRoute = ({ children, ...routeProps }) => {
   }
 
   if (profile && !isLoading) {
-    return <Redirect to="/" />;
+    return <Redirect to="/learn" />;
   }
 
-  return <Route {...routeProps}>{children}</Route>;
+  return (
+    <Route {...routeProps} path="/learn">
+      {children}
+    </Route>
+  );
 };
 
 export default PublicRoute;
