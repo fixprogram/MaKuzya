@@ -5,7 +5,26 @@ import { LESSONS_DATA } from "../../const";
 const config = {};
 const math = create(all, config);
 
-export function createEquation(type = "equation", elems = 2) {
+function signViceVerca(sign) {
+  switch (sign) {
+    case "+":
+      return "-";
+    case "-":
+      return "+";
+    case "*":
+      return "/";
+    case "/":
+      return "*";
+    default:
+      return sign;
+  }
+}
+
+export function createEquation(
+  type = "equation",
+  elems = 2,
+  initialAnswer = null
+) {
   let expression;
   let expressionType = LESSONS_DATA.find((item) => item.type === type);
 
@@ -16,7 +35,7 @@ export function createEquation(type = "equation", elems = 2) {
 
   const randomSign =
     expressionType.sign[createRandomInteger(0, expressionType.sign.length - 1)];
-  const answer = nums[0];
+  let answer = nums[0];
   nums[0] = "x";
 
   expression = nums
@@ -29,11 +48,22 @@ export function createEquation(type = "equation", elems = 2) {
     })
     .join(" ");
 
-  console.log("EXPRESSION: ", expression);
+  expression += ` = ${
+    initialAnswer
+      ? initialAnswer
+      : parseFloat(
+          math.evaluate(answer + " " + randomSign + " " + nums[1]).toFixed(2)
+        )
+  }`;
 
-  expression += ` = ${parseFloat(
-    math.evaluate(answer + " " + randomSign + " " + nums[1]).toFixed(2)
-  )}`;
+  if (initialAnswer)
+    answer = parseFloat(
+      math
+        .evaluate(
+          initialAnswer + " " + signViceVerca(randomSign) + " " + nums[1]
+        )
+        .toFixed(2)
+    );
 
   return { answer, expression };
 }

@@ -34,7 +34,8 @@ function createFractionsExpression(type, elems) {
   };
 }
 
-export function createExpression(type, elems) {
+export function createExpression(type, elems = 2) {
+  console.log("TYPEEEE: ", type);
   let expression;
   let expressionType = LESSONS_DATA.find((item) => item.type === type);
 

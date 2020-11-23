@@ -1,34 +1,33 @@
 import { LESSON_TYPES } from "./const";
 
-const INCREASE_CROWNS = "INCREASE_CROWNS";
-const INCREASE_STREAK = "INCREASE_STREAK";
-const INCREASE_LINGOTS = "INCREASE_LINGOTS";
-
 const actionCreator = {
-  increaseCrowns: (count = 1) => {
-    return {
-      type: INCREASE_CROWNS,
-      payload: count,
-    };
-  },
-  increaseStreak: (count = 1) => {
-    return {
-      type: INCREASE_STREAK,
-      payload: count,
-    };
-  },
-  increaseLingots: (count) => {
-    return {
-      type: INCREASE_LINGOTS,
-      payload: count,
-    };
-  },
+  setTask: (payload) => ({
+    type: "SET_TASK",
+    payload,
+  }),
+  setVariants: (payload) => ({
+    type: "SET_VARIANTS",
+    payload,
+  }),
+  setAnswer: (payload) => ({
+    type: "SET_ANSWER",
+    payload,
+  }),
+  setTopic: (payload) => ({
+    type: "SET_TOPIC",
+    payload,
+  }),
+  setCoordinates: (payload) => ({
+    type: "SET_COORDINATES",
+    payload,
+  }),
+  setSides: (payload) => ({
+    type: "SET_SIDES",
+    payload,
+  }),
 };
 
 const initialState = {
-  crowns: 0,
-  streak: 0,
-  lingots: 10,
   lessons: [
     {
       title: `Сложение`,
@@ -60,10 +59,10 @@ const initialState = {
     },
     {
       title: `Сравнение`,
-      id: LESSON_TYPES.COMPARISON,
+      id: LESSON_TYPES.INEQUALITY,
       level: 2,
       progress: 0,
-      icon: `${LESSON_TYPES.COMPARISON}.svg`,
+      icon: `${LESSON_TYPES.INEQUALITY}.svg`,
     },
     {
       title: `Сложение Дробей`,
@@ -86,23 +85,36 @@ const initialState = {
       progress: 0,
       icon: `summation.svg`,
     },
+    {
+      title: `Диcкриминант`,
+      id: LESSON_TYPES.DISCRIMINANT,
+      level: 1,
+      progress: 0,
+      icon: `summation.svg`,
+    },
   ],
+  currentTask: null,
+  variants: [],
+  answer: null,
+  topic: "",
+  coordinates: [],
+  sides: [],
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case INCREASE_CROWNS:
-      return Object.assign({}, state, {
-        crowns: state.crowns + action.payload,
-      });
-    case INCREASE_STREAK:
-      return Object.assign({}, state, {
-        streak: state.streak + action.payload,
-      });
-    case INCREASE_LINGOTS:
-      return Object.assign({}, state, {
-        lingots: state.lingots + action.payload,
-      });
+    case "SET_TASK":
+      return { ...state, currentTask: action.payload };
+    case "SET_VARIANTS":
+      return { ...state, variants: action.payload };
+    case "SET_ANSWER":
+      return { ...state, answer: action.payload };
+    case "SET_TOPIC":
+      return { ...state, topic: action.payload };
+    case "SET_COORDINATES":
+      return { ...state, coordinates: action.payload };
+    case "SET_SIDES":
+      return { ...state, sides: action.payload };
     default:
       return state;
   }

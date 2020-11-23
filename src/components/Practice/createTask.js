@@ -7,7 +7,7 @@ const math = create(all, config);
 export default function createTask(type, level = 2) {
   let { answer, expression, coordinates, sides } = understandType(type, level);
 
-  if (!answer) answer = sides.shift();
+  if (!answer && sides) answer = sides.shift();
 
   let variants;
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { connect } from "react-redux";
 
 import ProgressBar from "../ProgressBar";
 import PracticeContent from "../PracticeContent";
@@ -8,16 +9,31 @@ import { useForceUpdate } from "../../misc/custom-hooks";
 import createTask from "./createTask";
 import { database } from "../../misc/firebase";
 import { useProfile } from "../../context/profile.context";
+import { actionCreator } from "../../reducer";
 
 const MAX_TASKS = 10;
 
-export default function Practice() {
+function Practice({
+  setVariants,
+  setTask,
+  setSides,
+  setCoordinates,
+  setTopic,
+}) {
   const { type } = useParams();
   const forceUpdate = useForceUpdate();
   const [progress, setProgress] = useState(0);
   const { profile } = useProfile();
 
   const { variants, expression, coordinates, sides, topic } = createTask(type);
+
+  console.log(expression);
+
+  setVariants(shuffleArray(variants));
+  setTask(expression);
+  setCoordinates(coordinates);
+  setSides(sides);
+  setTopic(topic);
 
   async function checkAnswer(value) {
     if (value) {
@@ -44,14 +60,19 @@ export default function Practice() {
       </ProgressBar>
 
       <PracticeContent
-        actualTask={expression}
-        coordinates={coordinates}
-        sides={sides}
         checkAnswer={(value) => checkAnswer(value)}
         skipAnswer={() => forceUpdate()}
-        variants={shuffleArray(variants)}
-        topic={topic}
       />
     </section>
   );
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  setVariants: (payload) => dispatch(actionCreator.setVariants(payload)),
+  setTask: (payload) => dispatch(actionCreator.setTask(payload)),
+  setCoordinates: (payload) => dispatch(actionCreator.setCoordinates(payload)),
+  setSides: (payload) => dispatch(actionCreator.setSides(payload)),
+  setTopic: (payload) => dispatch(actionCreator.setTopic(payload)),
+});
+
+export default connect(null, mapDispatchToProps)(Practice);

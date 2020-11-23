@@ -1,6 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 
-export default class CanvasComponent extends React.Component {
+class CanvasComponent extends React.Component {
   constructor(props) {
     super(props);
     this.canvas = React.createRef();
@@ -60,3 +61,10 @@ export default class CanvasComponent extends React.Component {
     return <canvas ref={this.canvas} width={300} height={300} />;
   }
 }
+
+const mapStateToProps = (state) => ({
+  coordinates: state.coordinates,
+  sides: state.sides,
+});
+
+export default connect(mapStateToProps)(CanvasComponent);

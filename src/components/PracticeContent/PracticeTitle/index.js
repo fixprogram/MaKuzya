@@ -1,18 +1,14 @@
 import React from "react";
 import MathJax from "react-mathjax";
+import { connect } from "react-redux";
 import CanvasComponent from "../../Canvas";
 
-export default function PracticeTitle({
-  actualTask,
-  topic,
-  coordinates,
-  sides,
-}) {
-  console.log("ATUAL_TASK:  ", actualTask);
+const PracticeTitle = ({ currentTask, topic }) => {
+  console.log("ATUAL_TASK:  ", currentTask);
   return (
     <div className="practice_content__block">
       {topic ? (
-        <CanvasComponent coordinates={coordinates} sides={sides} />
+        <CanvasComponent />
       ) : (
         <>
           <div className="practice_content__teacher">
@@ -21,7 +17,7 @@ export default function PracticeTitle({
           <div className="practice_content__task">
             <span className="practice_content__inner">
               <MathJax.Provider>
-                <MathJax.Node formula={actualTask} />
+                <MathJax.Node formula={currentTask} />
               </MathJax.Provider>
             </span>
             <div className="practice_content__triangle_wrapper">
@@ -32,4 +28,11 @@ export default function PracticeTitle({
       )}
     </div>
   );
-}
+};
+
+const mapStateToProps = (state) => ({
+  currentTask: state.currentTask,
+  topic: state.topic,
+});
+
+export default connect(mapStateToProps)(PracticeTitle);

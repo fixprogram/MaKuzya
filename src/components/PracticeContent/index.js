@@ -4,16 +4,9 @@ import PracticeTitle from "./PracticeTitle";
 import TextareaComponent from "../TextareaComponent";
 import RadioComponent from "../RadioComponent";
 import PracticeButtons from "./PracticeButtons";
+import { connect } from "react-redux";
 
-export default function PracticeContent({
-  actualTask,
-  checkAnswer,
-  skipAnswer,
-  variants,
-  topic,
-  coordinates,
-  sides,
-}) {
+function PracticeContent({ checkAnswer, skipAnswer, variants }) {
   const [activeRadio, setActiveRadio] = useState(-1);
 
   return (
@@ -21,12 +14,7 @@ export default function PracticeContent({
       <section className="practice_content__wrapper">
         <h1 className="practice_content__title">Выберите правильный ответ</h1>
         <div className="practice_content">
-          <PracticeTitle
-            actualTask={actualTask}
-            topic={topic}
-            coordinates={coordinates}
-            sides={sides}
-          />
+          <PracticeTitle />
 
           <article className="practice_content__input_wrapper">
             <RadioComponent
@@ -54,3 +42,9 @@ export default function PracticeContent({
     </>
   );
 }
+
+const mapStateToProps = (state) => ({
+  variants: state.variants,
+});
+
+export default connect(mapStateToProps)(PracticeContent);

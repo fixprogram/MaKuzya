@@ -8,9 +8,10 @@ export const LESSON_TYPES = {
   MULTIPLICATION: "multiplication",
   DIVISION: "division",
   FRACTIONS: "fractions",
-  COMPARISON: "comparison",
+  INEQUALITY: "inequality",
   EQUATION: "equation",
   PIFAGOR: "pifagor",
+  DISCRIMINANT: "discriminant",
 };
 
 export const LESSONS_DATA = [
@@ -35,8 +36,8 @@ export const LESSONS_DATA = [
     sign: "+",
   },
   {
-    type: LESSON_TYPES.COMPARISON,
-    sign: [">", "<", "="],
+    type: LESSON_TYPES.INEQUALITY,
+    sign: [">", "<", ">=", "<="],
   },
   {
     type: LESSON_TYPES.EQUATION,
@@ -44,5 +45,8 @@ export const LESSONS_DATA = [
   },
   {
     type: LESSON_TYPES.PIFAGOR,
+  },
+  {
+    type: LESSON_TYPES.DISCRIMINANT,
   },
 ];
