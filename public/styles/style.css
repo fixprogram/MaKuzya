@@ -492,7 +492,8 @@ img {
 }
 
 .app {
-  background: url(../img/bg.jpg);
+  background: url(../img/bg.jpg) no-repeat;
+  background-size: cover;
 }
 
 .header {
@@ -537,6 +538,10 @@ img {
   align-items: center;
   font-weight: 700;
   padding: 0 12px;
+}
+
+.tab_block-inner .rs-icon {
+  margin-right: 5px;
 }
 
 .tab_block__profile img {
@@ -1001,4 +1006,9 @@ img {
   position: absolute;
   bottom: 10px;
   right: 10px;
+}
+
+.panel__signin {
+  background-color: #fff;
+  padding: 20px 0;
 }

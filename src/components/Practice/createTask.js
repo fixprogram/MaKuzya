@@ -1,15 +1,14 @@
-import { createExpression } from "./createExpression";
-import { createEquation } from "./createEquation";
+import { understandType } from "./understandType";
 import { create, all } from "mathjs";
 
 const config = {};
 const math = create(all, config);
 
 export default function createTask(type, level = 2) {
-  const { answer, expression } =
-    type === "equation"
-      ? createEquation(type, level)
-      : createExpression(type, level);
+  let { answer, expression, coordinates, sides } = understandType(type, level);
+
+  if (!answer) answer = sides.shift();
+
   let variants;
 
   const checkInt = (n, d) => {
@@ -93,5 +92,11 @@ export default function createTask(type, level = 2) {
       ];
   }
 
-  return { variants, expression };
+  return {
+    variants,
+    expression,
+    coordinates,
+    sides,
+    topic: coordinates ? "geometria" : "",
+  };
 }

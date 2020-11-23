@@ -79,6 +79,13 @@ const initialState = {
       progress: 0,
       icon: `summation.svg`,
     },
+    {
+      title: `Теорема Пифагора`,
+      id: LESSON_TYPES.PIFAGOR,
+      level: 1,
+      progress: 0,
+      icon: `summation.svg`,
+    },
   ],
 };
 

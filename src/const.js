@@ -10,6 +10,7 @@ export const LESSON_TYPES = {
   FRACTIONS: "fractions",
   COMPARISON: "comparison",
   EQUATION: "equation",
+  PIFAGOR: "pifagor",
 };
 
 export const LESSONS_DATA = [
@@ -40,5 +41,8 @@ export const LESSONS_DATA = [
   {
     type: LESSON_TYPES.EQUATION,
     sign: ["+", "-", "*", "/"],
+  },
+  {
+    type: LESSON_TYPES.PIFAGOR,
   },
 ];

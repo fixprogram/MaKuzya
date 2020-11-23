@@ -41,10 +41,10 @@ const SignIn = () => {
         <Grid className="mt-page">
           <Row>
             <Col xs={24} md={12} mdOffset={6}>
-              <Panel>
+              <Panel className="panel__signin">
                 <div className="text-center">
-                  <h2>Welcome to chat</h2>
-                  <p>Progressive chat platform for neophytes</p>
+                  <h2>MaKuzya</h2>
+                  <p>A new way of studying math</p>
                 </div>
 
                 <div className="mt-3">

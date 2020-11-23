@@ -17,7 +17,7 @@ export default function Practice() {
   const [progress, setProgress] = useState(0);
   const { profile } = useProfile();
 
-  const { variants, expression } = createTask(type);
+  const { variants, expression, coordinates, sides, topic } = createTask(type);
 
   async function checkAnswer(value) {
     if (value) {
@@ -45,9 +45,12 @@ export default function Practice() {
 
       <PracticeContent
         actualTask={expression}
+        coordinates={coordinates}
+        sides={sides}
         checkAnswer={(value) => checkAnswer(value)}
         skipAnswer={() => forceUpdate()}
         variants={shuffleArray(variants)}
+        topic={topic}
       />
     </section>
   );

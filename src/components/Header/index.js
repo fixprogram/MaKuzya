@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Icon } from "rsuite";
 import { useProfile } from "../../context/profile.context";
 
 function Header() {
@@ -11,7 +12,7 @@ function Header() {
         <div className="tab_block">
           <a data-test="home-nav" href="/">
             <span className="tab_block-inner">
-              <img className="tab_icon" src={``} />
+              <Icon icon="mortar-board" size="lg" />
               <span className="tab_title">Learn</span>
             </span>
           </a>
@@ -22,7 +23,7 @@ function Header() {
         <div className="tab_block">
           <a data-test="home-nav" href="/">
             <span className="tab_block-inner">
-              <img className="tab_icon" src={``} />
+              <Icon icon="stack-overflow" size="lg" />
               <span className="tab_title">Exams</span>
             </span>
           </a>
@@ -33,7 +34,7 @@ function Header() {
         <div className="tab_block">
           <a data-test="home-nav" href="/">
             <span className="tab_block-inner">
-              <img className="tab_icon" src={``} />
+              <Icon icon="wechat" size="lg" />{" "}
               <span className="tab_title">Discuss</span>
             </span>
           </a>
@@ -44,13 +45,13 @@ function Header() {
         <div className="tab_block">
           <a data-test="home-nav" href="/">
             <span className="tab_block-inner">
-              <img className="tab_icon" src={``} />
+              <Icon icon="steam" size="lg" />{" "}
               <span className="tab_title">Shop</span>
             </span>
           </a>
         </div>
 
-        <div className="header_spaces"></div>
+        {/* <div className="header_spaces"></div>
 
         <div className="tab_block">
           <a data-test="home-nav" href="/">
@@ -59,7 +60,7 @@ function Header() {
               <span className="tab_title">More</span>
             </span>
           </a>
-        </div>
+        </div> */}
 
         <div className="header_spaces"></div>
 

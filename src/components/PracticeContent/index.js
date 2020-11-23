@@ -10,6 +10,9 @@ export default function PracticeContent({
   checkAnswer,
   skipAnswer,
   variants,
+  topic,
+  coordinates,
+  sides,
 }) {
   const [activeRadio, setActiveRadio] = useState(-1);
 
@@ -18,7 +21,12 @@ export default function PracticeContent({
       <section className="practice_content__wrapper">
         <h1 className="practice_content__title">Выберите правильный ответ</h1>
         <div className="practice_content">
-          <PracticeTitle actualTask={actualTask} />
+          <PracticeTitle
+            actualTask={actualTask}
+            topic={topic}
+            coordinates={coordinates}
+            sides={sides}
+          />
 
           <article className="practice_content__input_wrapper">
             <RadioComponent
