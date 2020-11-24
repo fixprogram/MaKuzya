@@ -18,6 +18,7 @@ const SignIn = () => {
           lingots: 10,
           crowns: 0,
           streak: 0,
+          activeSubject: "Algebra",
         });
       }
 

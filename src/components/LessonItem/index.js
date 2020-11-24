@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 export default function LessonItem(props) {
-  const { level, id, icon, title } = props;
+  const { level = 0, id, icon = "", title } = props;
   return (
     <div className={`lesson lesson-level-${level}`}>
       <Link className="lesson_inner" to={`practice/${id}`}>

@@ -7,6 +7,7 @@ import "../../styles/main.scss";
 import PublicRoute from "../PublicRoute";
 import PrivateRoute from "../PrivateRoute";
 import { ProfileProvider } from "../../context/profile.context";
+import { SubjectProvider } from "../../context/subject.context";
 import SignIn from "../SignIn";
 import Home from "../Home";
 import Practice from "../Practice";
@@ -14,18 +15,20 @@ import Practice from "../Practice";
 export default function App() {
   return (
     <ProfileProvider>
-      <Switch>
-        <PublicRoute path="/signin">
-          <SignIn />
-        </PublicRoute>
-        <PrivateRoute path="/learn">
-          <Home />
-        </PrivateRoute>
-        <PrivateRoute path={`/practice/:type`}>
-          <Practice />
-        </PrivateRoute>
-        <Redirect to="/learn" />
-      </Switch>
+      <SubjectProvider>
+        <Switch>
+          <PublicRoute path="/signin">
+            <SignIn />
+          </PublicRoute>
+          <PrivateRoute path="/learn">
+            <Home />
+          </PrivateRoute>
+          <PrivateRoute path={`/practice/:type`}>
+            <Practice />
+          </PrivateRoute>
+          <Redirect to="/learn" />
+        </Switch>
+      </SubjectProvider>
     </ProfileProvider>
   );
 }

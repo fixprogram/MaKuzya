@@ -21,6 +21,7 @@ export const ProfileProvider = ({ children }) => {
             lingots,
             crowns,
             streak,
+            activeSubject,
           } = snap.val();
 
           const data = {
@@ -30,6 +31,7 @@ export const ProfileProvider = ({ children }) => {
             lingots,
             crowns,
             streak,
+            activeSubject,
             uid: authObj.uid,
             email: authObj.email,
           };

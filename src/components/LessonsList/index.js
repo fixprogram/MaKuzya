@@ -1,21 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { useSubject } from "../../context/subject.context";
 import LessonItem from "../LessonItem";
 
-function LessonsList({ lessons }) {
+function LessonsList({}) {
+  const lessons = useSubject();
   return (
     <section className="main_block">
       <div className="lessons_list">
-        {lessons.map((it, i) => {
+        {lessons.map((it) => {
           return (
-            <div className="lesson_wrapper" key={i}>
-              <LessonItem
-                level={it.level}
-                id={it.id}
-                icon={it.icon}
-                title={it.title}
-              />
+            <div className="lesson_wrapper" key={it.id}>
+              <LessonItem id={it.id} title={it.title} />
             </div>
           );
         })}

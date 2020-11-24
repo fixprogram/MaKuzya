@@ -1,4 +1,5 @@
 import { LESSON_TYPES } from "./const";
+import { setLessons } from "./misc/utils";
 
 const actionCreator = {
   setTask: (payload) => ({
@@ -25,81 +26,70 @@ const actionCreator = {
     type: "SET_SIDES",
     payload,
   }),
+  changeSubject: (payload) => ({
+    type: "CHANGE_SUBJECT",
+    payload,
+  }),
 };
 
 const initialState = {
-  lessons: [
-    {
-      title: `Сложение`,
-      id: LESSON_TYPES.SUMMATION,
-      level: 1,
-      progress: 0,
-      icon: `${LESSON_TYPES.SUMMATION}.svg`,
-    },
-    {
-      title: `Вычитание`,
-      id: LESSON_TYPES.MINUS,
-      level: 2,
-      progress: 0,
-      icon: `${LESSON_TYPES.MINUS}.svg`,
-    },
-    {
-      title: `Умножение`,
-      id: LESSON_TYPES.MULTIPLICATION,
-      level: 4,
-      progress: 0,
-      icon: `${LESSON_TYPES.MULTIPLICATION}.svg`,
-    },
-    {
-      title: `Деление`,
-      id: LESSON_TYPES.DIVISION,
-      level: 3,
-      progress: 0,
-      icon: `${LESSON_TYPES.DIVISION}.svg`,
-    },
-    {
-      title: `Сравнение`,
-      id: LESSON_TYPES.INEQUALITY,
-      level: 2,
-      progress: 0,
-      icon: `${LESSON_TYPES.INEQUALITY}.svg`,
-    },
-    {
-      title: `Сложение Дробей`,
-      id: LESSON_TYPES.FRACTIONS,
-      level: 4,
-      progress: 0,
-      icon: `summation.svg`,
-    },
-    {
-      title: `Уравнения`,
-      id: LESSON_TYPES.EQUATION,
-      level: 2,
-      progress: 0,
-      icon: `summation.svg`,
-    },
-    {
-      title: `Теорема Пифагора`,
-      id: LESSON_TYPES.PIFAGOR,
-      level: 1,
-      progress: 0,
-      icon: `summation.svg`,
-    },
-    {
-      title: `Диcкриминант`,
-      id: LESSON_TYPES.DISCRIMINANT,
-      level: 1,
-      progress: 0,
-      icon: `summation.svg`,
-    },
-  ],
+  // lessons: [
+  //   {
+  //     title: `Summation`,
+  //     type: LESSON_TYPES.SUMMATION,
+  //     subject: "algebra",
+  //   },
+  //   {
+  //     title: `Minus`,
+  //     type: LESSON_TYPES.MINUS,
+  //     subject: "algebra",
+  //   },
+  //   {
+  //     title: `Multiplication`,
+  //     type: LESSON_TYPES.MULTIPLICATION,
+  //     subject: "algebra",
+  //   },
+  //   {
+  //     title: `Division`,
+  //     type: LESSON_TYPES.DIVISION,
+  //     subject: "algebra",
+  //   },
+  //   {
+  //     title: `Inequality`,
+  //     type: LESSON_TYPES.INEQUALITY,
+  //     subject: "algebra",
+  //   },
+  //   {
+  //     title: `Fractions summation`,
+  //     type: LESSON_TYPES.FRACTIONS,
+  //     subject: "algebra",
+  //   },
+  //   {
+  //     title: `Equation`,
+  //     type: LESSON_TYPES.EQUATION,
+  //     subject: "algebra",
+  //   },
+  //   {
+  //     title: `Pifagor`,
+  //     type: LESSON_TYPES.PIFAGOR,
+  //     subject: "geometria",
+  //   },
+  //   {
+  //     title: `Discriminant`,
+  //     type: LESSON_TYPES.DISCRIMINANT,
+  //     subject: "algebra",
+  //   },
+  // ],
   currentTask: null,
   variants: [],
   answer: null,
   topic: "",
   coordinates: [],
   sides: [],
+  subjects: ["Algebra", "Geometria"],
 };
+
+// setLessons(initialState.lessons);
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -115,6 +105,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, coordinates: action.payload };
     case "SET_SIDES":
       return { ...state, sides: action.payload };
+    case "CHANGE_SUBJECT":
+      return { ...state, activeSubject: action.payload };
     default:
       return state;
   }

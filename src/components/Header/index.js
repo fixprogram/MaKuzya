@@ -3,18 +3,28 @@ import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Icon, Dropdown, ButtonToolbar } from "rsuite";
 import { useProfile } from "../../context/profile.context";
+import { actionCreator } from "../../reducer";
 
-const CustomDropdown = ({ ...props }) => (
-  <Dropdown {...props}>
-    <Dropdown.Item icon={<Icon icon="google" size="lg" />}>
-      Geometria
-    </Dropdown.Item>
-    <Dropdown.Item>Add new topic</Dropdown.Item>
-  </Dropdown>
-);
-
-function Header() {
+function Header({ activeSubject, subjects, changeSubject }) {
   const { profile } = useProfile();
+
+  const CustomDropdown = ({ ...props }) => (
+    <Dropdown {...props}>
+      {subjects.map((it, i) => {
+        return (
+          <Dropdown.Item
+            icon={<Icon icon="google" size="lg" />}
+            onSelect={() => changeSubject(it)}
+            key={i}
+          >
+            {it}
+          </Dropdown.Item>
+        );
+      })}
+      <Dropdown.Item>Add new topic</Dropdown.Item>
+    </Dropdown>
+  );
+
   return (
     <header className="header">
       <div className="header_inner">
@@ -66,7 +76,7 @@ function Header() {
           <span className="tab_block-inner">
             <ButtonToolbar>
               <CustomDropdown
-                title="Algebra"
+                title={activeSubject}
                 trigger="hover"
                 icon={<Icon icon="adn" size="lg" />}
               />
@@ -109,6 +119,12 @@ const mapStateToProps = (state) => ({
   crowns: state.crowns,
   streak: state.streak,
   lingots: state.lingots,
+  activeSubject: state.activeSubject,
+  subjects: state.subjects,
 });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = (dispatch) => ({
+  changeSubject: (subject) => dispatch(actionCreator.changeSubject(subject)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
