@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  font-family: "Arial", sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-style: normal;
   font-weight: 300;
   font-size: 16px;
@@ -87,8 +87,9 @@ img {
   align-items: center;
 }
 
-.tab_block,
-.tab_block-inner {
+.tab_block
+// .tab_block-inner
+{
   position: relative;
   height: 100%;
   display: flex;
@@ -131,7 +132,7 @@ img {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: calc(100% - 70px);
+  height: calc(100vh - 140px);
   margin-top: 70px;
   align-items: center;
 }
@@ -161,6 +162,7 @@ img {
 .lesson {
   padding: 16px 12px;
   max-width: 130px;
+  height: 100%;
 }
 
 .lesson_inner {
@@ -170,15 +172,17 @@ img {
   cursor: pointer;
 }
 
-.lesson_symbol {
-  position: relative;
-  height: 106px;
-}
-
-.lesson_symbol-border {
-  transform: rotate(135deg);
-  width: 106px;
-  height: 106px;
+.lesson_inner .rs-progress-circle-info {
+  height: 70%;
+  width: 70%;
+  color: blue;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .lesson_symbol-main {
@@ -589,6 +593,5 @@ img {
 
 .nav_active {
   color: #1cb0f6;
-  height: 100%;
   border-bottom: 3px solid #1cb0f6;
 }

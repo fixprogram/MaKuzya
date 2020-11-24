@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Icon, Dropdown, ButtonToolbar } from "rsuite";
+import { Icon, Dropdown, ButtonToolbar, Alert } from "rsuite";
 import { useProfile } from "../../context/profile.context";
-import { actionCreator } from "../../reducer";
+import { database } from "../../misc/firebase";
 
-function Header({ activeSubject, subjects, changeSubject }) {
+function Header({ subjects }) {
   const { profile } = useProfile();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const changeSubject = async (newActive) => {
+    setIsLoading(true);
+    try {
+      await database.ref(`/profiles/${profile.uid}`).set({
+        ...profile,
+        activeSubject: newActive,
+      });
+      setIsLoading(false);
+    } catch (err) {
+      Alert.error(err.message, 4000);
+      setIsLoading(false);
+    }
+  };
 
   const CustomDropdown = ({ ...props }) => (
-    <Dropdown {...props}>
+    <Dropdown {...props} disabled={isLoading}>
       {subjects.map((it, i) => {
         return (
           <Dropdown.Item
@@ -76,7 +91,7 @@ function Header({ activeSubject, subjects, changeSubject }) {
           <span className="tab_block-inner">
             <ButtonToolbar>
               <CustomDropdown
-                title={activeSubject}
+                title={profile.activeSubject}
                 trigger="hover"
                 icon={<Icon icon="adn" size="lg" />}
               />
@@ -119,12 +134,7 @@ const mapStateToProps = (state) => ({
   crowns: state.crowns,
   streak: state.streak,
   lingots: state.lingots,
-  activeSubject: state.activeSubject,
   subjects: state.subjects,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  changeSubject: (subject) => dispatch(actionCreator.changeSubject(subject)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps)(Header);

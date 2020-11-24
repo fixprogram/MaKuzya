@@ -9,6 +9,7 @@ import { useForceUpdate } from "../../misc/custom-hooks";
 import createTask from "./createTask";
 import { database } from "../../misc/firebase";
 import { useProfile } from "../../context/profile.context";
+import { useSubject } from "../../context/subject.context";
 import { actionCreator } from "../../reducer";
 
 const MAX_TASKS = 10;
@@ -24,6 +25,7 @@ function Practice({
   const forceUpdate = useForceUpdate();
   const [progress, setProgress] = useState(0);
   const { profile } = useProfile();
+  const { lessons } = useSubject();
 
   const { variants, expression, coordinates, sides, topic } = createTask(type);
 
@@ -35,13 +37,21 @@ function Practice({
   setSides(sides);
   setTopic(topic);
 
+  const typeIndex = lessons.map((lesson) => lesson.id).indexOf(type);
+
   async function checkAnswer(value) {
+    console.log("TOPI_INDEX: ", typeIndex);
     if (value) {
       if (progress + 20 >= MAX_TASKS * 10) {
         // Finishing. Report
         setProgress(progress + 20);
         await database.ref(`/profiles/${profile.uid}`).set({
           ...profile,
+          algebraProgress: [
+            ...profile.algebraProgress.slice(0, typeIndex),
+            profile.algebraProgress[typeIndex] + 10,
+            ...profile.algebraProgress.slice(typeIndex + 1),
+          ],
           lingots: profile.lingots + 2,
         });
         setTimeout(() => window.location.replace("/"), 1500);

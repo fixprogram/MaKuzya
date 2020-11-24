@@ -1,5 +1,3 @@
-import { database } from "../misc/firebase";
-
 const createRandomInteger = (min = 1, max = 9, level = 1) => {
   return Math.floor(
     min * level + Math.random() * (max * level + 1 - min * level)

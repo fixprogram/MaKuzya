@@ -1,13 +1,13 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-export default function LessonItem(props) {
-  const { level = 0, id, icon = "", title } = props;
+import DynamicProgress from "../DynamicProgress";
+
+export default function LessonItem({ level = 0, id, title, progress }) {
   return (
     <div className={`lesson lesson-level-${level}`}>
       <Link className="lesson_inner" to={`practice/${id}`}>
-        <div className="lesson_symbol">
+        {/* <div className="lesson_symbol">
           <svg className="lesson_symbol-border">
             <defs>
               <clipPath id="clip-session/ProgressRing181">
@@ -32,17 +32,12 @@ export default function LessonItem(props) {
               ></path>
             </g>
           </svg>
-          <div className="lesson_symbol-main">
-            <img
-              className="lesson_symbol-main__icon"
-              src={`./img/lessons-icons/${icon}`}
-            />
-          </div>
-          <div className="lesson_symbol-crowns">
+          <div className="lesson_symbol-main"></div>
+          {/* <div className="lesson_symbol-crowns">
             <img className="lesson_symbol-crowns__icon" src="./img/crown.svg" />
             <span className="lesson_symbol-crowns__title">{level}</span>
-          </div>
-        </div>
+  </div> */}
+        <DynamicProgress progress={progress} />
         <span className="lesson_title">{title}</span>
       </Link>
     </div>

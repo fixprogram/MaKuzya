@@ -2,20 +2,35 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { useSubject } from "../../context/subject.context";
+import { Loader } from "rsuite";
+
 import LessonItem from "../LessonItem";
+import { useProfile } from "../../context/profile.context";
 
 function LessonsList({}) {
-  const lessons = useSubject();
+  const { isLoading, lessons } = useSubject();
+  const { profile } = useProfile();
+  console.log(profile);
+  const progress = profile.algebraProgress;
+  console.log(progress);
   return (
     <section className="main_block">
       <div className="lessons_list">
-        {lessons.map((it) => {
-          return (
-            <div className="lesson_wrapper" key={it.id}>
-              <LessonItem id={it.id} title={it.title} />
-            </div>
-          );
-        })}
+        {isLoading ? (
+          <Loader center content="loading" />
+        ) : (
+          lessons.map((it, i) => {
+            return (
+              <div className="lesson_wrapper" key={it.id}>
+                <LessonItem
+                  id={it.id}
+                  title={it.title}
+                  progress={progress[i] || 0}
+                />
+              </div>
+            );
+          })
+        )}
 
         <div className="practice_link__wrapper">
           <Link

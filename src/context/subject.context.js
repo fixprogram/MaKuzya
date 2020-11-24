@@ -2,25 +2,25 @@ import React, { createContext, useEffect, useState, useContext } from "react";
 import { database } from "../misc/firebase";
 import { transformToArrayWithId } from "../misc/utils";
 import { useProfile } from "./profile.context";
+import { Loader } from "rsuite";
 
 const SubjectContext = createContext();
 
 export const SubjectProvider = ({ children }) => {
   const [lessons, setLessons] = useState([]);
-  const { isLoading, profile } = useProfile();
+  const [isLoading, setIsLoading] = useState(true);
+  const { profile } = useProfile();
 
   useEffect(() => {
     if (profile) {
-      console.log("PROFILE: ", profile);
       const lessonsList = database.ref(
-        // `/subjects/${profile.activeSubject.toLowerCase()}`
-        `/subjects/algebra}`
+        `/subjects/${profile.activeSubject.toLowerCase()}`
       );
 
       lessonsList.on("value", (snap) => {
         const data = transformToArrayWithId(snap.val());
-        console.log("DATA: ", snap);
         setLessons(data);
+        setIsLoading(false);
       });
 
       return () => {
@@ -28,10 +28,11 @@ export const SubjectProvider = ({ children }) => {
       };
     }
   }, [profile]);
-  if (isLoading) return <div>isLoading</div>;
+
+  if (isLoading) return <Loader center content="loading" />;
 
   return (
-    <SubjectContext.Provider value={lessons}>
+    <SubjectContext.Provider value={{ isLoading, lessons }}>
       {children}
     </SubjectContext.Provider>
   );

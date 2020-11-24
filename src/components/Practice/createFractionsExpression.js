@@ -4,8 +4,8 @@ import { create, all } from "mathjs";
 const config = {};
 const math = create(all, config);
 
-function createFractionsExpression(sign, elems) {
-  const nums = createRandomArray(elems).sort((a, b) => a - b);
+function createFractionsExpression(sign, elems = 2) {
+  const nums = createRandomArray(elems * 2).sort((a, b) => a - b);
   let fractions = [];
   let fractionsDivides = [];
   for (let i = 0; i < nums.length / 2; i++) {
