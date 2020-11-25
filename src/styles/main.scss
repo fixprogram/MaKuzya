@@ -434,13 +434,6 @@ a:focus {
   justify-content: space-between;
 }
 
-.practice_content__input_wrapper fieldset {
-  border: none;
-  min-width: 120px;
-  padding: 0;
-  margin: 0;
-}
-
 .practice_content__textarea {
   background: #f7f7f7;
   border: 2px solid #e5e5e5;
@@ -460,6 +453,7 @@ a:focus {
   grid-column: 1;
   grid-row: 3;
   position: relative;
+  border-top: 2px solid #e5e5e5;
 }
 
 .practice_buttons {
@@ -546,7 +540,7 @@ a:focus {
   margin-top: 18px;
 }
 
-.practice_radio-label {
+.practice_radio {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -556,20 +550,24 @@ a:focus {
   color: #4b4b4b;
   border: 2px solid #e5e5e5;
   cursor: pointer;
-  width: 100%;
+  width: 120px;
   height: 100%;
   border-radius: 10px;
   background-color: #fff;
   position: relative;
 }
 
-.practice_radio-label_checked {
+.practice_radio label {
+  cursor: pointer;
+}
+
+.practice_radio_checked {
   background-color: #ddf4ff;
   border-color: #1cb0f6;
   color: #1cb0f6;
 }
 
-.practice_radio-label_checked .radio__number {
+.practice_radio_checked .radio__number {
   background-color: #ddf4ff;
   border-color: #1cb0f6;
   color: #1cb0f6;

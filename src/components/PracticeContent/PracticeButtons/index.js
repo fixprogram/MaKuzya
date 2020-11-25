@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const PracticeButtons = ({
   checkAnswer,
@@ -6,13 +6,22 @@ const PracticeButtons = ({
   isNextDisabled,
   answer,
   setActiveRadio,
+  disabled,
 }) => {
+  console.log("DISABLED: ", disabled);
   return (
     <section className="practice_buttons_wrapper">
       <div className="practice_buttons">
         <article className="practice_buttons_inner">
-          <button className="practice_button" onClick={skipAnswer}>
-            Пропустить
+          <button
+            className="practice_button"
+            onClick={() => {
+              skipAnswer();
+              setActiveRadio(-1);
+            }}
+            disabled={disabled}
+          >
+            Skip
           </button>
 
           <button
@@ -20,11 +29,12 @@ const PracticeButtons = ({
               isNextDisabled ? "disabled" : "enabled"
             }`}
             onClick={() => {
-              checkAnswer(answer);
+              checkAnswer();
               setActiveRadio(-1);
             }}
+            disabled={disabled || isNextDisabled}
           >
-            Продолжить
+            Continue
           </button>
         </article>
       </div>

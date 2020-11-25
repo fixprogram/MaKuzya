@@ -11,7 +11,7 @@ const PracticeTitle = ({ currentTask, topic }) => {
       ) : (
         <>
           <div className="practice_content__teacher">
-            <img src="../img/teacher.svg" alt="" />
+            <img src="../img/cat-icons/thinking.svg" alt="MaKuzya" />
           </div>
           <div className="practice_content__task">
             <span className="practice_content__inner">

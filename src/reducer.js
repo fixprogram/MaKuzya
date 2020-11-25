@@ -52,6 +52,7 @@ const initialState = {
   coordinates: [],
   sides: [],
   subjects: ["Algebra", "Geometria"],
+  animationCount: 0,
 };
 
 // setLessons(initialState.lessons);
@@ -61,6 +62,7 @@ const reducer = (state = initialState, action) => {
     case "SET_TASK":
       return { ...state, currentTask: action.payload };
     case "SET_VARIANTS":
+      console.log("VARIANTS SETTING: ", action.payload);
       return { ...state, variants: action.payload };
     case "SET_ANSWER":
       return { ...state, answer: action.payload };
@@ -70,6 +72,17 @@ const reducer = (state = initialState, action) => {
       return { ...state, sides: action.payload };
     case "CHANGE_SUBJECT":
       return { ...state, activeSubject: action.payload };
+    case "INCREASE_ANIMATION_COUNT":
+      return {
+        ...state,
+        animationCount: state.animationCount + action.payload,
+      };
+    case "RESET_ANIMATION_COUNT": {
+      return {
+        ...state,
+        animationCount: 0,
+      };
+    }
     default:
       return state;
   }

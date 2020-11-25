@@ -37,25 +37,23 @@ export default function RadioComponent({
 
   return variants.map((it, i) => {
     return (
-      <fieldset key={i}>
-        <label
-          htmlFor={i}
-          className={`practice_radio-label ${
-            activeRadio === i ? "practice_radio-label_checked" : ""
-          } `}
-        >
-          <input
-            type="radio"
-            className="visually-hidden"
-            id={i}
-            onClick={() => {
-              setActiveRadio(i);
-            }}
-          />
+      <fieldset
+        key={i}
+        className={`practice_radio ${
+          activeRadio === i ? "practice_radio_checked" : ""
+        } `}
+        onClick={() => {
+          setActiveRadio(i);
+        }}
+      >
+        <label htmlFor={i}>
+          {/* <div className="practice_radio-label_inner"> */}
+          <input type="radio" className="visually-hidden" id={i} />
           <MathJax.Provider>
-            <MathJax.Node formula={it.tex} />
+            <MathJax.Node formula={it} />
           </MathJax.Provider>
           <span className="radio__number">{i + 1}</span>
+          {/* </div> */}
         </label>
       </fieldset>
     );

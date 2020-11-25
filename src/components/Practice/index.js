@@ -14,7 +14,14 @@ import { actionCreator } from "../../actions";
 
 const MAX_TASKS = 10;
 
-function Practice({ setVariants, setTask, setSides, setCoordinates }) {
+function Practice({
+  answer,
+  setVariants,
+  setTask,
+  setSides,
+  setCoordinates,
+  resetAnimationCount,
+}) {
   const { type } = useParams();
   const forceUpdate = useForceUpdate();
   const [typeProgress, setTypeProgress] = useState(0);
@@ -33,7 +40,7 @@ function Practice({ setVariants, setTask, setSides, setCoordinates }) {
   const typeIndex = lessons.map((lesson) => lesson.id).indexOf(type);
 
   async function checkAnswer(value) {
-    if (value) {
+    if (value == answer) {
       if (typeProgress + 20 >= MAX_TASKS * 10) {
         // Finishing. Report
         setTypeProgress(typeProgress + 20);
@@ -67,7 +74,11 @@ function Practice({ setVariants, setTask, setSides, setCoordinates }) {
   return (
     <section className="practice_block">
       <ProgressBar progress={typeProgress}>
-        <Link className="progress_close" to="/"></Link>
+        <Link
+          className="progress_close"
+          to="/"
+          onClick={resetAnimationCount}
+        ></Link>
       </ProgressBar>
 
       <PracticeContent
@@ -78,11 +89,16 @@ function Practice({ setVariants, setTask, setSides, setCoordinates }) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  answer: state.answer,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   setVariants: (payload) => dispatch(actionCreator.setVariants(payload)),
   setTask: (payload) => dispatch(actionCreator.setTask(payload)),
   setCoordinates: (payload) => dispatch(actionCreator.setCoordinates(payload)),
   setSides: (payload) => dispatch(actionCreator.setSides(payload)),
+  resetAnimationCount: () => dispatch(actionCreator.resetAnimationCount()),
 });
 
-export default connect(null, mapDispatchToProps)(Practice);
+export default connect(mapStateToProps, mapDispatchToProps)(Practice);

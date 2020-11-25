@@ -35,6 +35,18 @@ const signViceVerca = (sign) => {
   }
 };
 
+const checkInt = (n, d) => {
+  n = Math.round(n);
+  d = Math.round(d);
+  if (Math.trunc(n / d)) {
+    return ((n / d) ^ 0) === n / d
+      ? Math.trunc(n / d)
+      : `${Math.trunc(n / d)}\\frac{${n - d}}{${d}}`;
+  } else {
+    return `\\frac{${n}}{${d}}`;
+  }
+};
+
 function transformToArrayWithId(snapVal) {
   return snapVal
     ? Object.keys(snapVal).map((roomId) => {
@@ -57,5 +69,6 @@ export {
   createRandomInteger,
   signViceVerca,
   transformToArrayWithId,
+  checkInt,
   // setLessons,
 };
