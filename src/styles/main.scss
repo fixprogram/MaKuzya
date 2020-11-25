@@ -26,6 +26,12 @@ img {
   height: auto;
 }
 
+a:hover,
+a:focus {
+  text-decoration: none;
+  color: inherit;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -49,8 +55,8 @@ img {
 }
 
 .app {
-  background: url(../img/bg.jpg) no-repeat;
-  background-size: cover;
+  // background: url(../img/bg.jpg) no-repeat;
+  // background-size: cover;
 }
 
 .header {
@@ -60,7 +66,7 @@ img {
   top: 0;
   height: 70px;
   background-color: #fff;
-  // border-bottom: 2px solid #e5e5e5;
+  border-bottom: 2px solid #e5e5e5;
   color: #afafaf;
   font-size: 17px;
   z-index: 10;
@@ -79,7 +85,7 @@ img {
 
 .footer {
   height: 70px;
-  background-color: rgba(17, 17, 17, 0.9);
+  background-color: rgba(60, 60, 60, 1);
 }
 
 .footer_inner {
@@ -223,7 +229,7 @@ img {
 }
 
 .lesson_title {
-  color: #fff;
+  color: #3c3c3c;
   text-transform: uppercase;
   font-weight: 700;
   margin-top: 8px;
@@ -517,7 +523,7 @@ img {
   margin-left: 0;
   margin-right: auto;
   position: absolute;
-  left: 10px;
+  right: 10px;
   bottom: 40px;
 }
 
@@ -591,7 +597,21 @@ img {
   padding: 20px 0;
 }
 
-.nav_active {
-  color: #1cb0f6;
-  border-bottom: 3px solid #1cb0f6;
+.nav_active .tab_title {
+  color: #3c3c3c;
+}
+
+.everyday-progress {
+  display: flex;
+  align-items: center;
+  min-width: 300px;
+}
+
+.everyday-progress .rs-progress-line-inner,
+.everyday-progress .rs-progress-line-bg {
+  height: 15px;
+}
+
+.everyday-progress .rs-progress-info {
+  color: #fff;
 }

@@ -55,7 +55,7 @@ function Header({ subjects }) {
         <div className="header_spaces"></div>
 
         <div className="tab_block">
-          <NavLink to="/exams">
+          <NavLink to="/exams" activeClassName="nav_active">
             <span className="tab_block-inner">
               <Icon icon="stack-overflow" size="lg" />
               <span className="tab_title">Exams</span>
@@ -66,7 +66,7 @@ function Header({ subjects }) {
         <div className="header_spaces"></div>
 
         <div className="tab_block">
-          <NavLink to="/discuss">
+          <NavLink to="/discuss" activeClassName="nav_active">
             <span className="tab_block-inner">
               <Icon icon="wechat" size="lg" />{" "}
               <span className="tab_title">Discuss</span>
@@ -77,7 +77,7 @@ function Header({ subjects }) {
         <div className="header_spaces"></div>
 
         <div className="tab_block">
-          <NavLink to="/shop">
+          <NavLink to="/shop" activeClassName="nav_active">
             <span className="tab_block-inner">
               <Icon icon="steam" size="lg" />{" "}
               <span className="tab_title">Shop</span>
@@ -109,7 +109,12 @@ function Header({ subjects }) {
         </div>
         <div className="tab_block">
           <span className="tab_block-inner">
-            <img className="tab_icon" src="./img/streak.svg" />
+            <img
+              className="tab_icon"
+              src={`./img/streak${
+                profile.everydayProgress > 0 ? "-active" : ""
+              }.svg`}
+            />
             <span className="">{profile.streak}</span>
           </span>
         </div>

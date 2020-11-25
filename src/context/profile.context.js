@@ -22,7 +22,8 @@ export const ProfileProvider = ({ children }) => {
             crowns,
             streak,
             activeSubject,
-            algebraProgress,
+            progress,
+            everydayProgress,
           } = snap.val();
 
           const data = {
@@ -35,7 +36,8 @@ export const ProfileProvider = ({ children }) => {
             activeSubject,
             uid: authObj.uid,
             email: authObj.email,
-            algebraProgress,
+            progress,
+            everydayProgress,
           };
 
           setProfile(data);

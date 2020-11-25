@@ -1,37 +1,3 @@
-import { LESSON_TYPES } from "./const";
-import { setLessons } from "./misc/utils";
-
-const actionCreator = {
-  setTask: (payload) => ({
-    type: "SET_TASK",
-    payload,
-  }),
-  setVariants: (payload) => ({
-    type: "SET_VARIANTS",
-    payload,
-  }),
-  setAnswer: (payload) => ({
-    type: "SET_ANSWER",
-    payload,
-  }),
-  setTopic: (payload) => ({
-    type: "SET_TOPIC",
-    payload,
-  }),
-  setCoordinates: (payload) => ({
-    type: "SET_COORDINATES",
-    payload,
-  }),
-  setSides: (payload) => ({
-    type: "SET_SIDES",
-    payload,
-  }),
-  changeSubject: (payload) => ({
-    type: "CHANGE_SUBJECT",
-    payload,
-  }),
-};
-
 const initialState = {
   // lessons: [
   //   {
@@ -83,7 +49,6 @@ const initialState = {
   currentTask: null,
   variants: [],
   answer: null,
-  topic: "",
   coordinates: [],
   sides: [],
   subjects: ["Algebra", "Geometria"],
@@ -99,8 +64,6 @@ const reducer = (state = initialState, action) => {
       return { ...state, variants: action.payload };
     case "SET_ANSWER":
       return { ...state, answer: action.payload };
-    case "SET_TOPIC":
-      return { ...state, topic: action.payload };
     case "SET_COORDINATES":
       return { ...state, coordinates: action.payload };
     case "SET_SIDES":
@@ -112,4 +75,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export { actionCreator, reducer };
+export { reducer };

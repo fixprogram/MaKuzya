@@ -97,6 +97,5 @@ export default function createTask(type, level = 2) {
     expression,
     coordinates,
     sides,
-    topic: coordinates ? "geometria" : "",
   };
 }

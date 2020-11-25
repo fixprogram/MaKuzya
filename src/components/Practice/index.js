@@ -10,62 +10,63 @@ import createTask from "./createTask";
 import { database } from "../../misc/firebase";
 import { useProfile } from "../../context/profile.context";
 import { useSubject } from "../../context/subject.context";
-import { actionCreator } from "../../reducer";
+import { actionCreator } from "../../actions";
 
 const MAX_TASKS = 10;
 
-function Practice({
-  setVariants,
-  setTask,
-  setSides,
-  setCoordinates,
-  setTopic,
-}) {
+function Practice({ setVariants, setTask, setSides, setCoordinates }) {
   const { type } = useParams();
   const forceUpdate = useForceUpdate();
-  const [progress, setProgress] = useState(0);
+  const [typeProgress, setTypeProgress] = useState(0);
   const { profile } = useProfile();
   const { lessons } = useSubject();
 
-  const { variants, expression, coordinates, sides, topic } = createTask(type);
-
-  console.log("OORDINATES: ", coordinates);
+  const { variants, expression, coordinates, sides } = createTask(type);
 
   setVariants(shuffleArray(variants));
   setTask(expression);
   setCoordinates(coordinates);
   setSides(sides);
-  setTopic(topic);
 
+  const { uid, activeSubject, lingots, everydayProgress } = profile;
+  const progress = profile.progress[`${activeSubject.toLowerCase()}`][0];
   const typeIndex = lessons.map((lesson) => lesson.id).indexOf(type);
 
   async function checkAnswer(value) {
-    console.log("TOPI_INDEX: ", typeIndex);
     if (value) {
-      if (progress + 20 >= MAX_TASKS * 10) {
+      if (typeProgress + 20 >= MAX_TASKS * 10) {
         // Finishing. Report
-        setProgress(progress + 20);
-        await database.ref(`/profiles/${profile.uid}`).set({
-          ...profile,
-          algebraProgress: [
-            ...profile.algebraProgress.slice(0, typeIndex),
-            profile.algebraProgress[typeIndex] + 10,
-            ...profile.algebraProgress.slice(typeIndex + 1),
+        setTypeProgress(typeProgress + 20);
+        const newItem = progress[typeIndex] + 10;
+
+        const databaseProgress = database.ref(
+          `/profiles/${uid}/progress/${activeSubject.toLowerCase()}`
+        );
+        const databaseProfile = database.ref(`/profiles/${uid}`);
+
+        await databaseProgress.update({
+          0: [
+            ...progress.slice(0, typeIndex),
+            newItem,
+            ...progress.slice(typeIndex + 1),
           ],
-          lingots: profile.lingots + 2,
+        });
+        await databaseProfile.update({
+          everydayProgress: everydayProgress + 10,
+          lingots: lingots + 2,
         });
         setTimeout(() => window.location.replace("/"), 1500);
       } else {
-        setProgress(progress + 20);
+        setTypeProgress(typeProgress + 20);
       }
     } else {
-      setProgress(progress - 10);
+      setTypeProgress(typeProgress - 10);
     }
   }
 
   return (
     <section className="practice_block">
-      <ProgressBar progress={progress}>
+      <ProgressBar progress={typeProgress}>
         <Link className="progress_close" to="/"></Link>
       </ProgressBar>
 
@@ -82,7 +83,6 @@ const mapDispatchToProps = (dispatch) => ({
   setTask: (payload) => dispatch(actionCreator.setTask(payload)),
   setCoordinates: (payload) => dispatch(actionCreator.setCoordinates(payload)),
   setSides: (payload) => dispatch(actionCreator.setSides(payload)),
-  setTopic: (payload) => dispatch(actionCreator.setTopic(payload)),
 });
 
 export default connect(null, mapDispatchToProps)(Practice);

@@ -1,11 +1,11 @@
 import React from "react";
+import EverydayProgress from "../EverydayProgress/EverydayProgress";
 
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer_inner">
-        <strong>MaKuzya</strong>
-        <p>Copyright 2020</p>
+        <EverydayProgress />
       </div>
     </footer>
   );

@@ -19,8 +19,10 @@ const SignIn = () => {
           avatar: user.photoURL,
           lingots: 10,
           crowns: 0,
-          streak: 0,
+          streak: 1,
           activeSubject: "Algebra",
+          everydayProgress: 0,
+          progress: {},
         });
       }
 
