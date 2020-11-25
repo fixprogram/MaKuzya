@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ProgressBar({ progress, children }) {
+export default function ProgressBar({ progress = 0, children }) {
   return (
     <section className="progress_wrapper">
       <div className="progress_bar">

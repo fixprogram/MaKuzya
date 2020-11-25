@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { Animation } from "rsuite";
 import { actionCreator } from "../../actions";
 
-const { Slide } = Animation;
+const { Slide, Transition } = Animation;
 
 function PracticeContent({
   checkAnswer,
@@ -16,19 +16,25 @@ function PracticeContent({
   variants,
   animationCount,
   increaseAnimationCount,
+  practicePopupMessage,
 }) {
   const [activeRadio, setActiveRadio] = useState(-1);
+  // const [value, setValue] = useState(null)
   const [placement, setPlacement] = useState("right");
   const [show, setShow] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     if (animationCount > 0) {
       setTimeout(() => {
+        setShowPopup(!showPopup);
+      }, 500);
+      setTimeout(() => {
         setPlacement("right");
         setShow(!show);
         setDisabled(false);
-      }, 500);
+      }, 750);
     }
     increaseAnimationCount();
   }, [skipAnswer, checkAnswer]);
@@ -48,17 +54,30 @@ function PracticeContent({
                   if (activeRadio !== -1 && variants) {
                     setPlacement("left");
                     setShow(!show);
-                    checkAnswer(variants[activeRadio].isAnswerRight);
+                    setShowPopup(!showPopup);
+                    checkAnswer(variants[activeRadio]);
                     setActiveRadio(-1);
                   }
                 }}
                 variants={variants}
+                // setValue={setValue}
                 activeRadio={activeRadio}
                 setActiveRadio={(i) => setActiveRadio(i)}
               />
             </article>
           </div>
         </Slide>
+        <Transition
+          in={showPopup}
+          exitedClassName="custom-exited"
+          exitingClassName="custom-exiting"
+          enteredClassName="custom-entered"
+          enteringClassName="custom-entering"
+        >
+          <div className="practice_content">
+            <h3>{practicePopupMessage}</h3>
+          </div>
+        </Transition>
       </section>
 
       <PracticeButtons
@@ -66,13 +85,15 @@ function PracticeContent({
           setPlacement("left");
           setShow(!show);
           setDisabled(animationCount !== 0 && true);
-          checkAnswer();
+          setShowPopup(!showPopup);
+          checkAnswer(variants[activeRadio]);
         }}
         setActiveRadio={(i) => setActiveRadio(i)}
         skipAnswer={() => {
           setPlacement("left");
-          setShow(!show);
           setDisabled(animationCount !== 0 && true);
+          setShow(!show);
+          setShowPopup(!showPopup);
 
           skipAnswer();
         }}
@@ -87,6 +108,7 @@ function PracticeContent({
 const mapStateToProps = (state) => ({
   variants: state.variants,
   animationCount: state.animationCount,
+  practicePopupMessage: state.practicePopupMessage,
 });
 
 const mapDispatchToProps = (dispatch) => ({

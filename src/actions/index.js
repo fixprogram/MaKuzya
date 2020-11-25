@@ -30,4 +30,8 @@ export const actionCreator = {
   resetAnimationCount: () => ({
     type: "RESET_ANIMATION_COUNT",
   }),
+  setPracticePopupMessage: (payload) => ({
+    type: "SET_PRACTICE_POPUP_MESSAGE",
+    payload,
+  }),
 };

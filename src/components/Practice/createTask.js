@@ -13,6 +13,7 @@ export default function createTask(type, level = 2) {
   const variants = createVariants(type, answer);
 
   return {
+    answer,
     variants,
     expression,
     coordinates,

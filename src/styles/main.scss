@@ -355,6 +355,7 @@ a:focus {
   width: 600px;
   display: grid;
   grid-gap: 8px;
+  z-index: 10;
 }
 
 .practice_content__title {
@@ -505,7 +506,7 @@ a:focus {
 }
 
 .practice_button.enabled {
-  background: #6eb7e0;
+  background: #4caf50;
   color: #fff;
   border: none;
 }

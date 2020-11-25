@@ -4,7 +4,6 @@ const PracticeButtons = ({
   checkAnswer,
   skipAnswer,
   isNextDisabled,
-  answer,
   setActiveRadio,
   disabled,
 }) => {

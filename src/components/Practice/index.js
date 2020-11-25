@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 
-import ProgressBar from "../ProgressBar";
-import PracticeContent from "../PracticeContent";
 import { shuffleArray } from "../../misc/utils";
 import { useForceUpdate } from "../../misc/custom-hooks";
 import createTask from "./createTask";
@@ -11,15 +9,21 @@ import { database } from "../../misc/firebase";
 import { useProfile } from "../../context/profile.context";
 import { useSubject } from "../../context/subject.context";
 import { actionCreator } from "../../actions";
+import PracticePage from "../../pages/practice-page";
+import ResultsPage from "../../pages/results-page";
+import { Animation } from "rsuite";
+
+const { Slide } = Animation;
 
 const MAX_TASKS = 10;
 
 function Practice({
-  answer,
   setVariants,
   setTask,
+  setAnswer,
   setSides,
   setCoordinates,
+  setPracticePopupMessage,
   resetAnimationCount,
 }) {
   const { type } = useParams();
@@ -28,8 +32,9 @@ function Practice({
   const { profile } = useProfile();
   const { lessons } = useSubject();
 
-  const { variants, expression, coordinates, sides } = createTask(type);
+  const { answer, variants, expression, coordinates, sides } = createTask(type);
 
+  setAnswer(answer);
   setVariants(shuffleArray(variants));
   setTask(expression);
   setCoordinates(coordinates);
@@ -58,47 +63,58 @@ function Practice({
             ...progress.slice(typeIndex + 1),
           ],
         });
-        await databaseProfile.update({
-          everydayProgress: everydayProgress + 10,
-          lingots: lingots + 2,
-        });
-        setTimeout(() => window.location.replace("/"), 1500);
+        if (everydayProgress < 100) {
+          await databaseProfile.update({
+            everydayProgress: everydayProgress + 10,
+            lingots: lingots + 2,
+          });
+        } else {
+          await databaseProfile.update({
+            lingots: lingots + 2,
+          });
+        }
+        // setTimeout(() => window.location.replace("/"), 1500);
       } else {
         setTypeProgress(typeProgress + 20);
+        setPracticePopupMessage("Success");
       }
     } else {
-      setTypeProgress(typeProgress - 10);
+      setPracticePopupMessage("Fail");
+      if (typeProgress >= 10) {
+        setTypeProgress(typeProgress - 10);
+      } else {
+        forceUpdate();
+      }
     }
   }
 
-  return (
-    <section className="practice_block">
-      <ProgressBar progress={typeProgress}>
-        <Link
-          className="progress_close"
-          to="/"
-          onClick={resetAnimationCount}
-        ></Link>
-      </ProgressBar>
-
-      <PracticeContent
-        checkAnswer={(value) => checkAnswer(value)}
-        skipAnswer={() => forceUpdate()}
-      />
-    </section>
+  return typeProgress === 100 ? (
+    <Slide in={true} placement="right">
+      <ResultsPage />
+    </Slide>
+  ) : (
+    <PracticePage
+      progress={typeProgress}
+      resetAnimationCount={resetAnimationCount}
+      skipAnswer={() => forceUpdate()}
+      checkAnswer={checkAnswer}
+    />
   );
 }
 
-const mapStateToProps = (state) => ({
-  answer: state.answer,
-});
+// const mapStateToProps = (state) => ({
+//   answer: state.answer,
+// });
 
 const mapDispatchToProps = (dispatch) => ({
   setVariants: (payload) => dispatch(actionCreator.setVariants(payload)),
   setTask: (payload) => dispatch(actionCreator.setTask(payload)),
+  setAnswer: (payload) => dispatch(actionCreator.setAnswer(payload)),
   setCoordinates: (payload) => dispatch(actionCreator.setCoordinates(payload)),
   setSides: (payload) => dispatch(actionCreator.setSides(payload)),
+  setPracticePopupMessage: (payload) =>
+    dispatch(actionCreator.setPracticePopupMessage(payload)),
   resetAnimationCount: () => dispatch(actionCreator.resetAnimationCount()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Practice);
+export default connect(null, mapDispatchToProps)(Practice);

@@ -53,6 +53,7 @@ const initialState = {
   sides: [],
   subjects: ["Algebra", "Geometria"],
   animationCount: 0,
+  practicePopupMessage: "Success!",
 };
 
 // setLessons(initialState.lessons);
@@ -81,6 +82,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         animationCount: 0,
+      };
+    }
+    case "SET_PRACTICE_POPUP_MESSAGE": {
+      return {
+        ...state,
+        practicePopupMessage: action.payload,
       };
     }
     default:
