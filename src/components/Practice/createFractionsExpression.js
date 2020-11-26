@@ -1,6 +1,5 @@
 import { createRandomArray } from "../../misc/utils";
 import { create, all } from "mathjs";
-import { roundTo } from "../../misc/utils";
 
 const config = {};
 const math = create(all, config);

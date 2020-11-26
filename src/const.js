@@ -9,10 +9,12 @@ export const LESSON_TYPES = {
   DIVISION: "division",
   FRACTIONS_SUMMATION: "fractions-summation",
   FRACTIONS_DIVISION: "fractions-division",
+  FRACTIONS_MULTIPLICATION: "fractions-multiplication",
+  FRACTIONS_MINUS: "fractions-minus",
   INEQUALITY: "inequality",
   EQUATION: "equation",
+  QUADRATIC_EQUATION: "quadratic-equation",
   PIFAGOR: "pifagor",
-  DISCRIMINANT: "discriminant",
   CHARTS: "charts",
 };
 
@@ -42,6 +44,14 @@ export const LESSONS_DATA = [
     sign: "/",
   },
   {
+    type: LESSON_TYPES.FRACTIONS_MINUS,
+    sign: "-",
+  },
+  {
+    type: LESSON_TYPES.FRACTIONS_MULTIPLICATION,
+    sign: "*",
+  },
+  {
     type: LESSON_TYPES.INEQUALITY,
     sign: [">", "<", ">=", "<="],
   },
@@ -53,7 +63,8 @@ export const LESSONS_DATA = [
     type: LESSON_TYPES.PIFAGOR,
   },
   {
-    type: LESSON_TYPES.DISCRIMINANT,
+    type: LESSON_TYPES.QUADRATIC_EQUATION,
+    sign: ["+", "-"],
   },
   {
     type: LESSON_TYPES.CHARTS,

@@ -35,34 +35,33 @@ const signViceVerca = (sign) => {
   }
 };
 
-const checkInt = (n, d) => {
+const checkInt = (n, d, minus) => {
   n = Math.round(n);
   d = Math.round(d);
   if (Math.trunc(n / d)) {
     return ((n / d) ^ 0) === n / d
       ? Math.trunc(n / d)
       : `${Math.trunc(n / d)}\\frac{${n - d}}{${d}}`;
-  } else {
-    return `\\frac{${n}}{${d}}`;
   }
+  return `${minus ? "-" : ""}\\frac{${n}}{${d}}`;
 };
 
-const roundTo = (n, digits) => {
-  const negative = false;
+const roundTo = (number, digits) => {
+  let negative = false;
   if (digits === undefined) {
     digits = 0;
   }
-  if (n < 0) {
+  if (number < 0) {
     negative = true;
-    n = n * -1;
+    number = number * -1;
   }
   const multiplicator = Math.pow(10, digits);
-  n = parseFloat((n * multiplicator).toFixed(11));
-  n = (Math.round(n) / multiplicator).toFixed(digits);
+  number = parseFloat((number * multiplicator).toFixed(11));
+  number = (Math.round(number) / multiplicator).toFixed(digits);
   if (negative) {
-    n = (n * -1).toFixed(digits);
+    number = (number * -1).toFixed(digits);
   }
-  return n;
+  return number;
 };
 
 const fracToNum = (frac) => {
@@ -71,7 +70,11 @@ const fracToNum = (frac) => {
   if (arr === null) return frac;
   const num = arr[1].split("}{");
   const int = frac.split("\\")[0];
-  if (int) return (parseFloat(num[0]) + num[1] * int) / num[1];
+  if (typeof int === "string") {
+    return int + parseFloat(num[0]) / num[1];
+  } else if (int) {
+    return (parseFloat(num[0]) + num[1] * int) / num[1];
+  }
   return roundTo(num[0] / num[1], 2);
 };
 

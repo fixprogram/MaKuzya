@@ -1,8 +1,4 @@
-import {
-  createRandomArray,
-  createRandomInteger,
-  roundTo,
-} from "../../misc/utils";
+import { createRandomArray, createRandomInteger } from "../../misc/utils";
 import { create, all } from "mathjs";
 
 const config = {};
