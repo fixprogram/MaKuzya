@@ -10,10 +10,8 @@ import { useProfile } from "../../context/profile.context";
 function LessonsList({}) {
   const { isLoading, lessons } = useSubject();
   const { profile } = useProfile();
-  console.log(profile);
   const progress =
     profile.progress[`${profile.activeSubject.toLowerCase()}`][0];
-  console.log(progress);
   return (
     <section className="main_block">
       <div className="lessons_list">

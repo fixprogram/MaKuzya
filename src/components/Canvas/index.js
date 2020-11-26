@@ -8,16 +8,15 @@ class CanvasComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.updateCanvas();
+    const { coordinates, sides } = this.props;
+    this.updateCanvas(coordinates, sides);
   }
 
-  updateCanvas() {
-    const { coordinates, sides } = this.props;
+  updateCanvas(coordinates, sides) {
     const ctx = this.canvas.current.getContext("2d");
     let sideNumsCoordinates = [];
 
     coordinates.forEach((el, i, arr) => {
-      console.log("EL: ", el);
       ctx.beginPath();
       ctx.strokeStyle = "#1cb0f6";
       // ctx.font = "bold 20px serif";

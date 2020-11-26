@@ -25,6 +25,7 @@ function Practice({
   setCoordinates,
   setPracticePopupMessage,
   resetAnimationCount,
+  setCharts,
 }) {
   const { type } = useParams();
   const forceUpdate = useForceUpdate();
@@ -32,13 +33,21 @@ function Practice({
   const { profile } = useProfile();
   const { lessons } = useSubject();
 
-  const { answer, variants, expression, coordinates, sides } = createTask(type);
+  const {
+    answer,
+    variants,
+    expression,
+    coordinates,
+    sides,
+    charts,
+  } = createTask(type);
 
   setAnswer(answer);
-  setVariants(shuffleArray(variants));
-  setTask(expression);
-  setCoordinates(coordinates);
-  setSides(sides);
+  if (variants) setVariants(shuffleArray(variants));
+  if (expression) setTask(expression);
+  if (coordinates) setCoordinates(coordinates);
+  if (sides) setSides(sides);
+  if (charts) setCharts(charts);
 
   const { uid, activeSubject, lingots, everydayProgress } = profile;
   const progress = profile.progress[`${activeSubject.toLowerCase()}`][0];
@@ -46,8 +55,7 @@ function Practice({
 
   async function checkAnswer(value) {
     if (typeof value === "string") value = fracToNum(value);
-    console.log("VA VAL VAL VAL VAL: ", value);
-    console.log("AN AN NA ASDN NAS: ", answer);
+
     if (answer == value || roundTo(answer, 2) === roundTo(value, 2)) {
       if (typeProgress + 20 >= MAX_TASKS * 10) {
         // Finishing. Report
@@ -115,6 +123,7 @@ const mapDispatchToProps = (dispatch) => ({
   setAnswer: (payload) => dispatch(actionCreator.setAnswer(payload)),
   setCoordinates: (payload) => dispatch(actionCreator.setCoordinates(payload)),
   setSides: (payload) => dispatch(actionCreator.setSides(payload)),
+  setCharts: (payload) => dispatch(actionCreator.setCharts(payload)),
   setPracticePopupMessage: (payload) =>
     dispatch(actionCreator.setPracticePopupMessage(payload)),
   resetAnimationCount: () => dispatch(actionCreator.resetAnimationCount()),

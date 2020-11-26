@@ -34,4 +34,8 @@ export const actionCreator = {
     type: "SET_PRACTICE_POPUP_MESSAGE",
     payload,
   }),
+  setCharts: (payload) => ({
+    type: "SET_CHARTS",
+    payload,
+  }),
 };

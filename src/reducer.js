@@ -54,6 +54,7 @@ const initialState = {
   subjects: ["Algebra", "Geometria"],
   animationCount: 0,
   practicePopupMessage: "Success!",
+  charts: {},
 };
 
 // setLessons(initialState.lessons);
@@ -63,7 +64,6 @@ const reducer = (state = initialState, action) => {
     case "SET_TASK":
       return { ...state, currentTask: action.payload };
     case "SET_VARIANTS":
-      console.log("VARIANTS SETTING: ", action.payload);
       return { ...state, variants: action.payload };
     case "SET_ANSWER":
       return { ...state, answer: action.payload };
@@ -89,6 +89,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         practicePopupMessage: action.payload,
       };
+    }
+    case "SET_CHARTS": {
+      return Object.assign({}, state, {
+        charts: action.payload,
+      });
     }
     default:
       return state;

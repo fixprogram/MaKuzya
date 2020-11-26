@@ -1,7 +1,6 @@
 import { createNumVariant } from "./index";
 
 export const createSimpleVariants = (answer, count) => {
-  console.log("ANSWER, ", answer);
   const newArray = new Array(count).fill(answer);
 
   const variants = newArray.map((el, i, arr) => {

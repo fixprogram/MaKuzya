@@ -1,13 +1,19 @@
 const createRandomInteger = (min = 1, max = 9, level = 1) => {
-  return Math.floor(
-    min * level + Math.random() * (max * level + 1 - min * level)
-  );
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const createRandomArray = (count = 2) => {
+const createRandomArray = (count = 2, min, max) => {
   let newArr = [];
-  for (let i = 0; i < count; i++) {
-    newArr.push(createRandomInteger());
+  // for (let i = 0; i < count; i++) {
+  //   newArr.push(createRandomInteger(min, max));
+  // }
+  while (newArr.length < count - 1) {
+    const randNum = createRandomInteger(min, max);
+    if (newArr.indexOf(randNum) === -1) {
+      newArr.push(randNum);
+    }
   }
   return newArr;
 };

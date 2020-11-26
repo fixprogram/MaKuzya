@@ -7,6 +7,8 @@ import PracticeButtons from "./PracticeButtons";
 import { connect } from "react-redux";
 import { Animation } from "rsuite";
 import { actionCreator } from "../../actions";
+import { useParams } from "react-router-dom";
+import CellField from "../CellField";
 
 const { Slide, Transition } = Animation;
 
@@ -18,6 +20,7 @@ function PracticeContent({
   increaseAnimationCount,
   practicePopupMessage,
 }) {
+  const { type } = useParams();
   const [activeRadio, setActiveRadio] = useState(-1);
   // const [value, setValue] = useState(null)
   const [placement, setPlacement] = useState("right");
@@ -33,8 +36,10 @@ function PracticeContent({
       setTimeout(() => {
         setPlacement("right");
         setShow(!show);
-        setDisabled(false);
       }, 750);
+      setTimeout(() => {
+        setDisabled(false);
+      }, 1750);
     }
     increaseAnimationCount();
   }, [skipAnswer, checkAnswer]);
@@ -46,25 +51,30 @@ function PracticeContent({
         <Slide in={show} placement={placement}>
           {/* {(props, ref) => <Panel {...props} ref={ref} />} */}
           <div className="practice_content">
-            <PracticeTitle />
-
-            <article className="practice_content__input_wrapper">
-              <RadioComponent
-                checkAnswer={() => {
-                  if (activeRadio !== -1 && variants) {
-                    setPlacement("left");
-                    setShow(!show);
-                    setShowPopup(!showPopup);
-                    checkAnswer(variants[activeRadio]);
-                    setActiveRadio(-1);
-                  }
-                }}
-                variants={variants}
-                // setValue={setValue}
-                activeRadio={activeRadio}
-                setActiveRadio={(i) => setActiveRadio(i)}
-              />
-            </article>
+            {type === "charts" ? (
+              <CellField />
+            ) : (
+              <>
+                <PracticeTitle />
+                <article className="practice_content__input_wrapper">
+                  <RadioComponent
+                    checkAnswer={() => {
+                      if (activeRadio !== -1 && variants) {
+                        setPlacement("left");
+                        setShow(!show);
+                        setShowPopup(!showPopup);
+                        checkAnswer(variants[activeRadio]);
+                        setActiveRadio(-1);
+                      }
+                    }}
+                    variants={variants}
+                    // setValue={setValue}
+                    activeRadio={activeRadio}
+                    setActiveRadio={(i) => setActiveRadio(i)}
+                  />
+                </article>
+              </>
+            )}
           </div>
         </Slide>
         <Transition
