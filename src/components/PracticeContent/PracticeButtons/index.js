@@ -7,7 +7,6 @@ const PracticeButtons = ({
   setActiveRadio,
   disabled,
 }) => {
-  console.log("DISABLED: ", disabled);
   return (
     <section className="practice_buttons_wrapper">
       <div className="practice_buttons">

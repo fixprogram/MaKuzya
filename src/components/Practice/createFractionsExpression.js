@@ -1,5 +1,6 @@
 import { createRandomArray } from "../../misc/utils";
 import { create, all } from "mathjs";
+import { roundTo } from "../../misc/utils";
 
 const config = {};
 const math = create(all, config);
@@ -13,8 +14,8 @@ function createFractionsExpression(sign, elems = 2) {
     fractions.push(`\\frac{${nums[i]}}{${nums[nums.length - i - 1]}}`);
   }
 
-  let answer = fractionsDivides.reduce(
-    (accumulator, currentValue) => accumulator + currentValue
+  let answer = fractionsDivides.reduce((accumulator, currentValue) =>
+    math.evaluate(accumulator + " " + sign[0] + " " + currentValue)
   );
 
   let expression = fractions
@@ -27,8 +28,10 @@ function createFractionsExpression(sign, elems = 2) {
     })
     .join(" ");
 
+  // console.log("EXPRESSSSSSION: ", expression);
+
   return {
-    answer: math.fraction(answer),
+    answer: answer,
     expression,
   };
 }

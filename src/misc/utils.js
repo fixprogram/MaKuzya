@@ -47,6 +47,34 @@ const checkInt = (n, d) => {
   }
 };
 
+const roundTo = (n, digits) => {
+  const negative = false;
+  if (digits === undefined) {
+    digits = 0;
+  }
+  if (n < 0) {
+    negative = true;
+    n = n * -1;
+  }
+  const multiplicator = Math.pow(10, digits);
+  n = parseFloat((n * multiplicator).toFixed(11));
+  n = (Math.round(n) / multiplicator).toFixed(digits);
+  if (negative) {
+    n = (n * -1).toFixed(digits);
+  }
+  return n;
+};
+
+const fracToNum = (frac) => {
+  const regExp = /\{([^)]+)\}/;
+  const arr = regExp.exec(frac);
+  if (arr === null) return frac;
+  const num = arr[1].split("}{");
+  const int = frac.split("\\")[0];
+  if (int) return (parseFloat(num[0]) + num[1] * int) / num[1];
+  return roundTo(num[0] / num[1], 2);
+};
+
 function transformToArrayWithId(snapVal) {
   return snapVal
     ? Object.keys(snapVal).map((roomId) => {
@@ -70,5 +98,7 @@ export {
   signViceVerca,
   transformToArrayWithId,
   checkInt,
+  fracToNum,
+  roundTo,
   // setLessons,
 };

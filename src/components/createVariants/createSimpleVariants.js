@@ -9,7 +9,7 @@ export const createSimpleVariants = (answer, count) => {
       return createNumVariant(el, i);
     }
   });
-  variants[variants.length - 1] = newArray[0].toString();
+  variants[variants.length - 1] = newArray[0];
 
   return variants;
 };

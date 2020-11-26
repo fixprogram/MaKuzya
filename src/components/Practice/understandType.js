@@ -15,7 +15,9 @@ export function understandType(type, level) {
       return createTriangle();
     case "inequality":
       return createInequality();
-    case "fractions":
+    case "fractions-summation":
+      return createFractionsExpression(sign, level);
+    case "fractions-division":
       return createFractionsExpression(sign, level);
     default:
       return createExpression(sign, level);

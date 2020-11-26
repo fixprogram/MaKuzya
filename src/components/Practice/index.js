@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { shuffleArray } from "../../misc/utils";
+import { shuffleArray, fracToNum, roundTo } from "../../misc/utils";
 import { useForceUpdate } from "../../misc/custom-hooks";
 import createTask from "./createTask";
 import { database } from "../../misc/firebase";
@@ -45,7 +45,10 @@ function Practice({
   const typeIndex = lessons.map((lesson) => lesson.id).indexOf(type);
 
   async function checkAnswer(value) {
-    if (value == answer) {
+    if (typeof value === "string") value = fracToNum(value);
+    console.log("VA VAL VAL VAL VAL: ", value);
+    console.log("AN AN NA ASDN NAS: ", answer);
+    if (answer == value || roundTo(answer, 2) === roundTo(value, 2)) {
       if (typeProgress + 20 >= MAX_TASKS * 10) {
         // Finishing. Report
         setTypeProgress(typeProgress + 20);
