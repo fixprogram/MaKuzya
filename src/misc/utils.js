@@ -9,7 +9,7 @@ const createRandomArray = (count = 2, min, max) => {
   // for (let i = 0; i < count; i++) {
   //   newArr.push(createRandomInteger(min, max));
   // }
-  while (newArr.length < count - 1) {
+  while (newArr.length <= count - 1) {
     const randNum = createRandomInteger(min, max);
     if (newArr.indexOf(randNum) === -1) {
       newArr.push(randNum);
@@ -92,6 +92,12 @@ function transformToArrayWithId(snapVal) {
     : [];
 }
 
+function handleCoincidence(c, x) {
+  for (let i = 0; i < 12; i++) {
+    if (c === x + i || c === x - i) return true;
+  }
+}
+
 // function setLessons(lessons) {
 //   lessons.forEach(async (element) => {
 //     await database.ref(`/subjects/${element.subject}/${element.type}`).set({
@@ -109,5 +115,6 @@ export {
   checkInt,
   fracToNum,
   roundTo,
+  handleCoincidence,
   // setLessons,
 };

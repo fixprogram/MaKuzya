@@ -1,107 +1,73 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { renderCell } from "./renderCell";
+import { handleCoincidence } from "../../misc/utils";
+import { drawDotsAndConnect } from "./drawDotsAndConnect";
+import { drawParams } from "./drawParams";
 
-class CellField extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.canvas = React.createRef();
+const CellField = ({ charts, width = 700, height = 350 }) => {
+  const canvasRef = useRef(null);
+  const { coordinates, params } = charts;
+  const [active, setActive] = useState(
+    new Array(coordinates.length).fill(false)
+  );
+  const cellHeight = 30;
+  const cellWidth = 30;
 
-    this.canvasHeight = 350;
-    this.canvasWidth = 700;
-    this.cellHeight = 30;
-    this.cellWidth = 30;
-  }
-
-  componentDidMount() {
-    const { coordinates, params } = this.props.charts;
-    this.updateCanvas(coordinates, params);
-  }
-
-  updateCanvas(coordinates, params) {
-    const context = this.canvas.current.getContext("2d");
-
-    for (let top = 30; top < this.canvasWidth; top += this.cellWidth) {
-      for (
-        let left = 0;
-        left < this.canvasHeight - 30;
-        left += this.cellHeight
-      ) {
-        renderCell(top, left, this.cellHeight, this.cellWidth, context);
+  const draw = (ctx, frameCount) => {
+    for (let top = 30; top < width; top += cellWidth) {
+      for (let left = 0; left < height - 30; left += cellHeight) {
+        renderCell(top, left, cellHeight, cellWidth, ctx);
       }
     }
 
-    context.fillStyle = "red";
-    context.strokeStyle = "#000";
-    context.lineWidth = 3;
-    context.beginPath();
-    context.moveTo(coordinates[0].left + 8, coordinates[0].top + 8);
+    drawDotsAndConnect(ctx, coordinates, frameCount, active);
 
-    coordinates.forEach((dot) => {
-      context.lineTo(dot.left + 8, dot.top + 8);
-    });
-    context.stroke();
+    drawParams(ctx, params);
+  };
 
-    coordinates.forEach((dot) => {
-      context.fillRect(dot.left, dot.top, 16, 16);
-    });
+  useEffect(() => {
+    const context = canvasRef.current.getContext("2d");
+    let frameCount = 0;
+    let animationFrameId;
 
-    context.font = "20px Georgia";
-    context.strokeStyle = "#3c3c3c";
+    //Our draw came here
+    const render = () => {
+      frameCount++;
+      draw(context, frameCount);
+      animationFrameId = window.requestAnimationFrame(render);
+    };
+    render();
+    return () => {
+      window.cancelAnimationFrame(animationFrameId);
+    };
+  }, [draw, active]);
 
-    params.x.forEach((param, i) => {
-      context.strokeText(`${param}`, 50 + 30 * i, 340);
-    });
+  function handleClick(e) {
+    const rect = canvasRef.current.getBoundingClientRect();
+    const x = Math.floor(e.clientX - rect.left - 8);
+    const coincidence = coordinates.filter((c) => handleCoincidence(c.left, x));
 
-    params.y.forEach((param, i) => {
-      context.strokeText(`${param}`, 0, 300 - 30 * i);
-    });
+    if (coincidence.length > 0) {
+      const index = coordinates.findIndex(
+        (c) => c.left === coincidence[0].left
+      );
+      setActive([...active.slice(0, index), true, ...active.slice(index + 1)]);
+    }
   }
 
-  render() {
-    return (
-      <canvas
-        ref={this.canvas}
-        width={this.canvasWidth}
-        height={this.canvasHeight}
-      />
-    );
-  }
-}
+  return (
+    <canvas
+      ref={canvasRef}
+      width={width}
+      height={height}
+      onClick={handleClick}
+    />
+  );
+};
 
 const mapStateToProps = (state) => ({
   charts: state.charts,
 });
 
 export default connect(mapStateToProps)(CellField);
-
-// Взаимодействие
-// var filling = false
-
-// function fillCellAtPositionIfNeeded(x, y, fillingMode) {
-// 	var cellUnderCursor = getCellByPosition(x, y)
-// 	if (cellUnderCursor.solid !== fillingMode) {
-// 		cellUnderCursor.fill(fillingMode)
-// 	}
-// 	cell.drawBorder()
-// }
-// function handleMouseDown(event) {
-// 	// нужно вычислить координаты клика относительно верхнего левого края canvas
-// 	// это делается с использованием вычисления координат канваса и кроссбраузерных свойств объекта event
-// 	// я использую некроссбраузерные свойства объекта событий
-// 	filling = !getCellByPosition(event.layerX, event.layerY).solid
-// 	fillCellAtPositionIfNeeded(event.layerX, event.layerY, filling)
-
-// 	canvas.addEventListener('mousemove', handleMouseMove, false)
-// }
-
-// function handleMouseUp() {
-// 	canvas.removeEventListener('mousemove', handleMouseMove)
-// }
-
-// function handleMouseMove(event) {
-// 	fillCellAtPositionIfNeeded(event.layerX, event.layerY, filling)
-// }
-
-// canvas.addEventListener('mousedown', handleMouseDown, false)
-// canvas.addEventListener('mouseup', handleMouseUp, false)

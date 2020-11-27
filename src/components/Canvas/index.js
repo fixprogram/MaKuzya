@@ -40,13 +40,13 @@ class CanvasComponent extends React.Component {
     coordinates.forEach((el) => {
       ctx.font = "bold 30px Arial";
       ctx.strokeStyle = "black";
-      ctx.strokeText(`${el.letter}`, el.x, el.y + 30);
+      ctx.fillText(`${el.letter}`, el.x, el.y + 30);
     });
 
     sides.forEach((side, i) => {
       ctx.font = "bold 25px Arial";
       ctx.strokeStyle = "black";
-      ctx.strokeText(
+      ctx.fillText(
         `${side}`,
         sideNumsCoordinates[i].x,
         sideNumsCoordinates[i].y

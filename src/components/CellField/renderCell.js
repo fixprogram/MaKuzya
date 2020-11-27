@@ -4,6 +4,7 @@ export const renderCell = (top, left, cellHeight, cellWidth, context) => {
   context.fillRect(top, left, cellWidth, cellHeight);
 
   context.beginPath();
+  context.lineWidth = 1;
   context.strokeStyle = "#3c3c3c";
   // magic. According to http://stackoverflow.com/questions/8696631/canvas-drawings-like-lines-are-blurry
   context.moveTo(top - 0.5, left - 0.5);

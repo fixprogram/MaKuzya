@@ -47,7 +47,7 @@ function PracticeContent({
   return (
     <>
       <section className="practice_content__wrapper">
-        <h1 className="practice_content__title">Выберите правильный ответ</h1>
+        <h1 className="practice_content__title">Choose right answer</h1>
         <Slide in={show} placement={placement}>
           {/* {(props, ref) => <Panel {...props} ref={ref} />} */}
           <div className="practice_content">

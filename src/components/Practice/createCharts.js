@@ -1,15 +1,15 @@
 import { createRandomArray, createRandomInteger } from "../../misc/utils";
 
-export const createCharts = (count = 10) => {
+export const createCharts = (count = 7) => {
   const dotWidth = 16;
   let coordinates = [
     {
-      left: 30 - dotWidth / 2,
+      left: 60 - dotWidth / 2,
       top: createRandomInteger(1, 10) * 30 - dotWidth / 2,
     },
   ];
 
-  const randomLeft = createRandomArray(count, 2, 20).sort((a, b) => a - b);
+  const randomLeft = createRandomArray(count, 3, 20).sort((a, b) => a - b);
   const randomTop = createRandomArray(count, 2, 10);
 
   for (let i = 1; i <= count; i++) {

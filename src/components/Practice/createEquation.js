@@ -40,6 +40,9 @@ export function createEquation(sign, elems = 2, initialAnswer = null) {
         .toFixed(2)
     );
   } else {
+    console.log("Making equation!");
+    console.log(answer);
+    console.log(nums);
     expression += ` = ${parseFloat(
       math.evaluate(answer + " " + randomSign + " " + nums[1]).toFixed(2)
     )}`;
