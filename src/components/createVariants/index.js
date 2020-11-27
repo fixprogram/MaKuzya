@@ -14,10 +14,7 @@ export const createNumVariant = (num, i, fixed = 0) => {
 };
 
 export const createVariants = (type, answer, count = 4) => {
-  console.log("START creating: ");
-
   if (type.split("-")[1]) {
-    // console.log("ANSER: ", type.split("-")[1]);
     return createFractionVariants(answer, count);
   } else {
     return createSimpleVariants(answer, count);

@@ -1,13 +1,13 @@
 import React from "react";
 import { Redirect, Route } from "react-router";
 import { useProfile } from "../context/profile.context";
-import { Loader } from "rsuite";
+import Loader from "./Loader";
 
 const PublicRoute = ({ children, ...routeProps }) => {
   const { isLoading, profile } = useProfile();
 
   if (isLoading && !profile) {
-    return <Loader center content="loading" />;
+    return <Loader />;
   }
 
   if (profile && !isLoading) {
@@ -15,7 +15,7 @@ const PublicRoute = ({ children, ...routeProps }) => {
   }
 
   return (
-    <Route {...routeProps} path="/learn">
+    <Route {...routeProps} path="/signin">
       {children}
     </Route>
   );

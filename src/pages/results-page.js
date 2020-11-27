@@ -6,7 +6,7 @@ const { Slide } = Animation;
 
 const ResultsPage = ({}) => {
   return (
-    <section className="practice_block">
+    <section className="practice_block practice_block--results">
       {/* <Slide in={true} placement="right"> */}
       <ResultsContent />
       {/* </Slide> */}

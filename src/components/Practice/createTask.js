@@ -6,7 +6,12 @@ const config = {};
 const math = create(all, config);
 
 export default function createTask(type, level = 2) {
-  let { answer, expression, coordinates, sides } = understandType(type, level);
+  console.log(type);
+
+  let { answer, expression, coordinates, sides, charts } = understandType(
+    type,
+    level
+  );
 
   if (!answer && sides) answer = sides.shift();
 
@@ -18,5 +23,6 @@ export default function createTask(type, level = 2) {
     expression,
     coordinates,
     sides,
+    charts,
   };
 }

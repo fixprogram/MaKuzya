@@ -15,32 +15,42 @@ import { HomePage, ErrorPage } from "../../pages";
 export default function App() {
   return (
     <ProfileProvider>
-      <SubjectProvider>
-        <Switch>
-          <PublicRoute path="/signin">
-            <SignIn />
-          </PublicRoute>
-          <PrivateRoute path="/learn">
+      <Switch>
+        <PublicRoute path="/signin">
+          <SignIn />
+        </PublicRoute>
+        <PrivateRoute path="/learn">
+          <SubjectProvider>
             <HomePage />
-          </PrivateRoute>
-          <PrivateRoute path="/exams">
+          </SubjectProvider>
+        </PrivateRoute>
+        <PrivateRoute path="/exams">
+          <SubjectProvider>
             <HomePage />
-          </PrivateRoute>
-          <PrivateRoute path="/discuss">
+          </SubjectProvider>
+        </PrivateRoute>
+        <PrivateRoute path="/discuss">
+          <SubjectProvider>
             <HomePage />
-          </PrivateRoute>
-          <PrivateRoute path="/shop">
+          </SubjectProvider>
+        </PrivateRoute>
+        <PrivateRoute path="/shop">
+          <SubjectProvider>
             <HomePage />
-          </PrivateRoute>
-          <PrivateRoute path={`/practice/:type`}>
+          </SubjectProvider>
+        </PrivateRoute>
+        <PrivateRoute path={`/practice/:type`}>
+          <SubjectProvider>
             <Practice />
-          </PrivateRoute>
-          <PublicRoute path="/"></PublicRoute>
-          <PrivateRoute path="/">
-            <ErrorPage />
-          </PrivateRoute>
-        </Switch>
-      </SubjectProvider>
+          </SubjectProvider>
+        </PrivateRoute>
+        <PublicRoute path="/">
+          <Redirect to="/learn" />
+        </PublicRoute>
+        <PrivateRoute path="/">
+          <ErrorPage />
+        </PrivateRoute>
+      </Switch>
     </ProfileProvider>
   );
 }

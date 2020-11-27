@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { useSubject } from "../../context/subject.context";
-import { Loader } from "rsuite";
+import Loader from "../Loader";
 
 import LessonItem from "../LessonItem";
 import { useProfile } from "../../context/profile.context";
@@ -10,15 +10,13 @@ import { useProfile } from "../../context/profile.context";
 function LessonsList({}) {
   const { isLoading, lessons } = useSubject();
   const { profile } = useProfile();
-  console.log(profile);
   const progress =
     profile.progress[`${profile.activeSubject.toLowerCase()}`][0];
-  console.log(progress);
   return (
     <section className="main_block">
       <div className="lessons_list">
         {isLoading ? (
-          <Loader center content="loading" />
+          <Loader />
         ) : (
           lessons.map((it, i) => {
             return (

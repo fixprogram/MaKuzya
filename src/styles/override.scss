@@ -96,3 +96,20 @@ textarea.rs-input {
   margin-top: -300px;
   z-index: 0;
 }
+
+.rs-progress-circle {
+  width: 100px;
+}
+
+.practice_content .rs-progress-circle {
+  margin: 0 auto;
+  width: 30%;
+}
+
+.practice_content .rs-progress-circle .rs-progress-icon-success {
+  font-size: 86px;
+}
+
+.practice_content .rs-progress-circle-info {
+  height: 70px;
+}

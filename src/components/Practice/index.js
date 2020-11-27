@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { shuffleArray, fracToNum, roundTo } from "../../misc/utils";
-import { useForceUpdate } from "../../misc/custom-hooks";
 import createTask from "./createTask";
 import { database } from "../../misc/firebase";
 import { useProfile } from "../../context/profile.context";
@@ -11,9 +10,6 @@ import { useSubject } from "../../context/subject.context";
 import { actionCreator } from "../../actions";
 import PracticePage from "../../pages/practice-page";
 import ResultsPage from "../../pages/results-page";
-import { Animation } from "rsuite";
-
-const { Slide } = Animation;
 
 const MAX_TASKS = 10;
 
@@ -25,33 +21,56 @@ function Practice({
   setCoordinates,
   setPracticePopupMessage,
   resetAnimationCount,
+  setCharts,
+  answer,
+  practiceProgress,
+  setPracticeProgress,
+  isSkipping,
+  setIsSkipping,
 }) {
   const { type } = useParams();
-  const forceUpdate = useForceUpdate();
-  const [typeProgress, setTypeProgress] = useState(0);
   const { profile } = useProfile();
   const { lessons } = useSubject();
+  let ch = 0;
+  if (type === "charts" && ch === 0) {
+    const { charts } = createTask(type);
+    setCharts(charts);
+    ch++;
+  }
 
-  const { answer, variants, expression, coordinates, sides } = createTask(type);
+  useEffect(() => {
+    console.log(type);
+    if (practiceProgress < 100) {
+      const {
+        answer,
+        variants,
+        expression,
+        coordinates,
+        sides,
+        // charts,
+      } = createTask(type);
 
-  setAnswer(answer);
-  setVariants(shuffleArray(variants));
-  setTask(expression);
-  setCoordinates(coordinates);
-  setSides(sides);
+      setAnswer(answer);
+      if (variants) setVariants(shuffleArray(variants));
+      if (expression) setTask(expression);
+      if (coordinates) setCoordinates(coordinates);
+      if (sides) setSides(sides);
+      // if (charts) setCharts(charts);
+    }
+  }, [practiceProgress, isSkipping]);
 
   const { uid, activeSubject, lingots, everydayProgress } = profile;
   const progress = profile.progress[`${activeSubject.toLowerCase()}`][0];
   const typeIndex = lessons.map((lesson) => lesson.id).indexOf(type);
 
   async function checkAnswer(value) {
+    console.log("checj");
     if (typeof value === "string") value = fracToNum(value);
-    console.log("VA VAL VAL VAL VAL: ", value);
-    console.log("AN AN NA ASDN NAS: ", answer);
+
     if (answer == value || roundTo(answer, 2) === roundTo(value, 2)) {
-      if (typeProgress + 20 >= MAX_TASKS * 10) {
+      if (practiceProgress + 20 >= MAX_TASKS * 10) {
         // Finishing. Report
-        setTypeProgress(typeProgress + 20);
+        setPracticeProgress(practiceProgress + 20);
         const newItem = progress[typeIndex] + 10;
 
         const databaseProgress = database.ref(
@@ -78,46 +97,50 @@ function Practice({
         }
         // setTimeout(() => window.location.replace("/"), 1500);
       } else {
-        setTypeProgress(typeProgress + 20);
+        setPracticeProgress(practiceProgress + 20);
         setPracticePopupMessage("Success");
       }
     } else {
       setPracticePopupMessage("Fail");
-      if (typeProgress >= 10) {
-        setTypeProgress(typeProgress - 10);
+      if (practiceProgress >= 10) {
+        setPracticeProgress(practiceProgress - 10);
       } else {
-        forceUpdate();
+        setIsSkipping();
       }
     }
   }
 
-  return typeProgress === 100 ? (
-    <Slide in={true} placement="right">
-      <ResultsPage />
-    </Slide>
+  return practiceProgress >= 100 ? (
+    <ResultsPage />
   ) : (
     <PracticePage
-      progress={typeProgress}
+      progress={practiceProgress}
       resetAnimationCount={resetAnimationCount}
-      skipAnswer={() => forceUpdate()}
+      skipAnswer={() => setIsSkipping()}
       checkAnswer={checkAnswer}
     />
   );
 }
 
-// const mapStateToProps = (state) => ({
-//   answer: state.answer,
-// });
+const mapStateToProps = (state) => ({
+  answer: state.answer,
+  practiceProgress: state.practiceProgress,
+  isSkipping: state.isSkipping,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   setVariants: (payload) => dispatch(actionCreator.setVariants(payload)),
   setTask: (payload) => dispatch(actionCreator.setTask(payload)),
+  setPracticeProgress: (payload) =>
+    dispatch(actionCreator.setPracticeProgress(payload)),
   setAnswer: (payload) => dispatch(actionCreator.setAnswer(payload)),
   setCoordinates: (payload) => dispatch(actionCreator.setCoordinates(payload)),
   setSides: (payload) => dispatch(actionCreator.setSides(payload)),
+  setCharts: (payload) => dispatch(actionCreator.setCharts(payload)),
   setPracticePopupMessage: (payload) =>
     dispatch(actionCreator.setPracticePopupMessage(payload)),
+  setIsSkipping: () => dispatch(actionCreator.setIsSkipping()),
   resetAnimationCount: () => dispatch(actionCreator.resetAnimationCount()),
 });
 
-export default connect(null, mapDispatchToProps)(Practice);
+export default connect(mapStateToProps, mapDispatchToProps)(Practice);

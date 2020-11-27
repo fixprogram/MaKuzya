@@ -10,8 +10,6 @@ const SignIn = () => {
     try {
       const { additionalUserInfo, user } = await auth.signInWithPopup(provider);
 
-      console.log("USER  ", user);
-
       if (additionalUserInfo.isNewUser) {
         await database.ref(`/profiles/${user.uid}`).set({
           name: user.displayName,
@@ -22,7 +20,15 @@ const SignIn = () => {
           streak: 1,
           activeSubject: "Algebra",
           everydayProgress: 0,
-          progress: {},
+          progress: {
+            algebra: {
+              0: [0, 0, 0, 0, 0, 0, 0, 0],
+            },
+
+            geometria: {
+              0: [0],
+            },
+          },
         });
       }
 

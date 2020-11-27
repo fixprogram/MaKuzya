@@ -5,6 +5,7 @@ const ResultsButtons = ({}) => {
     <section className="practice_buttons_wrapper">
       <div className="practice_buttons">
         <article className="practice_buttons_inner">
+          <button className="practice_button">Review lesson</button>
           <button
             className={`practice_button enabled`}
             onClick={() => window.location.replace("/")}

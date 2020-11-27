@@ -1,7 +1,7 @@
 import React from "react";
 import MathJax from "react-mathjax";
 import { connect } from "react-redux";
-import CanvasComponent from "../../Canvas";
+import CanvasComponent from "../../CanvasComponent";
 
 const PracticeTitle = ({ currentTask, topic }) => {
   return (

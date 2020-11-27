@@ -8,16 +8,15 @@ class CanvasComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.updateCanvas();
+    const { coordinates, sides } = this.props;
+    this.updateCanvas(coordinates, sides);
   }
 
-  updateCanvas() {
-    const { coordinates, sides } = this.props;
+  updateCanvas(coordinates, sides) {
     const ctx = this.canvas.current.getContext("2d");
     let sideNumsCoordinates = [];
 
     coordinates.forEach((el, i, arr) => {
-      console.log("EL: ", el);
       ctx.beginPath();
       ctx.strokeStyle = "#1cb0f6";
       // ctx.font = "bold 20px serif";
@@ -41,13 +40,13 @@ class CanvasComponent extends React.Component {
     coordinates.forEach((el) => {
       ctx.font = "bold 30px Arial";
       ctx.strokeStyle = "black";
-      ctx.strokeText(`${el.letter}`, el.x, el.y + 30);
+      ctx.fillText(`${el.letter}`, el.x, el.y + 30);
     });
 
     sides.forEach((side, i) => {
       ctx.font = "bold 25px Arial";
       ctx.strokeStyle = "black";
-      ctx.strokeText(
+      ctx.fillText(
         `${side}`,
         sideNumsCoordinates[i].x,
         sideNumsCoordinates[i].y

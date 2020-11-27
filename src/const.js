@@ -68,5 +68,6 @@ export const LESSONS_DATA = [
   },
   {
     type: LESSON_TYPES.CHARTS,
+    sign: ["+", "-"],
   },
 ];

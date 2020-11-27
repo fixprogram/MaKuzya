@@ -32,7 +32,7 @@ const PracticeButtons = ({
             }}
             disabled={disabled || isNextDisabled}
           >
-            Continue
+            Check
           </button>
         </article>
       </div>

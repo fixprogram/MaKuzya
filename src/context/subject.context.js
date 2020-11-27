@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState, useContext } from "react";
 import { database } from "../misc/firebase";
 import { transformToArrayWithId } from "../misc/utils";
 import { useProfile } from "./profile.context";
-import { Loader } from "rsuite";
+import Loader from "../components/Loader";
 
 const SubjectContext = createContext();
 
@@ -29,7 +29,7 @@ export const SubjectProvider = ({ children }) => {
     }
   }, [profile]);
 
-  if (isLoading) return <Loader center content="loading" />;
+  if (isLoading) return <Loader />;
 
   return (
     <SubjectContext.Provider value={{ isLoading, lessons }}>

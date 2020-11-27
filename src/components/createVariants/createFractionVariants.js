@@ -6,7 +6,6 @@ const config = {};
 const math = create(all, config);
 
 export const createFractionVariants = (answer, count) => {
-  console.log("FRATIONS VARIANTS REATING: ");
   let { n, d } = math.fraction(answer);
 
   const newArray = new Array(count).fill(checkInt(n, d, answer < 0));

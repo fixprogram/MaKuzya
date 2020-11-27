@@ -181,7 +181,7 @@ a:focus {
 .lesson_inner .rs-progress-circle-info {
   height: 70%;
   width: 70%;
-  color: blue;
+  color: #10a4ea;
   font-weight: 700;
   letter-spacing: 1px;
   background-color: #fff;
@@ -282,7 +282,8 @@ a:focus {
 
 /* TASK PROGRESS */
 
-.practice_block {
+.practice_block,
+.practice_block--results {
   display: grid;
   grid-gap: 24px;
   grid-template-columns: 100%;
@@ -291,6 +292,11 @@ a:focus {
   min-height: 460px;
   overflow: hidden;
   width: 100%;
+}
+
+.practice_block--results {
+  grid-gap: 0;
+  grid-template-rows: 1fr min-content;
 }
 
 .progress_wrapper {
@@ -333,6 +339,25 @@ a:focus {
   background-size: 18px;
   width: 18px;
   height: 18px;
+  transition: 0.2s;
+}
+
+.progress_close:hover {
+  opacity: 0.75;
+}
+
+.loader__wrapper {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.loader__title {
+  font-weight: 700;
+  font-size: 30px;
+  margin-top: 20px;
 }
 
 /* PRACTICE CONTENT */
@@ -349,12 +374,16 @@ a:focus {
   width: 100%;
 }
 
+.practice_block--results .practice_content__wrapper {
+  grid-template-columns: none;
+}
+
 .practice_content {
   min-height: 300px;
   overflow: visible;
   width: 600px;
   display: grid;
-  grid-gap: 8px;
+  grid-gap: 28px;
   z-index: 10;
 }
 
@@ -362,7 +391,7 @@ a:focus {
   font-size: 32px;
   line-height: 40px;
   text-align: left;
-  margin: 0;
+  margin: -70px 0 0 0;
 }
 
 .practice_content__block {
@@ -485,7 +514,7 @@ a:focus {
   background: none;
   color: #afafaf;
   border-width: 2px 2px 4px;
-  border-color: #afafaf;
+  border-color: #e5e5e5;
   border-radius: 16px;
   padding: 12px 16px;
   display: inline-block;
@@ -495,20 +524,28 @@ a:focus {
   line-height: 20px;
   border-style: solid;
   transform: translateZ(0);
-  transition: filter 0.2s;
+  transition: 0.2s;
+}
+
+.practice_button:hover {
+  background-color: #e5e5e5;
 }
 
 .practice_button.disabled {
-  background: #e5e5e5;
+  background-color: #e5e5e5;
   border: none;
   color: #afafaf;
   cursor: auto;
 }
 
 .practice_button.enabled {
-  background: #4caf50;
+  background-color: #4caf50;
   color: #fff;
   border: none;
+}
+
+.practice_button.enabled:hover {
+  background-color: #48c04c;
 }
 
 /* PRACTICE LINK */
@@ -556,13 +593,19 @@ a:focus {
   border-radius: 10px;
   background-color: #fff;
   position: relative;
+  transition: 0.2s ease;
+}
+
+.practice_radio:hover {
+  background-color: #e5e5e5;
 }
 
 .practice_radio label {
   cursor: pointer;
 }
 
-.practice_radio_checked {
+.practice_radio_checked,
+.practice_radio_checked:hover {
   background-color: #ddf4ff;
   border-color: #1cb0f6;
   color: #1cb0f6;
@@ -613,4 +656,25 @@ a:focus {
 
 .everyday-progress .rs-progress-info {
   color: #fff;
+}
+
+.practice_results__title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 25px;
+}
+
+.practice_results__reward {
+  display: flex;
+  justify-content: center;
+}
+
+.practice_results__reward span {
+  color: #777;
+  margin-right: 10px;
+}
+
+.practice_results__reward strong {
+  font-weight: bold;
+  color: #ffc800;
 }

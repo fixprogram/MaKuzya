@@ -27,8 +27,6 @@ function createFractionsExpression(sign, elems = 2) {
     })
     .join(" ");
 
-  // console.log("EXPRESSSSSSION: ", expression);
-
   return {
     answer: answer,
     expression,
