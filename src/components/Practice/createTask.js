@@ -11,7 +11,7 @@ export default function createTask(type, level = 2) {
     level
   );
 
-  if (!answer && sides) answer = sides.shift();
+  if (!answer && sides) answer = { first: sides.shift(), second: [] };
 
   const variants = createVariants(type, answer);
 

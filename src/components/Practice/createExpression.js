@@ -1,4 +1,8 @@
-import { createRandomArray, createRandomInteger } from "../../misc/utils";
+import {
+  createRandomArray,
+  createRandomInteger,
+  roundTo,
+} from "../../misc/utils";
 import { create, all } from "mathjs";
 
 const config = {};
@@ -25,7 +29,7 @@ export function createExpression(sign, elems = 2) {
     })
     .join(" ");
 
-  let answer = math.evaluate(expression);
+  let answer = [roundTo(math.evaluate(expression), 5)];
 
   return { answer, expression };
 }

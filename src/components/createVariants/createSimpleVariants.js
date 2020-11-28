@@ -8,7 +8,7 @@ export const createSimpleVariants = (answer, count) => {
       new Array(count).fill(answer[1]),
     ];
   } else {
-    newArray = [new Array(count).fill(answer)];
+    newArray = [new Array(count).fill(answer[0])];
   }
 
   let variants = {

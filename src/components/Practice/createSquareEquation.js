@@ -24,15 +24,15 @@ export function createSquareEquation() {
   let answer;
 
   if (discriminant === 0) {
-    answer = x;
+    answer = [x];
   } else if (discriminant > 0) {
     answer = [
       roundTo((-b + sqrt(discriminant)) / (2 * a)),
       roundTo((-b - sqrt(discriminant)) / (2 * a)),
     ];
   } else {
-    answer = 0;
+    answer = [0];
   }
 
-  return { answer, expression };
+  return { answer: answer, expression };
 }

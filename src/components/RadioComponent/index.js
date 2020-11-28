@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import MathJax from "react-mathjax";
+import { roundTo } from "../../misc/utils";
 
 export default function RadioComponent({
   activeRadio,
@@ -57,7 +58,11 @@ export default function RadioComponent({
         }
         break;
       default:
-        formula = it;
+        if (type.split("-")[0] === "fractions") {
+          formula = it;
+        } else {
+          formula = roundTo(it);
+        }
         break;
     }
     return (

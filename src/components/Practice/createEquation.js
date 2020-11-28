@@ -45,5 +45,5 @@ export function createEquation(sign, elems = 2, initialAnswer = null) {
     )}`;
   }
 
-  return { answer, expression };
+  return { answer: [answer], expression };
 }

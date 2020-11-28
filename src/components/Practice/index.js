@@ -57,14 +57,15 @@ function Practice({
   const typeIndex = lessons.map((lesson) => lesson.id).indexOf(type);
 
   async function checkAnswer(value) {
-    console.log("VAL: ", value);
-    console.log("ANS: ", answer);
     if (typeof value === "string") value = fracToNum(value);
 
     if (
-      answer == value ||
-      roundTo(answer, 2) === roundTo(value, 2) ||
-      (answer[0] == value[0] && answer[1] == value[1])
+      answer === +value ||
+      answer === value ||
+      roundTo(answer[0], 5) === roundTo(value, 5) ||
+      (answer[0] === value[0] &&
+        answer[1] === value[1] &&
+        answer[0] !== undefined)
     ) {
       if (practiceProgress + 20 >= MAX_TASKS * 10) {
         // Finishing. Report

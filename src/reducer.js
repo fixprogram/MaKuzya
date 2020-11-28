@@ -52,7 +52,7 @@ const initialState = {
     second: [],
   },
   answer: null,
-  coordinates: [],
+  coordinates: [{ letter: "", x: 0, y: 0 }],
   sides: [],
   subjects: ["Algebra", "Geometria"],
   practicePopupMessage: "Success!",

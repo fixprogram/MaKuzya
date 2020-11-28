@@ -1,25 +1,15 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { connect } from "react-redux";
 
-class CanvasComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.canvas = React.createRef();
-  }
+const CanvasComponent = ({ coordinates, sides, width = 700, height = 350 }) => {
+  const canvasRef = useRef(null);
 
-  componentDidMount() {
-    const { coordinates, sides } = this.props;
-    this.updateCanvas(coordinates, sides);
-  }
-
-  updateCanvas(coordinates, sides) {
-    const ctx = this.canvas.current.getContext("2d");
+  const draw = (ctx) => {
     let sideNumsCoordinates = [];
 
     coordinates.forEach((el, i, arr) => {
       ctx.beginPath();
       ctx.strokeStyle = "#1cb0f6";
-      // ctx.font = "bold 20px serif";
       ctx.moveTo(el.x, el.y);
       if (arr[i + 1]) {
         ctx.lineTo(arr[i + 1].x, arr[i + 1].y);
@@ -52,12 +42,16 @@ class CanvasComponent extends React.Component {
         sideNumsCoordinates[i].y
       );
     });
-  }
+  };
 
-  render() {
-    return <canvas ref={this.canvas} width={300} height={300} />;
-  }
-}
+  useEffect(() => {
+    const context = canvasRef.current.getContext("2d");
+
+    draw(context);
+  }, [draw]);
+
+  return <canvas ref={canvasRef} width={width} height={height} />;
+};
 
 const mapStateToProps = (state) => ({
   coordinates: state.coordinates,

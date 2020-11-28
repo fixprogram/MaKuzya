@@ -1,4 +1,4 @@
-const createRandomInteger = (min = 1, max = 99, level = 1) => {
+const createRandomInteger = (min = 1, max = 19, level = 1) => {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -20,9 +20,9 @@ const createRandomArray = (count = 2, min, max) => {
 
 const shuffleArray = (array) => {
   if (array.second.length > 1) return array;
-  for (let i = array.length - 1; i > 0; i--) {
+  for (let i = array.first.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
+    [array.first[i], array.first[j]] = [array.first[j], array.first[i]];
   }
   return array;
 };
@@ -55,9 +55,6 @@ const checkInt = (n, d, minus) => {
 
 const roundTo = (number, digits = 2) => {
   let negative = false;
-  if (digits === undefined) {
-    digits = 0;
-  }
   if (number < 0) {
     negative = true;
     number = number * -1;
@@ -77,12 +74,12 @@ const fracToNum = (frac) => {
   if (arr === null) return frac;
   const num = arr[1].split("}{");
   const int = frac.split("\\")[0];
-  if (typeof int === "string") {
+  if (typeof int === "string" && !+int) {
     return int + parseFloat(num[0]) / num[1];
   } else if (int) {
     return (parseFloat(num[0]) + num[1] * int) / num[1];
   }
-  return roundTo(num[0] / num[1], 2);
+  return roundTo(num[0] / num[1]);
 };
 
 function transformToArrayWithId(snapVal) {

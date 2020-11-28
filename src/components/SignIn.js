@@ -22,7 +22,7 @@ const SignIn = () => {
           everydayProgress: 0,
           progress: {
             algebra: {
-              0: [0, 0, 0, 0, 0, 0, 0, 0],
+              0: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             },
 
             geometria: {

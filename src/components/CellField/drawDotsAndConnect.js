@@ -11,7 +11,6 @@ export function drawDotsAndConnect(ctx, coordinates, frameCount, active) {
 
   coordinates.forEach((dot, i) => {
     // ctx.fillRect(dot.left, dot.top, 16, 16);
-    // console.log(active[0].x);
     ctx.beginPath();
     if (active[i]) {
       ctx.fillStyle = "green";
