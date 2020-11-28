@@ -67,7 +67,7 @@ const CellField = ({ charts, width = 700, height = 350 }) => {
 };
 
 const mapStateToProps = (state) => ({
-  charts: state.charts,
+  charts: state.practice.charts,
 });
 
 export default connect(mapStateToProps)(CellField);

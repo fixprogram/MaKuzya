@@ -1,30 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Icon, Dropdown, ButtonToolbar, Alert } from "rsuite";
-import { useProfile } from "../../context/profile.context";
-import { database } from "../../misc/firebase";
+import { Icon, Dropdown, ButtonToolbar } from "rsuite";
 
-function Header({ subjects }) {
-  const { profile } = useProfile();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const changeSubject = async (newActive) => {
-    setIsLoading(true);
-    try {
-      await database.ref(`/profiles/${profile.uid}`).set({
-        ...profile,
-        activeSubject: newActive,
-      });
-      setIsLoading(false);
-    } catch (err) {
-      Alert.error(err.message, 4000);
-      setIsLoading(false);
-    }
-  };
+function Header({ user, subjects, changeSubject }) {
+  const {
+    crowns,
+    streak,
+    lingots,
+    avatar,
+    activeSubject,
+    everydayProgress,
+  } = user;
+  // const [isLoading, setIsLoading] = useState(false);
 
   const CustomDropdown = ({ ...props }) => (
-    <Dropdown {...props} disabled={isLoading}>
+    <Dropdown {...props}>
       {subjects.map((it, i) => {
         return (
           <Dropdown.Item
@@ -91,7 +82,7 @@ function Header({ subjects }) {
           <span className="tab_block-inner">
             <ButtonToolbar>
               <CustomDropdown
-                title={profile.activeSubject}
+                title={activeSubject}
                 trigger="hover"
                 icon={<Icon icon="adn" size="lg" />}
               />
@@ -104,30 +95,28 @@ function Header({ subjects }) {
         <div className="tab_block">
           <span className="tab_block-inner">
             <img className="tab_icon" src="./img/crown.svg" />
-            <span className="">{profile.crowns}</span>
+            <span className="">{crowns}</span>
           </span>
         </div>
         <div className="tab_block">
           <span className="tab_block-inner">
             <img
               className="tab_icon"
-              src={`./img/streak${
-                profile.everydayProgress > 0 ? "-active" : ""
-              }.svg`}
+              src={`./img/streak${everydayProgress > 0 ? "-active" : ""}.svg`}
             />
-            <span className="">{profile.streak}</span>
+            <span className="">{streak}</span>
           </span>
         </div>
         <div className="tab_block">
           <span className="tab_block-inner">
             <img className="tab_icon" src="./img/lingot.svg" />
-            <span className="">{profile.lingots}</span>
+            <span className="">{lingots}</span>
           </span>
         </div>
 
         <div className="tab_block tab_block__profile">
           <span className="tab_block-inner">
-            <img className="tab_icon" src={profile.avatar} />
+            <img className="tab_icon" src={avatar} />
           </span>
         </div>
       </div>
@@ -136,10 +125,8 @@ function Header({ subjects }) {
 }
 
 const mapStateToProps = (state) => ({
-  crowns: state.crowns,
-  streak: state.streak,
-  lingots: state.lingots,
-  subjects: state.subjects,
+  user: state.user,
+  subjects: state.lessons.subjects,
 });
 
 export default connect(mapStateToProps)(Header);

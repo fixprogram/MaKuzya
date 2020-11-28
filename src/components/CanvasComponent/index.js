@@ -54,8 +54,8 @@ const CanvasComponent = ({ coordinates, sides, width = 700, height = 350 }) => {
 };
 
 const mapStateToProps = (state) => ({
-  coordinates: state.coordinates,
-  sides: state.sides,
+  coordinates: state.practice.coordinates,
+  sides: state.practice.sides,
 });
 
 export default connect(mapStateToProps)(CanvasComponent);

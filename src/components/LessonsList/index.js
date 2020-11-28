@@ -5,13 +5,11 @@ import { useSubject } from "../../context/subject.context";
 import Loader from "../Loader";
 
 import LessonItem from "../LessonItem";
-import { useProfile } from "../../context/profile.context";
 
-function LessonsList({}) {
+function LessonsList({ user }) {
   const { isLoading, lessons } = useSubject();
-  const { profile } = useProfile();
-  const progress =
-    profile.progress[`${profile.activeSubject.toLowerCase()}`][0];
+  const { progress, activeSubject } = user;
+  const progressLesson = progress[`${activeSubject.toLowerCase()}`][0]; // Name of the subject -> number of block of lessons
   return (
     <section className="main_block">
       <div className="lessons_list">
@@ -20,11 +18,14 @@ function LessonsList({}) {
         ) : (
           lessons.map((it, i) => {
             return (
-              <div className="lesson_wrapper" key={it.id}>
+              <div
+                className="lesson_wrapper"
+                key={`${i + " " + progressLesson[i]}`}
+              >
                 <LessonItem
                   id={it.id}
                   title={it.title}
-                  progress={progress[i] || 0}
+                  progress={progressLesson[i]}
                 />
               </div>
             );
@@ -45,7 +46,8 @@ function LessonsList({}) {
 }
 
 const mapStateToProps = (state) => ({
-  lessons: state.lessons,
+  lessons: state.lessons.lessons,
+  user: state.user,
 });
 
 export default connect(mapStateToProps)(LessonsList);

@@ -1,8 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
+import { actionCreatorPractice } from "../../../actions";
 
 const PracticeButtons = ({
   checkAnswer,
-  skipAnswer,
+  setIsSkipping,
   isNextDisabled,
   setActiveRadio,
   disabled,
@@ -14,7 +16,7 @@ const PracticeButtons = ({
           <button
             className="practice_button"
             onClick={() => {
-              skipAnswer();
+              setIsSkipping();
               setActiveRadio(-1);
             }}
             disabled={disabled}
@@ -40,4 +42,8 @@ const PracticeButtons = ({
   );
 };
 
-export default PracticeButtons;
+const mapDispatchToProps = (dispatch) => ({
+  setIsSkipping: () => dispatch(actionCreatorPractice.setIsSkipping()),
+});
+
+export default connect(null, mapDispatchToProps)(PracticeButtons);

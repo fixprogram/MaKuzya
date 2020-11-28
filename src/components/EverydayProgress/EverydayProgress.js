@@ -1,29 +1,31 @@
 import React from "react";
-import { Loader, Progress } from "rsuite";
-import { useProfile } from "../../context/profile.context";
+import { connect } from "react-redux";
+import { Progress } from "rsuite";
 
 const { Line } = Progress;
 
-const EverydayProgress = () => {
-  const { isLoading, profile } = useProfile();
-  if (isLoading && !profile) {
-    return <Loader />;
-  }
+const EverydayProgress = ({ user }) => {
+  const { everydayProgress } = user;
+
   return (
     <div className="everyday-progress">
       <img
         src={`./img/cat-icons/${
-          profile.everydayProgress > 0 ? "awaken" : "sleeping"
+          everydayProgress > 0 ? "awaken" : "sleeping"
         }.svg`}
         style={{ width: 100, marginTop: -30 }}
         alt="MaKuzya"
       />
       <Line
-        percent={profile.everydayProgress}
-        status={`${profile.everydayProgress !== 100 ? "active" : "success"}`}
+        percent={everydayProgress}
+        status={`${everydayProgress !== 100 ? "active" : "success"}`}
       />
     </div>
   );
 };
 
-export default EverydayProgress;
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps)(EverydayProgress);

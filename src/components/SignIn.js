@@ -1,14 +1,16 @@
 import React from "react";
 import firebase from "firebase/app";
-import { auth, database } from "../misc/firebase";
-
 import { Alert } from "rsuite";
+
+import { auth, database } from "../misc/firebase";
 import { SignInPage } from "../pages";
 
 const SignIn = () => {
   const signInWithProvider = async (provider) => {
     try {
       const { additionalUserInfo, user } = await auth.signInWithPopup(provider);
+
+      const arr = new Array(15).fill(0);
 
       if (additionalUserInfo.isNewUser) {
         await database.ref(`/profiles/${user.uid}`).set({
@@ -22,11 +24,11 @@ const SignIn = () => {
           everydayProgress: 0,
           progress: {
             algebra: {
-              0: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+              0: arr.map((it) => it),
             },
 
             geometria: {
-              0: [0],
+              0: arr.map((it) => it),
             },
           },
         });

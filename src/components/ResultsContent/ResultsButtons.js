@@ -1,6 +1,6 @@
 import React from "react";
 
-const ResultsButtons = ({}) => {
+const ResultsButtons = ({ writeToDB }) => {
   return (
     <section className="practice_buttons_wrapper">
       <div className="practice_buttons">
@@ -8,7 +8,10 @@ const ResultsButtons = ({}) => {
           <button className="practice_button">Review lesson</button>
           <button
             className={`practice_button enabled`}
-            onClick={() => window.location.replace("/")}
+            onClick={async () => {
+              await writeToDB();
+              window.location.replace("/");
+            }}
           >
             Continue
           </button>

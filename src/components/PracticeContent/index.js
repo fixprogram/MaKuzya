@@ -7,7 +7,6 @@ import RadioComponent from "../RadioComponent";
 import PracticeButtons from "./PracticeButtons";
 import { connect } from "react-redux";
 import { Animation } from "rsuite";
-import { actionCreator } from "../../actions";
 import { useParams } from "react-router-dom";
 import CanvasComponent from "../CanvasComponent";
 
@@ -167,11 +166,11 @@ function PracticeContent({
 }
 
 const mapStateToProps = (state) => ({
-  variants: state.variants,
-  practicePopupMessage: state.practicePopupMessage,
-  practiceProgress: state.practiceProgress,
-  isSkipping: state.isSkipping,
-  charts: state.charts,
+  variants: state.practice.variants,
+  practicePopupMessage: state.practice.practicePopupMessage,
+  practiceProgress: state.practice.practiceProgress,
+  isSkipping: state.practice.isSkipping,
+  charts: state.practice.charts,
 });
 
 export default connect(mapStateToProps)(PracticeContent);
