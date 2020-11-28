@@ -6,8 +6,6 @@ const config = {};
 const math = create(all, config);
 
 export default function createTask(type, level = 2) {
-  console.log(type);
-
   let { answer, expression, coordinates, sides, charts } = understandType(
     type,
     level

@@ -379,7 +379,7 @@ a:focus {
 }
 
 .practice_content {
-  min-height: 300px;
+  min-height: 400px;
   overflow: visible;
   width: 600px;
   display: grid;
@@ -391,18 +391,16 @@ a:focus {
   font-size: 32px;
   line-height: 40px;
   text-align: left;
-  margin: -70px 0 0 0;
+  margin: 0;
 }
 
 .practice_content__block {
   align-items: center;
   display: flex;
   padding-left: 10px;
-  margin-top: -24px;
 }
 
 .practice_content__teacher {
-  align-self: flex-end;
   flex-shrink: 0;
   max-width: 114px;
   width: 30%;
@@ -589,6 +587,7 @@ a:focus {
   border: 2px solid #e5e5e5;
   cursor: pointer;
   width: 120px;
+  max-height: 120px;
   height: 100%;
   border-radius: 10px;
   background-color: #fff;
@@ -677,4 +676,39 @@ a:focus {
 .practice_results__reward strong {
   font-weight: bold;
   color: #ffc800;
+}
+
+.practice_content__wrapper.wide-radio .practice_content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.practice_content__wrapper.wide-radio .practice_content__popup {
+  justify-content: center;
+  flex-direction: column;
+}
+
+.practice_content__wrapper.wide-radio .practice_content__block {
+  flex-direction: column-reverse;
+  justify-content: center;
+}
+
+.practice_content__wrapper.wide-radio .practice_content__teacher {
+  max-width: 150px;
+  width: 100%;
+}
+
+.practice_content__wrapper.wide-radio .practice_content__input_wrapper {
+  flex-direction: column;
+}
+
+.practice_content__wrapper.wide-radio .practice_radio {
+  padding: 12px 16px 12px 52px;
+  margin: 5px 0;
+}
+
+.practice_content__wrapper.wide-radio .radio__number {
+  right: auto;
+  bottom: 26px;
+  left: 10px;
 }

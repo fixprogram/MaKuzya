@@ -43,46 +43,47 @@ function PracticeContent({
     setDisabled(true);
     setShow(!show);
     setShowPopup(!showPopup);
+    setActiveRadio(-1);
 
     setTimeout(() => {
       continueFun();
     }, 500);
   };
 
+  const modificator = variants.second.length > 1 ? "wide-radio" : "";
+
   return (
     <>
-      <section className="practice_content__wrapper">
+      <section className={`practice_content__wrapper ${modificator}`}>
         <h1 className="practice_content__title">Choose right answer</h1>
         <Slide in={show} placement={placement}>
           {/* {(props, ref) => <Panel {...props} ref={ref} />} */}
           <div className="practice_content">
             {type === "charts" ? (
-              <CellField
-                checkAnswer={() => {
-                  if (activeRadio !== -1 && variants) {
-                    animateAndContinue(() => {
-                      checkAnswer(variants[activeRadio]);
-                    });
-                  }
-                }}
-                charts={charts}
-              />
+              <CellField />
             ) : (
               <>
                 <PracticeTitle />
                 <article className="practice_content__input_wrapper">
                   <RadioComponent
                     checkAnswer={() => {
-                      if (activeRadio !== -1 && variants) {
+                      if (activeRadio !== -1 && variants.first) {
                         animateAndContinue(() => {
-                          checkAnswer(variants[activeRadio]);
-                          // setActiveRadio(-1);
+                          checkAnswer(
+                            variants.second.length > 1
+                              ? [
+                                  variants.first[activeRadio],
+                                  variants.second[activeRadio],
+                                ]
+                              : variants.first[activeRadio]
+                          );
                         });
                       }
                     }}
                     variants={variants}
                     activeRadio={activeRadio}
                     setActiveRadio={(i) => setActiveRadio(i)}
+                    type={type}
                   />
                 </article>
               </>
@@ -96,7 +97,7 @@ function PracticeContent({
           enteredClassName="custom-entered"
           enteringClassName="custom-entering"
         >
-          <div className="practice_content">
+          <div className="practice_content practice_content__popup">
             <div
               className={`rs-progress rs-progress-circle rs-progress-circle-${practicePopupMessage.toLowerCase()}`}
             >
@@ -142,12 +143,21 @@ function PracticeContent({
 
       <PracticeButtons
         checkAnswer={() =>
-          animateAndContinue(() => checkAnswer(variants[activeRadio]))
+          animateAndContinue(() =>
+            checkAnswer(
+              variants.second.length > 1
+                ? [variants.first[activeRadio], variants.second[activeRadio]]
+                : variants.first[activeRadio]
+            )
+          )
         }
         setActiveRadio={(i) => setActiveRadio(i)}
         skipAnswer={() => animateAndContinue(skipAnswer)}
         isNextDisabled={activeRadio === -1}
-        answer={variants[activeRadio] && variants[activeRadio].isAnswerRight}
+        answer={
+          variants.first[activeRadio] &&
+          variants.first[activeRadio].isAnswerRight
+        }
         disabled={disabled}
       />
     </>
@@ -156,16 +166,10 @@ function PracticeContent({
 
 const mapStateToProps = (state) => ({
   variants: state.variants,
-  animationCount: state.animationCount,
   practicePopupMessage: state.practicePopupMessage,
   practiceProgress: state.practiceProgress,
   isSkipping: state.isSkipping,
   charts: state.charts,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  increaseAnimationCount: () =>
-    dispatch(actionCreator.increaseAnimationCount()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(PracticeContent);
+export default connect(mapStateToProps)(PracticeContent);

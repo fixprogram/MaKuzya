@@ -23,12 +23,8 @@ export const actionCreator = {
     type: "CHANGE_SUBJECT",
     payload,
   }),
-  increaseAnimationCount: () => ({
-    type: "INCREASE_ANIMATION_COUNT",
-    payload: 1,
-  }),
-  resetAnimationCount: () => ({
-    type: "RESET_ANIMATION_COUNT",
+  resetPracticeProgress: () => ({
+    type: "RESET_PRACTICE_PROGRESS",
   }),
   setPracticePopupMessage: (payload) => ({
     type: "SET_PRACTICE_POPUP_MESSAGE",

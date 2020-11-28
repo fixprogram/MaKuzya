@@ -19,6 +19,7 @@ const createRandomArray = (count = 2, min, max) => {
 };
 
 const shuffleArray = (array) => {
+  if (array.second.length > 1) return array;
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
@@ -52,7 +53,7 @@ const checkInt = (n, d, minus) => {
   return `${minus ? "-" : ""}\\frac{${n}}{${d}}`;
 };
 
-const roundTo = (number, digits) => {
+const roundTo = (number, digits = 2) => {
   let negative = false;
   if (digits === undefined) {
     digits = 0;
@@ -67,7 +68,7 @@ const roundTo = (number, digits) => {
   if (negative) {
     number = (number * -1).toFixed(digits);
   }
-  return number;
+  return +number;
 };
 
 const fracToNum = (frac) => {

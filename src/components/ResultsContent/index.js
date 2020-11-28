@@ -42,7 +42,6 @@ function PracticeContent({}) {
 
 const mapStateToProps = (state) => ({
   variants: state.variants,
-  animationCount: state.animationCount,
   practicePopupMessage: state.practicePopupMessage,
 });
 

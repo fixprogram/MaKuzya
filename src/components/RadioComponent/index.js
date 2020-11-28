@@ -6,6 +6,7 @@ export default function RadioComponent({
   variants,
   checkAnswer,
   setActiveRadio,
+  type,
 }) {
   function checkKeyDown(e) {
     switch (e.key) {
@@ -35,7 +36,30 @@ export default function RadioComponent({
     };
   }, [checkKeyDown, activeRadio]);
 
-  return variants.map((it, i) => {
+  const { first, second } = variants;
+  // const innerArr = variants[0];
+
+  return first.map((it, i, arr) => {
+    let formula = "";
+
+    switch (type) {
+      case "equation":
+        formula = `x = ${it}`;
+        break;
+      case "inequality":
+        formula = `x < ${it}`;
+        break;
+      case "quadratic-equation":
+        if (second.length > 1) {
+          formula = `x_1 = ${it}; x_2 = ${second[i]}`;
+        } else {
+          formula = `x = ${it}`;
+        }
+        break;
+      default:
+        formula = it;
+        break;
+    }
     return (
       <fieldset
         key={i}
@@ -50,7 +74,7 @@ export default function RadioComponent({
           {/* <div className="practice_radio-label_inner"> */}
           <input type="radio" className="visually-hidden" id={i} />
           <MathJax.Provider>
-            <MathJax.Node formula={it} />
+            <MathJax.Node formula={formula} />
           </MathJax.Provider>
           <span className="radio__number">{i + 1}</span>
           {/* </div> */}

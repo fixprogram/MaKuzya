@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const PracticePage = ({
   progress,
-  resetAnimationCount,
+  resetPracticeProgress,
   checkAnswer,
   skipAnswer,
 }) => {
@@ -16,7 +16,7 @@ const PracticePage = ({
         <Link
           className="progress_close"
           to="/"
-          onClick={resetAnimationCount}
+          onClick={resetPracticeProgress}
         ></Link>
       </ProgressBar>
 

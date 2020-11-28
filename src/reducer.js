@@ -47,14 +47,19 @@ const initialState = {
   //   },
   // ],
   currentTask: null,
-  variants: [],
+  variants: {
+    first: [],
+    second: [],
+  },
   answer: null,
   coordinates: [],
   sides: [],
   subjects: ["Algebra", "Geometria"],
-  animationCount: 0,
   practicePopupMessage: "Success!",
-  charts: {},
+  charts: {
+    coordinates: [{ left: 0, top: 0 }],
+    params: { x: [], y: [] },
+  },
   practiceProgress: 0,
   isSkipping: false,
 };
@@ -75,15 +80,10 @@ const reducer = (state = initialState, action) => {
       return { ...state, sides: action.payload };
     case "CHANGE_SUBJECT":
       return { ...state, activeSubject: action.payload };
-    case "INCREASE_ANIMATION_COUNT":
+    case "RESET_PRACTICE_PROGRESS": {
       return {
         ...state,
-        animationCount: state.animationCount + action.payload,
-      };
-    case "RESET_ANIMATION_COUNT": {
-      return {
-        ...state,
-        animationCount: 0,
+        practiceProgress: 0,
       };
     }
     case "SET_PRACTICE_POPUP_MESSAGE": {
@@ -98,7 +98,6 @@ const reducer = (state = initialState, action) => {
       });
     }
     case "SET_PRACTICE_PROGRESS":
-      console.log("SETTING PROGRESS: ", action.payload);
       return { ...state, practiceProgress: action.payload };
     case "SET_IS_SKIPPING":
       return { ...state, isSkipping: !state.isSkipping };

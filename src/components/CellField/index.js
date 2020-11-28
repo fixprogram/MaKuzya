@@ -7,7 +7,6 @@ import { drawParams } from "./drawParams";
 
 const CellField = ({ charts, width = 700, height = 350 }) => {
   const canvasRef = useRef(null);
-  console.log(charts);
   const { coordinates, params } = charts;
   const [active, setActive] = useState(
     new Array(coordinates.length).fill(false)

@@ -14,9 +14,10 @@ export const createNumVariant = (num, i, fixed = 0) => {
 };
 
 export const createVariants = (type, answer, count = 4) => {
-  if (type.split("-")[1]) {
+  if (type.split("-")[0] === "fractions") {
     return createFractionVariants(answer, count);
-  } else {
-    return createSimpleVariants(answer, count);
+  } else if (type === "charts") {
+    return createSimpleVariants([1], count);
   }
+  return createSimpleVariants(answer, count);
 };

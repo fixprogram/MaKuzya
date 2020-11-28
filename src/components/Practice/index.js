@@ -20,26 +20,19 @@ function Practice({
   setSides,
   setCoordinates,
   setPracticePopupMessage,
-  resetAnimationCount,
   setCharts,
   answer,
   practiceProgress,
   setPracticeProgress,
+  resetPracticeProgress,
   isSkipping,
   setIsSkipping,
 }) {
   const { type } = useParams();
   const { profile } = useProfile();
   const { lessons } = useSubject();
-  let ch = 0;
-  if (type === "charts" && ch === 0) {
-    const { charts } = createTask(type);
-    setCharts(charts);
-    ch++;
-  }
 
   useEffect(() => {
-    console.log(type);
     if (practiceProgress < 100) {
       const {
         answer,
@@ -47,7 +40,7 @@ function Practice({
         expression,
         coordinates,
         sides,
-        // charts,
+        charts,
       } = createTask(type);
 
       setAnswer(answer);
@@ -55,7 +48,7 @@ function Practice({
       if (expression) setTask(expression);
       if (coordinates) setCoordinates(coordinates);
       if (sides) setSides(sides);
-      // if (charts) setCharts(charts);
+      if (charts) setCharts(charts);
     }
   }, [practiceProgress, isSkipping]);
 
@@ -64,10 +57,15 @@ function Practice({
   const typeIndex = lessons.map((lesson) => lesson.id).indexOf(type);
 
   async function checkAnswer(value) {
-    console.log("checj");
+    console.log("VAL: ", value);
+    console.log("ANS: ", answer);
     if (typeof value === "string") value = fracToNum(value);
 
-    if (answer == value || roundTo(answer, 2) === roundTo(value, 2)) {
+    if (
+      answer == value ||
+      roundTo(answer, 2) === roundTo(value, 2) ||
+      (answer[0] == value[0] && answer[1] == value[1])
+    ) {
       if (practiceProgress + 20 >= MAX_TASKS * 10) {
         // Finishing. Report
         setPracticeProgress(practiceProgress + 20);
@@ -115,7 +113,7 @@ function Practice({
   ) : (
     <PracticePage
       progress={practiceProgress}
-      resetAnimationCount={resetAnimationCount}
+      resetPracticeProgress={resetPracticeProgress}
       skipAnswer={() => setIsSkipping()}
       checkAnswer={checkAnswer}
     />
@@ -140,7 +138,7 @@ const mapDispatchToProps = (dispatch) => ({
   setPracticePopupMessage: (payload) =>
     dispatch(actionCreator.setPracticePopupMessage(payload)),
   setIsSkipping: () => dispatch(actionCreator.setIsSkipping()),
-  resetAnimationCount: () => dispatch(actionCreator.resetAnimationCount()),
+  resetPracticeProgress: () => dispatch(actionCreator.resetPracticeProgress()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Practice);
