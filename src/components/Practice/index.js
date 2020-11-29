@@ -11,13 +11,8 @@ import ResultsPage from "../../pages/results-page";
 const MAX_TASKS = 10;
 
 function Practice({
-  setVariants,
   setTask,
-  setAnswer,
-  setSides,
-  setCoordinates,
   setPracticePopupMessage,
-  setCharts,
   answer,
   practiceProgress,
   setPracticeProgress,
@@ -29,21 +24,9 @@ function Practice({
 
   useEffect(() => {
     if (practiceProgress < 100) {
-      const {
-        answer,
-        variants,
-        expression,
-        coordinates,
-        sides,
-        charts,
-      } = createTask(type);
+      const task = createTask(type);
 
-      setAnswer(answer);
-      if (variants) setVariants(shuffleArray(variants));
-      if (expression) setTask(expression);
-      if (coordinates) setCoordinates(coordinates);
-      if (sides) setSides(sides);
-      if (charts) setCharts(charts);
+      setTask(task);
     }
   }, [practiceProgress, isSkipping]);
 
@@ -87,22 +70,15 @@ function Practice({
 }
 
 const mapStateToProps = (state) => ({
-  answer: state.practice.answer,
+  answer: state.practice.currentTask.answer,
   practiceProgress: state.practice.practiceProgress,
   isSkipping: state.practice.isSkipping,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setVariants: (payload) =>
-    dispatch(actionCreatorPractice.setVariants(payload)),
   setTask: (payload) => dispatch(actionCreatorPractice.setTask(payload)),
   setPracticeProgress: (payload) =>
     dispatch(actionCreatorPractice.setPracticeProgress(payload)),
-  setAnswer: (payload) => dispatch(actionCreatorPractice.setAnswer(payload)),
-  setCoordinates: (payload) =>
-    dispatch(actionCreatorPractice.setCoordinates(payload)),
-  setSides: (payload) => dispatch(actionCreatorPractice.setSides(payload)),
-  setCharts: (payload) => dispatch(actionCreatorPractice.setCharts(payload)),
   setPracticePopupMessage: (payload) =>
     dispatch(actionCreatorPractice.setPracticePopupMessage(payload)),
   setIsSkipping: () => dispatch(actionCreatorPractice.setIsSkipping()),

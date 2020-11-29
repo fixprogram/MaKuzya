@@ -52,7 +52,10 @@ export const createCharts = (count = 7) => {
     ],
   };
 
-  const charts = { coordinates, params };
+  const canvasData = { coordinates, params, sides: [] };
 
-  return { charts };
+  const expression = "";
+  const answer = 0;
+
+  return { answer, expression, canvasData, waysToResolve: ["radio"] };
 };

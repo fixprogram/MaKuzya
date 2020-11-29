@@ -1,5 +1,3 @@
-import React from "react";
-
 import { createExpression } from "./createExpression";
 import { createEquation } from "./createEquation";
 import { createSquareEquation } from "./createSquareEquation";

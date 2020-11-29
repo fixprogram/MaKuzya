@@ -45,5 +45,14 @@ export function createEquation(sign, elems = 2, initialAnswer = null) {
     )}`;
   }
 
-  return { answer: [answer], expression };
+  return {
+    answer: [answer],
+    expression,
+    waysToResolve: ["radio"],
+    canvasData: {
+      coordinates: [{ letter: "", x: [], y: [] }],
+      sides: [],
+      params: { x: [], y: [] },
+    },
+  };
 }

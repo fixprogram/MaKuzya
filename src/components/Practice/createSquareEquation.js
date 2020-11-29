@@ -34,5 +34,14 @@ export function createSquareEquation() {
     answer = [0];
   }
 
-  return { answer: answer, expression };
+  return {
+    answer: answer,
+    expression,
+    waysToResolve: ["radio"],
+    canvasData: {
+      coordinates: [{ letter: "", x: [], y: [] }],
+      sides: [],
+      params: { x: [], y: [] },
+    },
+  };
 }

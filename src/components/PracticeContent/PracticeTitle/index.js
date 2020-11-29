@@ -2,12 +2,25 @@ import React from "react";
 import MathJax from "react-mathjax";
 import { connect } from "react-redux";
 import CanvasComponent from "../../CanvasComponent";
+import CellField from "../../CellField";
 
 const PracticeTitle = ({ currentTask, topic }) => {
+  const beautify = () => {
+    const arr = currentTask.split(" ");
+    const idxDivision = arr.indexOf("/");
+    const idxEqual = arr.indexOf("=");
+    const idxOther = arr.indexOf("<");
+    if (idxDivision) arr[idxDivision] = " : ";
+    if (idxEqual === -1 && idxOther === -1) arr.push(" = ?");
+    currentTask = arr.join(" ");
+  };
+  if (currentTask) {
+    beautify();
+  }
   return (
     <div className="practice_content__block">
-      {topic ? (
-        <CanvasComponent />
+      {topic === "charts" ? (
+        <CellField />
       ) : (
         <>
           <div className="practice_content__teacher">
@@ -30,8 +43,7 @@ const PracticeTitle = ({ currentTask, topic }) => {
 };
 
 const mapStateToProps = (state) => ({
-  currentTask: state.practice.currentTask,
-  // topic: state.topic,
+  currentTask: state.practice.currentTask.expression,
 });
 
 export default connect(mapStateToProps)(PracticeTitle);

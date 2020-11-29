@@ -9,17 +9,17 @@ import { connect } from "react-redux";
 import { Animation } from "rsuite";
 import { useParams } from "react-router-dom";
 import CanvasComponent from "../CanvasComponent";
+import { actionCreatorPractice } from "../../actions";
 
 const { Slide, Transition } = Animation;
 
 function PracticeContent({
   checkAnswer,
-  skipAnswer,
   variants,
   practicePopupMessage,
   practiceProgress,
   isSkipping,
-  charts,
+  setIsSkipping,
 }) {
   const { type } = useParams();
   const [activeRadio, setActiveRadio] = useState(-1);
@@ -64,7 +64,7 @@ function PracticeContent({
               <CanvasComponent />
             ) : (
               <>
-                <PracticeTitle />
+                <PracticeTitle topic={type} />
                 <article className="practice_content__input_wrapper">
                   <RadioComponent
                     checkAnswer={() => {
@@ -153,7 +153,7 @@ function PracticeContent({
           )
         }
         setActiveRadio={(i) => setActiveRadio(i)}
-        skipAnswer={() => animateAndContinue(skipAnswer)}
+        skipAnswer={() => animateAndContinue(() => setIsSkipping())}
         isNextDisabled={activeRadio === -1}
         answer={
           variants.first[activeRadio] &&
@@ -166,11 +166,14 @@ function PracticeContent({
 }
 
 const mapStateToProps = (state) => ({
-  variants: state.practice.variants,
+  variants: state.practice.currentTask.variants,
   practicePopupMessage: state.practice.practicePopupMessage,
   practiceProgress: state.practice.practiceProgress,
   isSkipping: state.practice.isSkipping,
-  charts: state.practice.charts,
 });
 
-export default connect(mapStateToProps)(PracticeContent);
+const mapDispatchToProps = (dispatch) => ({
+  setIsSkipping: () => dispatch(actionCreatorPractice.setIsSkipping()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PracticeContent);

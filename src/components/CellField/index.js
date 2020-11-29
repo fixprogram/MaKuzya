@@ -5,9 +5,9 @@ import { handleCoincidence } from "../../misc/utils";
 import { drawDotsAndConnect } from "./drawDotsAndConnect";
 import { drawParams } from "./drawParams";
 
-const CellField = ({ charts, width = 700, height = 350 }) => {
+const CellField = ({ canvasData, width = 700, height = 350 }) => {
   const canvasRef = useRef(null);
-  const { coordinates, params } = charts;
+  const { coordinates, params } = canvasData;
   const [active, setActive] = useState(
     new Array(coordinates.length).fill(false)
   );
@@ -67,7 +67,7 @@ const CellField = ({ charts, width = 700, height = 350 }) => {
 };
 
 const mapStateToProps = (state) => ({
-  charts: state.practice.charts,
+  canvasData: state.practice.currentTask.canvasData,
 });
 
 export default connect(mapStateToProps)(CellField);

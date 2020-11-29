@@ -38,9 +38,8 @@ export default function RadioComponent({
   }, [checkKeyDown, activeRadio]);
 
   const { first, second } = variants;
-  // const innerArr = variants[0];
 
-  return first.map((it, i, arr) => {
+  return first.map((it, i) => {
     let formula = "";
 
     switch (type) {

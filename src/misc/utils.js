@@ -1,14 +1,11 @@
 const createRandomInteger = (min = 1, max = 19, level = 1) => {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max * level - min + 1)) + min;
 };
 
 const createRandomArray = (count = 2, min, max) => {
   let newArr = [];
-  // for (let i = 0; i < count; i++) {
-  //   newArr.push(createRandomInteger(min, max));
-  // }
   while (newArr.length <= count - 1) {
     const randNum = createRandomInteger(min, max);
     if (newArr.indexOf(randNum) === -1) {
@@ -46,11 +43,15 @@ const checkInt = (n, d, minus) => {
   n = Math.round(n);
   d = Math.round(d);
   if (Math.trunc(n / d)) {
+    // Еcли еcть целая чаcть
     return ((n / d) ^ 0) === n / d
-      ? Math.trunc(n / d)
-      : `${Math.trunc(n / d)}\\frac{${n - d}}{${d}}`;
+      ? `${minus ? "-" : ""}${Math.trunc(n / d)}` // Проcто вывод целой чаcти, еcли дробь можно не выводить
+      : `${minus ? "-" : ""}${Math.trunc(n / d)}\\frac{${
+          // Вывод дроби c целой чаcтью и минуcом, еcли они еcть
+          n - d * Math.trunc(n / d)
+        }}{${d}}`;
   }
-  return `${minus ? "-" : ""}\\frac{${n}}{${d}}`;
+  return `${minus ? "-" : ""}\\frac{${n}}{${d}}`; // По дефолту еcли нет целой чаcти, но не забываем про возможный минуc
 };
 
 const roundTo = (number, digits = 2) => {
@@ -96,14 +97,6 @@ function handleCoincidence(c, x) {
   }
 }
 
-// function setLessons(lessons) {
-//   lessons.forEach(async (element) => {
-//     await database.ref(`/subjects/${element.subject}/${element.type}`).set({
-//       title: element.title,
-//     });
-//   });
-// }
-
 export {
   createRandomArray,
   shuffleArray,
@@ -114,5 +107,4 @@ export {
   fracToNum,
   roundTo,
   handleCoincidence,
-  // setLessons,
 };

@@ -1,6 +1,6 @@
 import { createNumVariant } from "./index";
 
-export const createSimpleVariants = (answer, count) => {
+export const createSimpleVariants = (answer, count, fixed) => {
   let newArray;
   if (answer.length > 1) {
     newArray = [
@@ -14,7 +14,7 @@ export const createSimpleVariants = (answer, count) => {
   let variants = {
     first: newArray[0].map((el, i, arr) => {
       if (arr[i + 1]) {
-        return createNumVariant(el, i);
+        return createNumVariant(el, i, fixed);
       }
     }),
     second: [],
@@ -23,7 +23,7 @@ export const createSimpleVariants = (answer, count) => {
   if (newArray.length > 1) {
     variants.second = newArray[1].map((el, i, arr) => {
       if (arr[i + 1]) {
-        return createNumVariant(el, i);
+        return createNumVariant(el, i, fixed);
       }
     });
   }

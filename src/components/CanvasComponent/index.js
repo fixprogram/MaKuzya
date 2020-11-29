@@ -1,10 +1,10 @@
 import React, { useRef, useEffect } from "react";
 import { connect } from "react-redux";
 
-const CanvasComponent = ({ coordinates, sides, width = 700, height = 350 }) => {
+const CanvasComponent = ({ canvasData, width = 700, height = 350 }) => {
   const canvasRef = useRef(null);
 
-  const draw = (ctx) => {
+  const draw = (ctx, sides, coordinates) => {
     let sideNumsCoordinates = [];
 
     coordinates.forEach((el, i, arr) => {
@@ -46,16 +46,16 @@ const CanvasComponent = ({ coordinates, sides, width = 700, height = 350 }) => {
 
   useEffect(() => {
     const context = canvasRef.current.getContext("2d");
+    const { sides, coordinates } = canvasData;
 
-    draw(context);
+    draw(context, sides, coordinates);
   }, [draw]);
 
   return <canvas ref={canvasRef} width={width} height={height} />;
 };
 
 const mapStateToProps = (state) => ({
-  coordinates: state.practice.coordinates,
-  sides: state.practice.sides,
+  canvasData: state.practice.currentTask.canvasData,
 });
 
 export default connect(mapStateToProps)(CanvasComponent);

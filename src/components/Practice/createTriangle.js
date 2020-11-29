@@ -1,7 +1,4 @@
-import { shuffleArray } from "../../misc/utils";
-
 const createTriangle = () => {
-  // const triange = {
   const coordinates = [
     {
       letter: "A",
@@ -20,11 +17,16 @@ const createTriangle = () => {
     },
   ];
   const sides = [5, 4, 3];
-  // };
 
   return {
-    sides: sides,
-    coordinates: coordinates,
+    answer: [10],
+    expression: "",
+    canvasData: {
+      sides: sides,
+      coordinates: coordinates,
+      params: { x: [], y: [] },
+    },
+    waysToResolve: ["radio"],
   };
 };
 

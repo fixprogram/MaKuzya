@@ -1,26 +1,26 @@
 import { understandType } from "./understandType";
-import { create, all } from "mathjs";
 import { createVariants } from "../createVariants";
-
-const config = {};
-const math = create(all, config);
+import { createRandomInteger, shuffleArray } from "../../misc/utils";
 
 export default function createTask(type, level = 2) {
-  let { answer, expression, coordinates, sides, charts } = understandType(
+  let { answer, expression, canvasData, waysToResolve } = understandType(
     type,
     level
   );
 
-  if (!answer && sides) answer = { first: sides.shift(), second: [] };
+  let variants = { first: [], second: [] };
 
-  const variants = createVariants(type, answer);
+  const wayToResolve =
+    waysToResolve[createRandomInteger(0, waysToResolve.length - 1)];
+
+  if (wayToResolve === "radio")
+    variants = shuffleArray(createVariants(type, answer));
 
   return {
+    expression,
     answer,
     variants,
-    expression,
-    coordinates,
-    sides,
-    charts,
+    canvasData,
+    wayToResolve,
   };
 }

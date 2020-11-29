@@ -17,7 +17,6 @@ function HomePage({ setUser, setLessons, changeActiveSubject }) {
   const { lessons } = useSubject();
   if (isLoading) return <Loader />;
   useEffect(() => {
-    console.log("11");
     setUser({ ...profile });
     setLessons(lessons);
   }, []);

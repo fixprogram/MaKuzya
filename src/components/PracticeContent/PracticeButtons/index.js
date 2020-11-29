@@ -4,7 +4,7 @@ import { actionCreatorPractice } from "../../../actions";
 
 const PracticeButtons = ({
   checkAnswer,
-  setIsSkipping,
+  skipAnswer,
   isNextDisabled,
   setActiveRadio,
   disabled,
@@ -16,7 +16,7 @@ const PracticeButtons = ({
           <button
             className="practice_button"
             onClick={() => {
-              setIsSkipping();
+              skipAnswer();
               setActiveRadio(-1);
             }}
             disabled={disabled}
@@ -42,8 +42,4 @@ const PracticeButtons = ({
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  setIsSkipping: () => dispatch(actionCreatorPractice.setIsSkipping()),
-});
-
-export default connect(null, mapDispatchToProps)(PracticeButtons);
+export default PracticeButtons;

@@ -31,5 +31,14 @@ export function createExpression(sign, elems = 2) {
 
   let answer = [roundTo(math.evaluate(expression), 5)];
 
-  return { answer, expression };
+  return {
+    answer,
+    expression,
+    waysToResolve: ["radio"],
+    canvasData: {
+      coordinates: [{ letter: "", x: [], y: [] }],
+      sides: [],
+      params: { x: [], y: [] },
+    },
+  };
 }

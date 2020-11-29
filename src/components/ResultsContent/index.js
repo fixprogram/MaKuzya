@@ -75,7 +75,7 @@ function PracticeContent({ type, user }) {
 
 const mapStateToProps = (state) => ({
   user: state.user,
-  variants: state.practice.variants,
+  variants: state.practice.currentTask.variants,
   practicePopupMessage: state.practice.practicePopupMessage,
 });
 
