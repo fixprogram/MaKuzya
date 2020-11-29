@@ -146,7 +146,7 @@ a:focus {
   display: flex;
   margin: 0 auto;
   margin-top: 0px;
-  padding: 40px 24px 140px;
+  padding: 40px 24px;
   max-width: 1140px;
   position: relative;
   flex-wrap: wrap;
@@ -197,30 +197,8 @@ a:focus {
   background-color: #fff !important;
 }
 
-.lesson_symbol-crowns {
-  bottom: 2%;
-  height: 38%;
-  pointer-events: none;
-  position: absolute;
-  right: -3%;
-  width: 38%;
-  display: flex;
-  justify-content: center;
-}
-
 .lesson_symbol-main__icon {
   padding: 15px;
-}
-
-.lesson_symbol-crowns__title {
-  color: #cd7900;
-  font-weight: 700;
-  font-size: 14px;
-  left: 50%;
-  margin-top: 2%;
-  position: absolute;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
 }
 
 .lesson_title {
@@ -550,6 +528,7 @@ a:focus {
   position: absolute;
   right: 10px;
   bottom: 40px;
+  display: none;
 }
 
 .practice_link {
@@ -706,4 +685,59 @@ a:focus {
   right: auto;
   bottom: 26px;
   left: 10px;
+}
+
+.lessons_slider {
+  width: 100%;
+  max-width: 1140px;
+  height: 66px;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.lessons_slider ol {
+  list-style: none;
+  padding: 0;
+  counter-reset: my-awesome-counter;
+  display: flex;
+  justify-content: space-evenly;
+  position: absolute;
+  width: 100%;
+}
+
+.lessons_slider ol li {
+  counter-increment: my-awesome-counter;
+  padding: 20px;
+  width: 100%;
+  max-width: 65px;
+  border: 2px solid #e5e5e5;
+  border-radius: 13px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.lessons_slider ol li.active {
+  border-color: #10a4ea;
+  max-width: 100%;
+  width: auto;
+}
+
+.lessons_slider ol li span {
+  display: none;
+}
+
+.lessons_slider ol li.active span {
+  display: inline;
+  margin-left: 5px;
+  // color: rgb(28, 176, 246);
+}
+
+.lessons_slider ol li::before {
+  content: counter(my-awesome-counter, upper-roman);
+  color: #10a4ea;
+  font-weight: bold;
+}
+
+.lessons_slider ol li.active::before {
+  color: #3c3c3c;
 }

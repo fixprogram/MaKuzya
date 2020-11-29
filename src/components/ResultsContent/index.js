@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { database } from "../../misc/firebase";
 import { connect } from "react-redux";
 
-import { useSubject } from "../../context/subject.context";
 import ResultsButtons from "./resultsButtons";
 
 function PracticeContent({ type, user }) {
@@ -12,8 +11,6 @@ function PracticeContent({ type, user }) {
       window.location.replace("/");
     }
   }
-
-  const { lessons } = useSubject();
 
   const { uid, activeSubject, lingots, everydayProgress, progress } = user;
   const progressLesson = progress[`${activeSubject.toLowerCase()}`][0];
@@ -76,6 +73,7 @@ function PracticeContent({ type, user }) {
 const mapStateToProps = (state) => ({
   user: state.user,
   variants: state.practice.currentTask.variants,
+  lessons: state.lessons.lessons,
   practicePopupMessage: state.practice.practicePopupMessage,
 });
 

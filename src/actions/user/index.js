@@ -7,4 +7,8 @@ export default {
     type: "CHANGE_ACTIVE_SUBJECT",
     payload,
   }),
+  setChapter: (payload) => ({
+    type: "SET_CHAPTER",
+    payload,
+  }),
 };

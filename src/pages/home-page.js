@@ -14,27 +14,27 @@ import LessonsList from "../components/LessonsList";
 
 function HomePage({ setUser, setLessons, changeActiveSubject }) {
   const { isLoading, profile } = useProfile();
-  const { lessons } = useSubject();
+  // const { lessons } = useSubject();
   if (isLoading) return <Loader />;
   useEffect(() => {
     setUser({ ...profile });
-    setLessons(lessons);
+    // setLessons(lessons);
   }, []);
 
-  const changeSubject = async (newActive) => {
-    changeActiveSubject(newActive);
-    try {
-      await database.ref(`/profiles/${profile.uid}`).update({
-        activeSubject: newActive,
-      });
-    } catch (err) {
-      Alert.error(err.message, 4000);
-    }
-  };
+  // const changeSubject = async (newActive) => {
+  //   changeActiveSubject(newActive);
+  //   try {
+  //     await database.ref(`/profiles/${profile.uid}`).update({
+  //       activeSubject: newActive,
+  //     });
+  //   } catch (err) {
+  //     Alert.error(err.message, 4000);
+  //   }
+  // };
 
   return (
     <section className="app">
-      <Header changeSubject={(newActive) => changeSubject(newActive)} />
+      <Header />
       <LessonsList />
       <Footer />
     </section>

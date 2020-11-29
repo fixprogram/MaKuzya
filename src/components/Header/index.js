@@ -1,18 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Icon, Dropdown, ButtonToolbar } from "rsuite";
+import { actionCreatorLessons, actionCreatorUser } from "../../actions";
+import { useSubject } from "../../context/subject.context";
+import { Alert } from "rsuite";
+import { database } from "../../misc/firebase";
 
-function Header({ user, subjects, changeSubject }) {
+function Header({ user, subjects, setLessons, changeActiveSubject }) {
   const {
-    crowns,
+    uid,
     streak,
     lingots,
     avatar,
     activeSubject,
     everydayProgress,
   } = user;
-  // const [isLoading, setIsLoading] = useState(false);
+
+  const changeSubject = async (newActive) => {
+    changeActiveSubject(newActive);
+    try {
+      await database.ref(`/profiles/${uid}`).update({
+        activeSubject: newActive,
+      });
+    } catch (err) {
+      Alert.error(err.message, 4000);
+    }
+  };
+  const { lessons } = useSubject();
+  useEffect(() => {
+    setLessons(lessons);
+  }, [changeSubject]);
 
   const CustomDropdown = ({ ...props }) => (
     <Dropdown {...props}>
@@ -94,12 +112,6 @@ function Header({ user, subjects, changeSubject }) {
 
         <div className="tab_block">
           <span className="tab_block-inner">
-            <img className="tab_icon" src="./img/crown.svg" />
-            <span className="">{crowns}</span>
-          </span>
-        </div>
-        <div className="tab_block">
-          <span className="tab_block-inner">
             <img
               className="tab_icon"
               src={`./img/streak${everydayProgress > 0 ? "-active" : ""}.svg`}
@@ -129,4 +141,10 @@ const mapStateToProps = (state) => ({
   subjects: state.lessons.subjects,
 });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = (dispatch) => ({
+  setLessons: (lessons) => dispatch(actionCreatorLessons.setLessons(lessons)),
+  changeActiveSubject: (newActive) =>
+    dispatch(actionCreatorUser.changeActive(newActive)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

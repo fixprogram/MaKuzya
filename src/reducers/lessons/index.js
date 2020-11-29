@@ -2,6 +2,7 @@ const initialState = {
   lessons: [
     {
       title: "",
+      chapter: 0,
     },
   ],
   subjects: ["Algebra", "Geometria"],

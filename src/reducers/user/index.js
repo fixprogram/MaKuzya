@@ -2,9 +2,9 @@ const arr = new Array(15).fill(0);
 
 const initialState = {
   activeSubject: "Algebra",
+  chapter: 0,
   avatar: "",
   createdAt: "",
-  crowns: 0,
   everydayProgress: 0,
   lingots: 10,
   name: "",
@@ -26,6 +26,8 @@ export default function (state = initialState, action) {
       return action.payload;
     case "CHANGE_ACTIVE_SUBJECT":
       return { ...state, activeSubject: action.payload };
+    case "SET_CHAPTER":
+      return { ...state, chapter: action.payload };
     default:
       return state;
   }

@@ -10,7 +10,8 @@ const SignIn = () => {
     try {
       const { additionalUserInfo, user } = await auth.signInWithPopup(provider);
 
-      const arr = new Array(15).fill(0);
+      const arr = new Array(10).fill(0);
+      const chapters = new Array(12).fill(0);
 
       if (additionalUserInfo.isNewUser) {
         await database.ref(`/profiles/${user.uid}`).set({
@@ -18,18 +19,13 @@ const SignIn = () => {
           createdAt: firebase.database.ServerValue.TIMESTAMP,
           avatar: user.photoURL,
           lingots: 10,
-          crowns: 0,
           streak: 1,
           activeSubject: "Algebra",
+          chapter: 0,
           everydayProgress: 0,
           progress: {
-            algebra: {
-              0: arr.map((it) => it),
-            },
-
-            geometria: {
-              0: arr.map((it) => it),
-            },
+            algebra: chapters.map((chap, i) => arr.map((it) => it)),
+            geometria: chapters.map((chap, i) => arr.map((it) => it)),
           },
         });
       }
