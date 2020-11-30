@@ -17,6 +17,7 @@ export const LESSON_TYPES = {
   PIFAGOR: "pifagor",
   CHARTS: "charts",
   FUNCTIONS: "functions",
+  DERIVATIVES: "derivatives",
 };
 
 export const LESSONS_DATA = [
@@ -74,5 +75,9 @@ export const LESSONS_DATA = [
   {
     type: LESSON_TYPES.FUNCTIONS,
     sign: ["+", "-"],
+  },
+  {
+    type: LESSON_TYPES.DERIVATIVES,
+    sign: ["+"],
   },
 ];

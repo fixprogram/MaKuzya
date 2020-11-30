@@ -6,6 +6,7 @@ import { createInequality } from "./createInequality";
 import { createFractionsExpression } from "./createFractionsExpression";
 import { createCharts } from "./createCharts";
 import { createFunction } from "./createFunction";
+import { createDerivatives } from "./createDerivatives";
 import { LESSONS_DATA } from "../../const";
 
 export function understandType(type, level) {
@@ -31,6 +32,8 @@ export function understandType(type, level) {
       return createFractionsExpression(sign, level);
     case "charts":
       return createCharts();
+    case "derivatives":
+      return createDerivatives();
     default:
       return createExpression(sign, level);
   }

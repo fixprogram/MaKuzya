@@ -37,6 +37,8 @@ export default function RadioComponent({
     };
   }, [checkKeyDown, activeRadio]);
 
+  console.log("111");
+
   return variants[0].map((it, i) => {
     let formula = 1;
 
@@ -56,6 +58,9 @@ export default function RadioComponent({
         break;
       case "functions":
         formula = `${it}, ${variants[1][i]}, ${variants[2][i]}`;
+        break;
+      case "derivatives":
+        formula = it;
         break;
       default:
         if (type.split("-")[0] === "fractions") {

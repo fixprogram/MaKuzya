@@ -27,7 +27,7 @@ export function createExpression(sign, elems = 2) {
     })
     .join(" ");
 
-  const answer = [roundTo(math.evaluate(expression), 5)];
+  const answer = [roundTo(math.evaluate(expressionTex), 5)];
   const expressionTitle = "Resolve the expression and choose right answer";
 
   return {

@@ -31,11 +31,12 @@ function Practice({
   }, [practiceProgress, isSkipping]);
 
   async function checkAnswer(value) {
-    if (typeof value === "string") value = fracToNum(value);
+    if (typeof value === "string" && type !== "derivatives")
+      value = fracToNum(value);
 
     if (
-      answer === +value ||
-      answer === value ||
+      answer[0] === +value ||
+      answer[0] === value ||
       roundTo(answer[0], 5) === roundTo(value, 5) ||
       (answer[0] === value[0] &&
         answer[1] === value[1] &&
