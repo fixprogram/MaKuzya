@@ -9,7 +9,7 @@ const config = {};
 const math = create(all, config);
 
 export function createEquation(sign, elems = 2, initialAnswer = null) {
-  let expression;
+  let expressionTex;
 
   let nums = createRandomArray();
   if (elems > 2) {
@@ -20,7 +20,7 @@ export function createEquation(sign, elems = 2, initialAnswer = null) {
   let answer = nums[0];
   nums[0] = "x";
 
-  expression = nums
+  expressionTex = nums
     .map((item, i, arr) => {
       if (i !== arr.length - 1) {
         return item + " " + randomSign;
@@ -31,7 +31,7 @@ export function createEquation(sign, elems = 2, initialAnswer = null) {
     .join(" ");
 
   if (initialAnswer) {
-    expression += ` = ${initialAnswer}`;
+    expressionTex += ` = ${initialAnswer}`;
     answer = parseFloat(
       math
         .evaluate(
@@ -40,14 +40,16 @@ export function createEquation(sign, elems = 2, initialAnswer = null) {
         .toFixed(2)
     );
   } else {
-    expression += ` = ${parseFloat(
+    expressionTex += ` = ${parseFloat(
       math.evaluate(answer + " " + randomSign + " " + nums[1]).toFixed(2)
     )}`;
   }
 
+  const expressionTitle = "Resolve the equation and choose right answer";
+
   return {
     answer: [answer],
-    expression,
+    expression: { tex: expressionTex, title: expressionTitle },
     waysToResolve: ["radio"],
     canvasData: {
       coordinates: [{ letter: "", x: [], y: [] }],

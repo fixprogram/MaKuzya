@@ -16,10 +16,10 @@ const createRandomArray = (count = 2, min, max) => {
 };
 
 const shuffleArray = (array) => {
-  if (array.second.length > 1) return array;
-  for (let i = array.first.length - 1; i > 0; i--) {
+  if (array.length > 1) return array;
+  for (let i = array[0].length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [array.first[i], array.first[j]] = [array.first[j], array.first[i]];
+    [array[0][i], array[0][j]] = [array[0][j], array[0][i]];
   }
   return array;
 };

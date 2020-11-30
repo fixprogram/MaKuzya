@@ -54,8 +54,15 @@ export const createCharts = (count = 7) => {
 
   const canvasData = { coordinates, params, sides: [] };
 
-  const expression = "";
+  const expressionTex = "";
   const answer = 0;
 
-  return { answer, expression, canvasData, waysToResolve: ["radio"] };
+  const expressionTitle = "Resolve the expression and choose right answer";
+
+  return {
+    answer,
+    expression: { tex: expressionTex, title: expressionTitle },
+    canvasData,
+    waysToResolve: ["radio"],
+  };
 };

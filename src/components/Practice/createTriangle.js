@@ -18,9 +18,11 @@ const createTriangle = () => {
   ];
   const sides = [5, 4, 3];
 
+  const expressionTitle = "Find hypotenuse and hoose right answer";
+
   return {
     answer: [10],
-    expression: "",
+    expression: { tex: "", title: expressionTitle },
     canvasData: {
       sides: sides,
       coordinates: coordinates,

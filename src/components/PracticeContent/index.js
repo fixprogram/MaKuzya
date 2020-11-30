@@ -20,6 +20,7 @@ function PracticeContent({
   practiceProgress,
   isSkipping,
   setIsSkipping,
+  expressionTitle,
 }) {
   const { type } = useParams();
   const [activeRadio, setActiveRadio] = useState(-1);
@@ -53,10 +54,10 @@ function PracticeContent({
     <>
       <section
         className={`practice_content__wrapper ${
-          variants.second.length > 1 ? "wide-radio" : ""
+          variants.length > 1 ? "wide-radio" : ""
         }`}
       >
-        <h1 className="practice_content__title">Choose right answer</h1>
+        <h1 className="practice_content__title">{expressionTitle}</h1>
         <Slide in={show} placement={placement}>
           {/* {(props, ref) => <Panel {...props} ref={ref} />} */}
           <div className="practice_content">
@@ -68,15 +69,15 @@ function PracticeContent({
                 <article className="practice_content__input_wrapper">
                   <RadioComponent
                     checkAnswer={() => {
-                      if (activeRadio !== -1 && variants.first) {
+                      if (activeRadio !== -1 && variants[0]) {
                         animateAndContinue(() => {
                           checkAnswer(
-                            variants.second.length > 1
+                            variants.length > 1
                               ? [
-                                  variants.first[activeRadio],
-                                  variants.second[activeRadio],
+                                  variants[0][activeRadio],
+                                  variants[1][activeRadio],
                                 ]
-                              : variants.first[activeRadio]
+                              : variants[0][activeRadio]
                           );
                         });
                       }
@@ -146,9 +147,9 @@ function PracticeContent({
         checkAnswer={() =>
           animateAndContinue(() =>
             checkAnswer(
-              variants.second.length > 1
-                ? [variants.first[activeRadio], variants.second[activeRadio]]
-                : variants.first[activeRadio]
+              variants.length > 1
+                ? [variants[0][activeRadio], variants[1][activeRadio]]
+                : variants[0][activeRadio]
             )
           )
         }
@@ -156,8 +157,7 @@ function PracticeContent({
         skipAnswer={() => animateAndContinue(() => setIsSkipping())}
         isNextDisabled={activeRadio === -1}
         answer={
-          variants.first[activeRadio] &&
-          variants.first[activeRadio].isAnswerRight
+          variants[0][activeRadio] && variants[0][activeRadio].isAnswerRight
         }
         disabled={disabled}
       />
@@ -167,6 +167,7 @@ function PracticeContent({
 
 const mapStateToProps = (state) => ({
   variants: state.practice.currentTask.variants,
+  expressionTitle: state.practice.currentTask.expression.title,
   practicePopupMessage: state.practice.practicePopupMessage,
   practiceProgress: state.practice.practiceProgress,
   isSkipping: state.practice.isSkipping,

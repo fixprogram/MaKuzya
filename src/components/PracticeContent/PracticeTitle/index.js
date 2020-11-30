@@ -43,7 +43,7 @@ const PracticeTitle = ({ currentTask, topic }) => {
 };
 
 const mapStateToProps = (state) => ({
-  currentTask: state.practice.currentTask.expression,
+  currentTask: state.practice.currentTask.expression.tex,
 });
 
 export default connect(mapStateToProps)(PracticeTitle);

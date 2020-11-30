@@ -10,9 +10,11 @@ export function createInequality() {
   expression = expression.replace(/\=.*/, ""); // Заменяем вcе поcле равно на пуcтую cтроку
   const inequality = expression + " " + signs[1] + " " + exp.expression;
 
+  const expressionTitle = "Resolve the inequality and choose right answer";
+
   return {
     answer,
-    expression: inequality,
+    expression: { tex: inequality, title: expressionTitle },
     waysToResolve: ["radio"],
     canvasData: {
       coordinates: [{ letter: "", x: [], y: [] }],

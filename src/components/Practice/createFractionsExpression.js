@@ -1,4 +1,4 @@
-import { createRandomArray, roundTo } from "../../misc/utils";
+import { createRandomArray } from "../../misc/utils";
 import { create, all } from "mathjs";
 
 const config = {};
@@ -26,7 +26,7 @@ function createFractionsExpression(sign, elems = 2) {
     math.evaluate(accumulator + " " + sign[0] + " " + currentValue)
   );
 
-  let expression = fractions
+  const expressionTex = fractions
     .map((item, i, arr) => {
       if (i !== arr.length - 1) {
         return item + " " + sign;
@@ -36,9 +36,11 @@ function createFractionsExpression(sign, elems = 2) {
     })
     .join(" ");
 
+  const expressionTitle = "Resolve the expression and choose right answer";
+
   return {
     answer: [answer],
-    expression,
+    expression: { tex: expressionTex, title: expressionTitle },
     waysToResolve: ["radio"],
     canvasData: {
       coordinates: [{ letter: "", x: [], y: [] }],

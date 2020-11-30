@@ -8,7 +8,7 @@ export default function createTask(type, level = 2) {
     level
   );
 
-  let variants = { first: [], second: [] };
+  let variants = { 0: [] };
 
   const wayToResolve =
     waysToResolve[createRandomInteger(0, waysToResolve.length - 1)];

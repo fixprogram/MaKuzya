@@ -37,10 +37,8 @@ export default function RadioComponent({
     };
   }, [checkKeyDown, activeRadio]);
 
-  const { first, second } = variants;
-
-  return first.map((it, i) => {
-    let formula = "";
+  return variants[0].map((it, i) => {
+    let formula = 1;
 
     switch (type) {
       case "equation":
@@ -50,11 +48,14 @@ export default function RadioComponent({
         formula = `x < ${it}`;
         break;
       case "quadratic-equation":
-        if (second.length > 1) {
-          formula = `x_1 = ${it}; x_2 = ${second[i]}`;
+        if (variants.length > 1) {
+          formula = `x_1 = ${it}; x_2 = ${variants[1][i]}`;
         } else {
           formula = `x = ${it}`;
         }
+        break;
+      case "functions":
+        formula = `${it}, ${variants[1][i]}, ${variants[2][i]}`;
         break;
       default:
         if (type.split("-")[0] === "fractions") {

@@ -16,6 +16,7 @@ export const LESSON_TYPES = {
   QUADRATIC_EQUATION: "quadratic-equation",
   PIFAGOR: "pifagor",
   CHARTS: "charts",
+  FUNCTIONS: "functions",
 };
 
 export const LESSONS_DATA = [
@@ -68,6 +69,10 @@ export const LESSONS_DATA = [
   },
   {
     type: LESSON_TYPES.CHARTS,
+    sign: ["+", "-"],
+  },
+  {
+    type: LESSON_TYPES.FUNCTIONS,
     sign: ["+", "-"],
   },
 ];

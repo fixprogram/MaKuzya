@@ -9,14 +9,12 @@ const config = {};
 const math = create(all, config);
 
 export function createExpression(sign, elems = 2) {
-  let expression;
-
   let nums = createRandomArray();
   if (elems > 2) {
     nums = nums.concat(createRandomArray(elems - 2));
   }
 
-  expression = nums
+  const expressionTex = nums
     .map((item, i, arr) => {
       if (i !== arr.length - 1) {
         if (sign.length > 1) {
@@ -29,11 +27,12 @@ export function createExpression(sign, elems = 2) {
     })
     .join(" ");
 
-  let answer = [roundTo(math.evaluate(expression), 5)];
+  const answer = [roundTo(math.evaluate(expression), 5)];
+  const expressionTitle = "Resolve the expression and choose right answer";
 
   return {
     answer,
-    expression,
+    expression: { tex: expressionTex, title: expressionTitle },
     waysToResolve: ["radio"],
     canvasData: {
       coordinates: [{ letter: "", x: [], y: [] }],

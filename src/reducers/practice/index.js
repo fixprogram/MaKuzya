@@ -1,11 +1,8 @@
 const initialState = {
   currentTask: {
-    expression: "",
+    expression: { tex: "", title: "" },
     answer: null,
-    variants: {
-      first: [],
-      second: [],
-    },
+    variants: [[]],
     canvasData: {
       coordinates: [{ letter: "", x: [], y: [] }],
       sides: [],

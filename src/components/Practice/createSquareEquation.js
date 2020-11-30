@@ -2,14 +2,12 @@ import { sqrt } from "mathjs";
 import { createRandomInteger, roundTo } from "../../misc/utils";
 
 export function createSquareEquation() {
-  let expression;
+  const x = createRandomInteger(1, 9);
+  const a = 1;
+  const b = createRandomInteger(-9, 9);
+  const c = -(x * x + b * x);
 
-  let x = createRandomInteger(1, 9);
-  let a = 1;
-  let b = createRandomInteger(-9, 9);
-  let c = -(x * x + b * x);
-
-  expression = `${
+  const expressionTex = `${
     (a === 1 ? "" : a) +
     "x^2 " +
     (b < 0 ? "" : "+ ") +
@@ -34,9 +32,12 @@ export function createSquareEquation() {
     answer = [0];
   }
 
+  const expressionTitle =
+    "Resolve the quadrati equation and choose right answer";
+
   return {
     answer: answer,
-    expression,
+    expression: { tex: expressionTex, title: expressionTitle },
     waysToResolve: ["radio"],
     canvasData: {
       coordinates: [{ letter: "", x: [], y: [] }],

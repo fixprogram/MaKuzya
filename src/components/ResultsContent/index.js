@@ -4,28 +4,35 @@ import { connect } from "react-redux";
 
 import ResultsButtons from "./resultsButtons";
 
-function PracticeContent({ type, user }) {
+function PracticeContent({ type, user, lessons }) {
   async function checkKeyDown(e) {
     if (e.key === "Enter") {
       await writeToDB();
       window.location.replace("/");
     }
   }
-
-  const { uid, activeSubject, lingots, everydayProgress, progress } = user;
-  const progressLesson = progress[`${activeSubject.toLowerCase()}`][0];
-  const typeIndex = lessons.map((lesson) => lesson.id).indexOf(type);
+  const {
+    uid,
+    activeSubject,
+    lingots,
+    everydayProgress,
+    progress,
+    chapter,
+  } = user;
+  const actualLessons = lessons.filter((it) => it.chapter === chapter);
+  const progressLesson = progress[`${activeSubject.toLowerCase()}`][chapter];
+  const typeIndex = actualLessons.map((lesson) => lesson.id).indexOf(type);
 
   const newItem = progressLesson[typeIndex] + 10;
 
   const databaseProgress = database.ref(
-    `/profiles/${uid}/progress/${activeSubject.toLowerCase()}`
+    `/profiles/${uid}/progress/${activeSubject.toLowerCase()}/`
   );
   const databaseProfile = database.ref(`/profiles/${uid}`);
 
   async function writeToDB() {
     await databaseProgress.update({
-      0: [
+      [chapter]: [
         ...progressLesson.slice(0, typeIndex),
         newItem,
         ...progressLesson.slice(typeIndex + 1),
