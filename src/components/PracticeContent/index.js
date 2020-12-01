@@ -10,6 +10,8 @@ import { Animation } from "rsuite";
 import { useParams } from "react-router-dom";
 import CanvasComponent from "../CanvasComponent";
 import { actionCreatorPractice } from "../../actions";
+import InputComponent from "../InputComponent";
+import MathJax from "react-mathjax";
 
 const { Slide, Transition } = Animation;
 
@@ -21,6 +23,8 @@ function PracticeContent({
   isSkipping,
   setIsSkipping,
   expressionTitle,
+  wayToResolve,
+  currentTask,
 }) {
   const { type } = useParams();
   const [activeRadio, setActiveRadio] = useState(-1);
@@ -50,6 +54,19 @@ function PracticeContent({
     }, 500);
   };
 
+  const beautify = () => {
+    const arr = currentTask.split(" ");
+    const idxDivision = arr.indexOf("/");
+    const idxEqual = arr.indexOf("=");
+    const idxOther = arr.indexOf("<");
+    if (idxDivision) arr[idxDivision] = " : ";
+    if (idxEqual === -1 && idxOther === -1) arr.push(" = ?");
+    currentTask = arr.join(" ");
+  };
+  if (currentTask) {
+    beautify();
+  }
+
   return (
     <>
       <section
@@ -57,36 +74,58 @@ function PracticeContent({
           variants.length > 1 ? "wide-radio" : ""
         }`}
       >
-        <h1 className="practice_content__title">{expressionTitle}</h1>
         <Slide in={show} placement={placement}>
-          {/* {(props, ref) => <Panel {...props} ref={ref} />} */}
           <div className="practice_content">
             {type === "pifagor" ? (
               <CanvasComponent />
             ) : (
               <>
-                <PracticeTitle topic={type} />
+                <PracticeTitle topic={type} title={expressionTitle} />
                 <article className="practice_content__input_wrapper">
-                  <RadioComponent
-                    checkAnswer={() => {
-                      if (activeRadio !== -1 && variants[0]) {
-                        animateAndContinue(() => {
-                          checkAnswer(
-                            variants.length > 1
-                              ? [
-                                  variants[0][activeRadio],
-                                  variants[1][activeRadio],
-                                ]
-                              : variants[0][activeRadio]
-                          );
-                        });
-                      }
-                    }}
-                    variants={variants}
-                    activeRadio={activeRadio}
-                    setActiveRadio={(i) => setActiveRadio(i)}
-                    type={type}
-                  />
+                  <>
+                    <div className="practice_content__teacher">
+                      <img src="../img/cat-icons/thinking.svg" alt="MaKuzya" />
+                    </div>
+                    <div className="practice_content__task">
+                      <span className="practice_content__inner">
+                        <MathJax.Provider>
+                          <MathJax.Node formula={currentTask} />
+                        </MathJax.Provider>
+                        {wayToResolve === "input" ? (
+                          <InputComponent
+                            checkAnswer={(answ) =>
+                              animateAndContinue(() => checkAnswer(answ))
+                            }
+                            type={type}
+                          />
+                        ) : (
+                          <RadioComponent
+                            checkAnswer={() => {
+                              if (activeRadio !== -1 && variants[0]) {
+                                animateAndContinue(() => {
+                                  checkAnswer(
+                                    variants.length > 1
+                                      ? [
+                                          variants[0][activeRadio],
+                                          variants[1][activeRadio],
+                                        ]
+                                      : variants[0][activeRadio]
+                                  );
+                                });
+                              }
+                            }}
+                            variants={variants}
+                            activeRadio={activeRadio}
+                            setActiveRadio={(i) => setActiveRadio(i)}
+                            type={type}
+                          />
+                        )}
+                      </span>
+                      <div className="practice_content__triangle_wrapper">
+                        <span className="practice_content__triangle"></span>
+                      </div>
+                    </div>
+                  </>
                 </article>
               </>
             )}
@@ -168,6 +207,8 @@ function PracticeContent({
 const mapStateToProps = (state) => ({
   variants: state.practice.currentTask.variants,
   expressionTitle: state.practice.currentTask.expression.title,
+  currentTask: state.practice.currentTask.expression.tex,
+  wayToResolve: state.practice.currentTask.wayToResolve,
   practicePopupMessage: state.practice.practicePopupMessage,
   practiceProgress: state.practice.practiceProgress,
   isSkipping: state.practice.isSkipping,

@@ -37,8 +37,6 @@ export default function RadioComponent({
     };
   }, [checkKeyDown, activeRadio]);
 
-  console.log("111");
-
   return variants[0].map((it, i) => {
     let formula = 1;
 
@@ -51,15 +49,26 @@ export default function RadioComponent({
         break;
       case "quadratic-equation":
         if (variants.length > 1) {
-          formula = `x_1 = ${it}; x_2 = ${variants[1][i]}`;
+          formula = `x_1 = ${it}; x_2 = ${variants[1] ? variants[1][i] : ""}`;
         } else {
           formula = `x = ${it}`;
         }
         break;
       case "functions":
-        formula = `${it}, ${variants[1][i]}, ${variants[2][i]}`;
+        formula = `${it}, ${variants[1] ? variants[1][i] : ""}, ${
+          variants[2] ? variants[2][i] : ""
+        }`;
         break;
       case "derivatives":
+        formula = it;
+        break;
+      case "derivatives-functions":
+        formula = it;
+        break;
+      case "derivatives-fractions":
+        formula = it;
+        break;
+      case "derivatives-trigonometry":
         formula = it;
         break;
       default:

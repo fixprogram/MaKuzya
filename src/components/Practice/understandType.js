@@ -7,10 +7,15 @@ import { createFractionsExpression } from "./createFractionsExpression";
 import { createCharts } from "./createCharts";
 import { createFunction } from "./createFunction";
 import { createDerivatives } from "./createDerivatives";
+import { createDerivativesFunction } from "./createDerivativesFunction";
+import { createDerivativesFractions } from "./createDerivativesFractions";
+import { createDerivativesTrigonometry } from "./createDerivativesTrigonometry";
+import { createPercents } from "./createPercents";
+import { createPercentsChanging } from "./createPercentsChanging";
 import { LESSONS_DATA } from "../../const";
 
 export function understandType(type, level) {
-  const { sign } = LESSONS_DATA.find((item) => item.type === type);
+  const sign = ["+", "-", "*", "/"];
   switch (type) {
     case "equation":
       return createEquation(sign, level);
@@ -34,6 +39,16 @@ export function understandType(type, level) {
       return createCharts();
     case "derivatives":
       return createDerivatives();
+    case "derivatives-functions":
+      return createDerivativesFunction();
+    case "derivatives-trigonometry":
+      return createDerivativesTrigonometry();
+    case "derivatives-fractions":
+      return createDerivativesFractions();
+    case "percents":
+      return createPercents();
+    case "percents-changing":
+      return createPercentsChanging();
     default:
       return createExpression(sign, level);
   }

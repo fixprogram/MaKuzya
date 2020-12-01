@@ -4,26 +4,33 @@ import { create, all } from "mathjs";
 const config = {};
 const math = create(all, config);
 
-export function createDerivatives() {
-  let a;
-  let b;
-  let c;
-  let degree;
+export function createDerivativesFractions() {
+  const count = new Array(4).fill(0);
 
-  let expressionTex;
+  let degree;
+  let expressionTex = "";
   let answer;
 
-  const count = new Array(4).fill(0);
-  const derivativeVariants = count.map((it) => {
-    a = createRandomInteger(-5, 5);
-    b = createRandomInteger(-5, 5);
-    c = createRandomInteger(-9, 9);
+  let derivativeVariants = count.map((it) => {
     degree = createRandomInteger(0, 3);
-
-    expressionTex = `${b} * (${a === 0 ? "" : a}x ${c > 0 ? `+ ${c}` : c})${
+    expressionTex = `\\frac{x${
       degree === 1 ? "" : "^" + degree
-    }`;
-    answer = `f'(x) = ${math.derivative(expressionTex, "x").toString()}`;
+    }}{(x + ${createRandomInteger(3, 9)})}`;
+
+    answer = math
+      .derivative(
+        `x${degree === 1 ? "" : "^" + degree} / (x + ${createRandomInteger(
+          3,
+          9
+        )})`,
+        "x"
+      )
+      .toString();
+    answer = answer.split("/");
+
+    answer = `\\frac{${answer[0]}}{${answer[1]}}`;
+
+    answer = `f'(x) = ` + answer;
 
     return answer;
   });

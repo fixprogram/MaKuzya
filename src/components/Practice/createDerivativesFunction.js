@@ -4,27 +4,29 @@ import { create, all } from "mathjs";
 const config = {};
 const math = create(all, config);
 
-export function createDerivatives() {
+export function createDerivativesFunction() {
   let a;
   let b;
   let c;
-  let degree;
-
   let expressionTex;
   let answer;
 
   const count = new Array(4).fill(0);
-  const derivativeVariants = count.map((it) => {
+  const derivativeVariants = count.map((it, i) => {
     a = createRandomInteger(-5, 5);
     b = createRandomInteger(-5, 5);
     c = createRandomInteger(-9, 9);
-    degree = createRandomInteger(0, 3);
 
-    expressionTex = `${b} * (${a === 0 ? "" : a}x ${c > 0 ? `+ ${c}` : c})${
-      degree === 1 ? "" : "^" + degree
-    }`;
+    expressionTex =
+      (a === 0 || a === 1 ? "" : a) +
+      "x^2 " +
+      (b < 0 ? "" : "+ ") +
+      (b === 0 || b === 1 ? "" : b) +
+      "x " +
+      (c < 0 ? "" : "+ ") +
+      c;
+
     answer = `f'(x) = ${math.derivative(expressionTex, "x").toString()}`;
-
     return answer;
   });
 

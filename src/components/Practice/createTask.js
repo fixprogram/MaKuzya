@@ -16,8 +16,10 @@ export default function createTask(type, level = 2) {
   const wayToResolve =
     waysToResolve[createRandomInteger(0, waysToResolve.length - 1)];
 
-  if (wayToResolve === "radio" && type !== "derivatives") {
+  if (wayToResolve === "radio" && type.split("-")[0] !== "derivatives") {
     variants = shuffleArray(createVariants(type, answer));
+    // } else if (wayToResolve === "input") {
+    //   variants = [];
   } else {
     variants = shuffleArray(variants);
   }

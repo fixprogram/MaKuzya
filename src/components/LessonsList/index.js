@@ -9,12 +9,17 @@ function LessonsList({ user, setChapter, lessons, chapter }) {
   const progressLesson = progress[`${activeSubject.toLowerCase()}`][chapter]; // Name of the subject -> number of block of lessons
   const romeNums = new Array(12).fill("Lorem title");
   const actualLessons = lessons.filter((it) => it.chapter === chapter);
+
   return (
     <section className="main_block">
       <div className="lessons_list">
         {actualLessons.map((it, i) => {
           return (
-            <div className="lesson_wrapper" key={`${i + " " + chapter}`}>
+            <div
+              className="lesson_wrapper"
+              key={`${i + " " + chapter}`}
+              id="lesson_wrapper"
+            >
               <LessonItem
                 id={it.id}
                 title={it.title}

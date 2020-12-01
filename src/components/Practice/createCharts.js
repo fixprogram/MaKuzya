@@ -55,9 +55,9 @@ export const createCharts = (count = 7) => {
   const canvasData = { coordinates, params, sides: [] };
 
   const expressionTex = "";
-  const answer = 0;
+  const answer = [0];
 
-  const expressionTitle = "Resolve the expression and choose right answer";
+  const expressionTitle = `Mark dots whiCh are higher than 5`;
 
   return {
     answer,
