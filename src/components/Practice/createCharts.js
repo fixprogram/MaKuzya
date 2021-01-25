@@ -57,7 +57,7 @@ export const createCharts = (count = 7) => {
   const expressionTex = "";
   const answer = [0];
 
-  const expressionTitle = `Mark dots whiCh are higher than 5`;
+  const expressionTitle = `Mark dots which are higher than 5`;
 
   return {
     answer,

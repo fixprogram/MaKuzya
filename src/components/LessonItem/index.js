@@ -7,9 +7,9 @@ export default function LessonItem({ level = 0, id, title, progress }) {
   return (
     <div className={`lesson lesson-level-${level}`}>
       <Link className="lesson_inner" to={`practice/${id}`}>
-        <span className="lesson_title">{title}</span>
         <DynamicProgress progress={progress} />
-        <span className="lesson_difficulty">
+        <span className="lesson_title">{title}</span>
+        {/* <span className="lesson_difficulty">
           <img
             src="./img/crown.svg"
             className="active"
@@ -18,7 +18,7 @@ export default function LessonItem({ level = 0, id, title, progress }) {
           />
           <img src="./img/crown.svg" className="" alt="crown" width="20" />
           <img src="./img/crown.svg" className="" alt="crown" width="20" />
-        </span>
+        </span> */}
       </Link>
     </div>
   );

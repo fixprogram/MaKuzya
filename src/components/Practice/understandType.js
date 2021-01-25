@@ -12,7 +12,7 @@ import { createDerivativesFractions } from "./createDerivativesFractions";
 import { createDerivativesTrigonometry } from "./createDerivativesTrigonometry";
 import { createPercents } from "./createPercents";
 import { createPercentsChanging } from "./createPercentsChanging";
-import { LESSONS_DATA } from "../../const";
+import { createPrecision } from "./createPrecision";
 
 export function understandType(type, level) {
   const sign = ["+", "-", "*", "/"];
@@ -49,6 +49,10 @@ export function understandType(type, level) {
       return createPercents();
     case "percents-changing":
       return createPercentsChanging();
+    case "precision":
+      return createPrecision();
+    case "converting":
+      return createConverting();
     default:
       return createExpression(sign, level);
   }

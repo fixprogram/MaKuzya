@@ -3,22 +3,44 @@ import { connect } from "react-redux";
 
 import LessonItem from "../LessonItem";
 import { actionCreatorUser } from "../../actions";
+import ProgressData from "../ProgressData";
 
 function LessonsList({ user, setChapter, lessons, chapter }) {
   const { progress, activeSubject } = user;
   const progressLesson = progress[`${activeSubject.toLowerCase()}`][chapter]; // Name of the subject -> number of block of lessons
-  const romeNums = new Array(12).fill("Lorem title");
   const actualLessons = lessons.filter((it) => it.chapter === chapter);
+
+  let actualWidth = 100;
+
+  const widths = lessons.map((lesson, i) => {
+    // if (actualWidth === 100 && i % 4) {
+    //   actualWidth = 50;
+    //   return "50%";
+    // }
+
+    if (actualWidth === 100 && i % 2) {
+      return "100%";
+    }
+
+    if (actualWidth === 50 && i % 3) {
+      actualWidth = 100;
+      return "100%";
+    }
+
+    actualWidth = 50;
+    return "50%";
+  });
 
   return (
     <section className="main_block">
       <div className="lessons_list">
-        {actualLessons.map((it, i) => {
+        {lessons.map((it, i) => {
           return (
             <div
               className="lesson_wrapper"
               key={`${i + " " + chapter}`}
               id="lesson_wrapper"
+              style={{ width: widths[i] }}
             >
               <LessonItem
                 id={it.id}
@@ -38,19 +60,7 @@ function LessonsList({ user, setChapter, lessons, chapter }) {
           </Link>
         </div> */}
       </div>
-      <div className="lessons_slider">
-        <ol type="I">
-          {romeNums.map((num, i) => (
-            <li
-              key={i + " " + chapter}
-              className={`${i === chapter ? "active" : ""}`}
-              onClick={() => setChapter(i)}
-            >
-              <span>{num}</span>
-            </li>
-          ))}
-        </ol>
-      </div>
+      <ProgressData />
     </section>
   );
 }

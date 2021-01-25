@@ -15,7 +15,7 @@ export function createDerivativesTrigonometry() {
   let derivativeVariants = count.map((it) => {
     degree = createRandomInteger(-3, 3);
     expressionTex = trigonometry[it];
-    expressionTex += `x)${degree === 1 ? "" : "^" + degree}`;
+    expressionTex += `x)${degree === 1 || degree === 0 ? "" : "^" + degree}`;
     console.log(expressionTex);
 
     answer = math.derivative(expressionTex, "x").toString();

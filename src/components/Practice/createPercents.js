@@ -1,10 +1,14 @@
-import { createRandomArray, createRandomInteger } from "../../misc/utils";
+import {
+  createRandomArray,
+  createRandomInteger,
+  roundTo,
+} from "../../misc/utils";
 
 export function createPercents() {
   const nums = createRandomArray(2, 1, 9).sort((a, b) => a < b);
   const percent = nums[0] * 10;
   const randomMultiply = nums[1] * createRandomInteger(5, 15);
-  const resultNum = (percent / 100) * randomMultiply;
+  const resultNum = roundTo((percent / 100) * randomMultiply, 0);
 
   const cases = 3;
   const caseNum = createRandomInteger(1, cases);

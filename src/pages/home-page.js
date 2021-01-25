@@ -20,7 +20,7 @@ function HomePage({ setUser }) {
     <section className="app">
       <Header />
       <LessonsList />
-      <Footer />
+      {/* <Footer /> */}
     </section>
   );
 }
