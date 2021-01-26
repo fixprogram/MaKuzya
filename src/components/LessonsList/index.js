@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 
 import LessonItem from "../LessonItem";
@@ -35,20 +35,43 @@ function LessonsList({ user, setChapter, lessons, chapter }) {
     <section className="main_block">
       <div className="lessons_list">
         {lessons.map((it, i) => {
-          return (
-            <div
-              className="lesson_wrapper"
-              key={`${i + " " + chapter}`}
-              id="lesson_wrapper"
-              style={{ width: widths[i] }}
-            >
-              <LessonItem
-                id={it.id}
-                title={it.title}
-                progress={progressLesson[i]}
-              />
-            </div>
-          );
+          {
+            if (lessons[i - 1]) {
+              if (lessons[i].chapter !== lessons[i - 1].chapter) {
+                return (
+                  <Fragment key={`${i + " " + chapter}`}>
+                    <hr style={{ width: "100%" }} />
+                    <div
+                      className="lesson_wrapper"
+                      id="lesson_wrapper"
+                      style={{ width: widths[i] }}
+                    >
+                      <LessonItem
+                        id={it.id}
+                        title={it.title}
+                        progress={progressLesson[i]}
+                      />
+                    </div>
+                  </Fragment>
+                );
+              } else {
+                return (
+                  <div
+                    className="lesson_wrapper"
+                    key={`${i + " " + chapter}`}
+                    id="lesson_wrapper"
+                    style={{ width: widths[i] }}
+                  >
+                    <LessonItem
+                      id={it.id}
+                      title={it.title}
+                      progress={progressLesson[i]}
+                    />
+                  </div>
+                );
+              }
+            }
+          }
         })}
 
         {/* <div className="practice_link__wrapper">

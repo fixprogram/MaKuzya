@@ -97,7 +97,10 @@ a:focus {
   flex-direction: row;
   align-items: center;
   font-weight: 700;
-  padding: 0 12px;
+}
+
+.tab_block_profile {
+  padding-left: 24px;
 }
 
 .tab_block-inner .rs-icon {
@@ -132,19 +135,20 @@ a:focus {
 .main_block {
   display: flex;
   width: 100%;
-  margin-top: 70px;
+  max-width: 1140px;
+  margin: 70px auto 0 auto;
+  padding: 0 24px;
   align-items: center;
 }
 
 /* LESSONS */
 
 .lessons_list {
-  width: 50%;
-  // height: 100%;
+  width: 60%;
   display: flex;
-  margin: 0 auto;
   margin-top: 0px;
   padding: 40px 24px;
+  padding-left: 10%;
   max-width: 1140px;
   position: relative;
   flex-wrap: wrap;
@@ -710,11 +714,24 @@ a:focus {
 
 .progress-data {
   height: 100%;
-  width: 30%;
+  width: 40%;
   position: relative;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .progress-data__inner {
   position: fixed;
   top: 120px;
+  padding: 24px;
+  border-radius: 16px;
+  border: 2px solid #e5e5e5;
+}
+
+.progress-data__title {
+  color: #3c3c3c;
+  font-size: 24px;
+  line-height: 26px;
+  font-weight: 700;
+  margin-bottom: 25px;
 }

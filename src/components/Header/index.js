@@ -110,7 +110,7 @@ function Header({ user, subjects, setLessons, changeActiveSubject }) {
 
         <div className="header_spaces"></div>
 
-        <div className="tab_block">
+        <div className="tab_block tab_block_profile">
           <span className="tab_block-inner">
             <img
               className="tab_icon"
@@ -119,14 +119,14 @@ function Header({ user, subjects, setLessons, changeActiveSubject }) {
             <span className="">{streak}</span>
           </span>
         </div>
-        <div className="tab_block">
+        <div className="tab_block tab_block_profile">
           <span className="tab_block-inner">
             <img className="tab_icon" src="./img/lingot.svg" />
             <span className="">{lingots}</span>
           </span>
         </div>
 
-        <div className="tab_block tab_block__profile">
+        <div className="tab_block tab_block_profile tab_block__profile">
           <span className="tab_block-inner">
             <img className="tab_icon" src={avatar} />
           </span>

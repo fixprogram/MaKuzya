@@ -10,7 +10,13 @@ import "rsuite/dist/styles/rsuite-default.css";
 import "../../styles/main.scss";
 import SignIn from "../SignIn";
 import Practice from "../Practice";
-import { HomePage, ErrorPage } from "../../pages";
+import {
+  HomePage,
+  ExamsPage,
+  ForumPage,
+  ShopPage,
+  ErrorPage,
+} from "../../pages";
 
 export default function App() {
   return (
@@ -26,17 +32,17 @@ export default function App() {
         </PrivateRoute>
         <PrivateRoute path="/exams">
           <SubjectProvider>
-            <HomePage />
+            <ExamsPage />
           </SubjectProvider>
         </PrivateRoute>
         <PrivateRoute path="/discuss">
           <SubjectProvider>
-            <HomePage />
+            <ForumPage />
           </SubjectProvider>
         </PrivateRoute>
         <PrivateRoute path="/shop">
           <SubjectProvider>
-            <HomePage />
+            <ShopPage />
           </SubjectProvider>
         </PrivateRoute>
         <PrivateRoute path={`/practice/:type`}>
